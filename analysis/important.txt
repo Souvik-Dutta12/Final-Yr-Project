@@ -1,0 +1,10 @@
+soil type classifiction --> categorical
+soil quality extimation --> continuous / index based
+
+11 Sentinel-2 scenes
+Patch size = 128 × 128
+CNN channels = 4 (B02, B03, B04, B08)
+Data type = float32 (default)
+Stride = 128 (no overlap)
+Masking applied (SCL)
+Only valid soil patches kept
