@@ -5,6 +5,7 @@ from utils.stacking import stack_bands
 def extract_and_save_patches_streaming(
     b04, b03, b02, b08, scl,
     patch_size,
+    stride,
     out_dir,
     scene_id
 ):
@@ -18,9 +19,9 @@ def extract_and_save_patches_streaming(
     row_idx = 0
     saved = 0
 
-    for i in range(0, h - patch_size, patch_size):
+    for i in range(0, h - patch_size, stride):
         col_idx = 0
-        for j in range(0, w - patch_size, patch_size):
+        for j in range(0, w - patch_size, stride):
 
             # slice each band
             p_b04 = b04[i:i+patch_size, j:j+patch_size]

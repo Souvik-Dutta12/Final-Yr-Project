@@ -2,6 +2,7 @@ venv
 venv310
 .env
 Dataset
+analysis
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
