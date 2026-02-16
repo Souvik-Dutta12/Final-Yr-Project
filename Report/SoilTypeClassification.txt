@@ -1,0 +1,17 @@
+Data Acquisition and Understanding
+=====================================
+=========================================
+
+
+
+Data sources
+-------------------------
+The satellite imagery used in this project was obtained from the Sentinel-2 mission of the European Space Agency (ESA). Sentinel-2 provides high-resolution, multispectral optical imagery suitable for soil and vegetation analysis.
+
+Document statistics(Under data load):
+--------------------------------------------
+“The input satellite imagery was provided in JPEG-2000 (JP2) format. Since each spectral band is stored as an individual JP2 file, band-wise statistical analysis was performed separately. For every band, minimum, maximum, mean, and standard deviation of pixel intensities were computed after excluding NoData values. These statistics were used to understand data distribution and for band normalization before CNN training.”
+
+
+soil type classification- B02,B03,B04,B08
+soil quality - B11.B12
