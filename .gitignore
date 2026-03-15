@@ -5,7 +5,7 @@ venv310
 
 # Dataset
 analysis
-Dataset
+dataset
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

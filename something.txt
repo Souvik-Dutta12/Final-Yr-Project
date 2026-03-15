@@ -1,0 +1,25 @@
+finalyremail -- central ✅
+debasisemail -- eastern ✅
+souvikdutta05122005 -- northeastern ✅
+duttasouvik176 -- northern ✅
+
+demo108fupo@ -- southern
+souvikdutta512 -- western
+
+
+datapreproccessing
+#### DATA PREPROCESSING
+---
+##### Cloud & Shadow Masking
+- **band 3  →**  cloud shadow
+- **band 8  →** medium cloud
+- **band 9  →** high cloud
+- **band 10 →** cirrus
+- **band 11 →** snow
+
+
+
+
+
+litterature studies
+-- 1. [chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://sentinels.copernicus.eu/documents/247904/685211/Sentinel-2-MSI-L2A-Product-Format-Specifications.pdf]

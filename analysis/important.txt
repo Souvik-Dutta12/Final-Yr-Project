@@ -16,3 +16,13 @@ Only valid soil patches kept
 
 mean = [0.485, 0.456, 0.406]
 std  = [0.229, 0.224, 0.225]
+
+
+
+Band	Meaning
+B02	Blue – iron absorption
+B03	Green – surface brightness
+B04	Red – iron oxide response
+B08	NIR – structure / residual biomass
+B11	SWIR1 – soil moisture
+B12	SWIR2 – mineral composition
