@@ -1,11 +1,10 @@
-finalyremail -- central ✅
-debasisemail -- eastern ✅
-souvikdutta05122005 -- northeastern ✅
-duttasouvik176 -- northern ✅
+finalyremail -- central ✅✅
+souvikdutta05122005 -- northeastern ✅✅
+demo108fupo@ -- southern✅✅
+debasisemail -- eastern ✅✅
+duttasouvik176 -- northern ✅✅
 
-demo108fupo@ -- southern
-souvikdutta512 -- western
-
+souvikdutta512 -- western✅
 
 datapreproccessing
 #### DATA PREPROCESSING
@@ -23,3 +22,26 @@ datapreproccessing
 
 litterature studies
 -- 1. [chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://sentinels.copernicus.eu/documents/247904/685211/Sentinel-2-MSI-L2A-Product-Format-Specifications.pdf]
+new
+0-b2
+1-b3
+2-b4
+3-b8
+4-b11
+5-b12
+
+
+NDVI,
+NDMI,
+CLAY_RATIO,
+BSI
+
+SAVI,
+FERROUS_RATIO,
+NDSI,
+
+
+NDVI
+NDMI
+BSI
+CLAY_RATIO

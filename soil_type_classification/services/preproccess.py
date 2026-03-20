@@ -2,7 +2,7 @@ import os
 import numpy as np
 import rasterio
 from rasterio.enums import Resampling
-from rasterio.warp import reproject
+from rasterio.warp import reproject,transform
 from s2cloudless import S2PixelCloudDetector
 from skimage.exposure import match_histograms
 import h5py
@@ -94,7 +94,7 @@ def histogram_normalization(scene_stack, reference_stack):
     return normalized
 
 # patch extraction
-def extract_patches(image_stack, output_dir,scene, patch_size=256 ,overlap=0.5):
+def extract_patches(image_stack,transform, output_dir,scene, patch_size=256 ,overlap=0.5):
     
     stride = int(patch_size * (1 - overlap))
     bands, height, width = image_stack.shape
@@ -109,6 +109,12 @@ def extract_patches(image_stack, output_dir,scene, patch_size=256 ,overlap=0.5):
             compression="gzip",
             compression_opts=4
         )
+        coords_ds = f.create_dataset(
+            "coords",
+            shape=(0, 4),
+            maxshape=(None, 4),
+            dtype="float16"
+        )
 
         for y in range(0, height - patch_size + 1, stride):
             for x in range(0, width - patch_size + 1, stride):
@@ -122,8 +128,18 @@ def extract_patches(image_stack, output_dir,scene, patch_size=256 ,overlap=0.5):
                 # skip low variance patches
                 if np.std(patch) < 0.01:
                     continue
+                
+                # 🔥 convert pixel → geo coords
+                xmin, ymin = rasterio.transform.xy(transform, y + patch_size, x)
+                xmax, ymax = rasterio.transform.xy(transform, y, x + patch_size)
+
+                bbox = [xmin, ymin, xmax, ymax]
+
                 dataset.resize(patch_count + 1, axis=0)
+                coords_ds.resize(patch_count + 1, axis=0)
+
                 dataset[patch_count] = patch.astype(np.float16)
+                coords_ds[patch_count] = bbox
 
                 patch_count += 1
                 if patch_count % 1500 == 0:
@@ -146,6 +162,12 @@ def process_scene(scene,scene_path, output_dir, MASK_CLASSES, reference_stack=No
     bands = find_bands(scene_path)
     ref_band = bands["B02"]
 
+    with rasterio.open(ref_band) as ref:
+        transform = ref.transform
+        crs = ref.crs
+    print("TRANSFORM:",transform)
+        print(crs)
+
     scl_resampled = resample_band(bands["SCL"], ref_band)
     cloud_mask = create_cloud_mask(scl_resampled, MASK_CLASSES)
 
@@ -159,23 +181,16 @@ def process_scene(scene,scene_path, output_dir, MASK_CLASSES, reference_stack=No
         band_arrays.append(data)
 
     # 20m bands
-    for bnd in ["B05","B11","B12"]:
-        resampled = resample_band(bands[bnd], ref_band)
-        resampled[cloud_mask] = np.nan
-
-        band_arrays.append(resampled)
-
-    # # 60m bands
-    for bnd in ["B01","B09"]:
+    for bnd in ["B11","B12"]:
         resampled = resample_band(bands[bnd], ref_band)
         resampled[cloud_mask] = np.nan
 
         band_arrays.append(resampled)
 
     stack = make_stack(band_arrays)
-
     if reference_stack is not None:
         stack = histogram_normalization(stack, reference_stack)
 
-    extract_patches(stack, output_dir, scene)
+
+    extract_patches(stack,transform, output_dir, scene)
 
