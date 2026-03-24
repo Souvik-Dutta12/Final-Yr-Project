@@ -104,7 +104,7 @@ def extract_patches(image_stack,transform, output_dir,scene, patch_size=256 ,ove
             "patches",
             shape=(0, bands, patch_size, patch_size),
             maxshape=(None, bands, patch_size, patch_size),
-            dtype="float16",
+            dtype="float32",
             chunks=(1,bands, patch_size, patch_size),
             compression="gzip",
             compression_opts=4
@@ -113,7 +113,7 @@ def extract_patches(image_stack,transform, output_dir,scene, patch_size=256 ,ove
             "coords",
             shape=(0, 4),
             maxshape=(None, 4),
-            dtype="float16"
+            dtype="float32"
         )
 
         for y in range(0, height - patch_size + 1, stride):
@@ -138,7 +138,7 @@ def extract_patches(image_stack,transform, output_dir,scene, patch_size=256 ,ove
                 dataset.resize(patch_count + 1, axis=0)
                 coords_ds.resize(patch_count + 1, axis=0)
 
-                dataset[patch_count] = patch.astype(np.float16)
+                dataset[patch_count] = patch.astype(np.float32)
                 coords_ds[patch_count] = bbox
 
                 patch_count += 1
@@ -165,7 +165,7 @@ def process_scene(scene,scene_path, output_dir, MASK_CLASSES, reference_stack=No
     with rasterio.open(ref_band) as ref:
         transform = ref.transform
         crs = ref.crs
-    print("TRANSFORM:",transform)
+        print("TRANSFORM:",transform)
         print(crs)
 
     scl_resampled = resample_band(bands["SCL"], ref_band)
