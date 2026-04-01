@@ -45,3 +45,6 @@ NDVI
 NDMI
 BSI
 CLAY_RATIO
+
+I want to go with k means clustering for farmland detection.
+
