@@ -13,3 +13,6 @@ post req -- http://127.0.0.1:8000/soil/polygon
     ]]
 }
 }
+
+
+post req -- http://127.0.0.1:8000/farmland/analyse

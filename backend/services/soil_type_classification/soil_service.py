@@ -1,5 +1,5 @@
 from shapely.geometry import Point,shape
-from services.soil_loader import soil_gdf
+from services.soil_type_classification.soil_loader import soil_gdf
 import geopandas as gpd
 
 def get_soil_type(lat, lon):

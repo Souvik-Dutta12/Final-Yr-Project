@@ -1,4 +1,4 @@
-from services.soil_service import (
+from services.soil_type_classification.soil_service import (
     get_soil_type,
     analyze_soil_polygon
 )
