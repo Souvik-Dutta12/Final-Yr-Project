@@ -2,8 +2,11 @@ from services.soil_type_classification.soil_service import (
     get_soil_type,
     analyze_soil_polygon
 )
+from services.soil_quality_analysis.soil_quality_service import soil_service
 from utils.api_response import APIResponse
 from utils.api_error import APIError
+
+
 
 
 async def get_soil_point(lat, lon):
@@ -15,12 +18,15 @@ async def get_soil_point(lat, lon):
         )
     soil = get_soil_type(lat, lon)
 
+    soil_quality = soil_service.analyze(lat, lon)
+
     return APIResponse(
         200,
         {
             "lat":lat,
             "lon":lon,
-            "soil_type": soil
+            "soil_type": soil,
+            "soil_quality": soil_quality
         },
         "Soil type fetched"
     ).to_dict()
