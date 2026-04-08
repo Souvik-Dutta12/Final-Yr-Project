@@ -8,8 +8,8 @@ NDWI_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds
 NDBI_PATH =  r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\indices\NDBI.tif"
 
 # soil-quality
-PH_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\quality\pH.tif"
-N_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\quality\N.tif"
-BULK_DENSITY_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\quality\Bulk_Density.tif"
-CEC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\quality\CEC.tif"
-SOC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\quality\SOC.tif"
+PH_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\pH.tif"
+N_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\N.tif"
+BULK_DENSITY_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\Bulk_Density.tif"
+CEC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\CEC.tif"
+SOC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\SOC.tif"

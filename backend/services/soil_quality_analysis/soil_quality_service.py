@@ -3,7 +3,8 @@ from services.soil_quality_analysis.quality_index import normalize_bd,normalize_
 from services.load_files import BULK_DENSITY_PATH, CEC_PATH, N_PATH, PH_PATH, SOC_PATH
 from pyproj import Transformer
 import numpy as np
-
+from rasterio.mask import mask
+from shapely.geometry import mapping
 class SoilQualityService:
 
     def __init__(self, PH_PATH, N_PATH, BD_PATH, CEC_PATH, SOC_PATH):
@@ -34,6 +35,34 @@ class SoilQualityService:
                 (window != nodata) &
                 (window > 0)
                 ]
+
+            if valid.size == 0:
+                return None
+
+            return float(np.mean(valid))
+
+    def get_mean_from_geom(self, path, geometry):
+        with rasterio.open(path) as src:
+
+            # transform geometry if CRS mismatch
+            if src.crs.to_string() != "EPSG:4326":
+                transformer = Transformer.from_crs("EPSG:4326", src.crs, always_xy=True)
+                geometry = shapely.ops.transform(
+                    lambda x, y: transformer.transform(x, y),
+                    geometry
+                )
+
+            geojson_geom = [mapping(geometry)]
+
+            out_image, _ = mask(src, geojson_geom, crop=True)
+
+            data = out_image[0]
+            nodata = src.nodata
+
+            valid = data[
+                (data != nodata) &
+                (data > 0)
+            ]
 
             if valid.size == 0:
                 return None
@@ -133,6 +162,39 @@ class SoilQualityService:
             "missing_parameters":missing
         }
     
+    def analyze_polygon(self, geometry):
+        ph = self.get_mean_from_geom(self.ph_path, geometry)
+        n = self.get_mean_from_geom(self.n_path, geometry)
+        bd = self.get_mean_from_geom(self.bd_path, geometry)
+        cec = self.get_mean_from_geom(self.cec_path, geometry)
+        soc = self.get_mean_from_geom(self.soc_path, geometry)
+
+        ph = self.apply_scaling("ph", ph)
+        n = self.apply_scaling("nitrogen", n)
+        bd = self.apply_scaling("bulk_density", bd)
+        cec = self.apply_scaling("cec", cec)
+        soc = self.apply_scaling("soc", soc)
+
+        data = {
+            "ph": ph,
+            "nitrogen": n,
+            "bulk_density": bd,
+            "cec": cec,
+            "soc": soc
+        }
+
+        missing = [k for k, v in data.items() if v is None]
+
+        score, quality, confidence = self.calculate_sqi_partial(data)
+
+        return {
+            **data,
+            "soil_quality_index": score,
+            "soil_quality": quality,
+            "confidence": confidence,
+            "missing_parameters": missing
+        }
+
 
 soil_service = SoilQualityService(
     PH_PATH,
