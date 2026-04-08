@@ -25,6 +25,7 @@
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^7.6.0",
+    "@turf/turf": "^7.3.4",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "axios": "^1.14.0",
