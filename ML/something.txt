@@ -46,5 +46,17 @@ NDMI
 BSI
 CLAY_RATIO
 
-I want to go with k means clustering for farmland detection.
+I want to go with k means clustering for farmland detect
 
+
+pH
+SOC
+N
+CEC
+Bulk_density
+
+
+min_lon: 85.80
+min_lat: 21.25
+max_lon: 89.90
+max_lat: 27.30

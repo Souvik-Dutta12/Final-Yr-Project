@@ -1,6 +1,7 @@
 venv
 venv310
 .env
+newvenv
 
 Microsoft
 # Dataset

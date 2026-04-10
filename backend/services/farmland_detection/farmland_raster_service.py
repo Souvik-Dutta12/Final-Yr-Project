@@ -2,10 +2,8 @@ import rasterio
 from rasterio.mask import mask
 from pyproj import Transformer
 from utils.api_error import APIError
+from services.load_files import NDBI_PATH,NDVI_PATH,NDWI_PATH
 
-NDVI_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\indices\NDVI.tif"
-NDWI_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\indices\NDWI.tif"
-NDBI_PATH =  r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\indices\NDBI.tif"
 
 def reproject_polygon(polygon, dst_crs):
 
