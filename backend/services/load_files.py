@@ -1,15 +1,15 @@
 
 # soil-types
-SOIL_TYPES = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\soil_map_ref\WB_SOIL_SHP.shp"
+SOIL_TYPES = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\soil_map_ref\WB_SOIL_SHP.shp"
 
 # Farmland Detection
-NDVI_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\indices\NDVI.tif"
-NDWI_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\indices\NDWI.tif"
-NDBI_PATH =  r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\WB\indices\NDBI.tif"
+NDVI_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\indices\NDVI.tif"
+NDWI_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\indices\NDWI.tif"
+NDBI_PATH =  r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\indices\NDBI.tif"
 
 # soil-quality
-PH_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\pH.tif"
-N_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\N.tif"
-BULK_DENSITY_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\Bulk_Density.tif"
-CEC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\CEC.tif"
-SOC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\SOC.tif"
+PH_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\quality\pH.tif"
+N_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\quality\N.tif"
+BULK_DENSITY_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\quality\Bulk_Density.tif"
+CEC_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\quality\CEC.tif"
+SOC_PATH = r"C:\Users\basud\OneDrive\Documents\MERN PROJECTS\Final-Yr-Project\new ds\quality\SOC.tif"
