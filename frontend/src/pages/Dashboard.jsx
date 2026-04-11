@@ -1,58 +1,57 @@
-import { useState } from "react"
-import Navbar from "../components/Navbar"
-import MapSection from "../components/MapSection"
-import ResultPanel from "../components/ResultPanel"
-import InfoCards from "../components/InfoCards"
-import Loader from "../components/Loader"
+import { useState } from 'react'
+import Navbar from '../components/Navbar'        // ← your existing Navbar stays
+import MapSection from '../components/MapSection'
+import InfoCards from '../components/InfoCards'
+import ResultPanel from '../components/ResultPanel'
 
-function Dashboard() {
-  const [location, setLocation] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState(null)
-
-  const handleAnalyze = () => {
-    if (!location) return alert("Select a location")
-
-    setLoading(true)
-
-    setTimeout(() => {
-      setData({
-        soil: "Alluvial",
-        crop: "Rice, Wheat",
-        water: "Moderate",
-        quality: "Good",
-      })
-      setLoading(false)
-    }, 2000)
-  }
+export default function Dashboard() {
+  const [mode, setMode] = useState('click')
+  const [polygons, setPolygons] = useState([])
+  const [selectedId, setSelectedId] = useState(null)
 
   return (
-    <div className="bg-mist-900 min-h-screen">
+    <div style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden' }}>
+
+      {/* Your existing Navbar */}
       <Navbar />
 
-      <div className="max-w-5xl mx-auto p-6">
-        <h1 className="text-3xl text-green-400 font-bold mb-2">
-          Smart Soil & Crop Prediction System
-        </h1>
-        <p className="text-gray-400 mb-4">
-          AI-powered satellite analysis for better farming decisions
-        </p>
+      {/* Mode toggle bar */}
+      <div style={{ display:'flex', alignItems:'center', gap:8, padding:'8px 16px', background:'#fff', borderBottom:'1px solid #e2e8f0', flexShrink:0 }}>
+        <span style={{ fontSize:12, color:'#64748b', marginRight:4 }}>Map Mode:</span>
+        {['click','draw'].map(m => (
+          <button key={m} onClick={() => setMode(m)} style={{
+            padding:'6px 16px', fontSize:13, fontWeight:500, borderRadius:8, cursor:'pointer',
+            background: mode===m ? '#2563eb' : '#f1f5f9',
+            color: mode===m ? '#fff' : '#64748b',
+            border: 'none',
+          }}>
+            {m === 'click' ? '👆 Click' : '✏️ Draw'}
+          </button>
+        ))}
+      </div>
 
-        <MapSection setLocation={setLocation} />
+      {/* Info cards */}
+      <InfoCards polygons={polygons} selectedPolygonId={selectedId} />
 
-        <button
-          onClick={handleAnalyze}
-          className="mt-4 bg-green-600 outline-none hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-full shadow-md"
-        >
-          Analyze Soil
-        </button>
-
-        {loading && <Loader />}
-        <ResultPanel data={data} />
-        <InfoCards />
+      {/* Map + Sidebar */}
+      <div style={{ display:'flex', flex:1, overflow:'hidden', minHeight:0 }}>
+        <div style={{ flex:1, position:'relative', minHeight:0, minWidth:0 }}>
+          <MapSection
+            mode={mode}
+            polygons={polygons}
+            selectedPolygonId={selectedId}
+            onPolygonCreated={p => setPolygons(prev => [...prev, p])}
+            onPolygonSelect={setSelectedId}
+          />
+        </div>
+        <ResultPanel
+          polygons={polygons}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+          onDelete={id => { setPolygons(prev => prev.filter(p => p.id !== id)); if(selectedId===id) setSelectedId(null) }}
+          onClearAll={() => { setPolygons([]); setSelectedId(null) }}
+        />
       </div>
     </div>
   )
 }
-
-export default Dashboard
