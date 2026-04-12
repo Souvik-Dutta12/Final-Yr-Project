@@ -1,0 +1,22 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.leaflet-container { width: 100%; height: 100%; z-index: 0; }
+.leaflet-popup-content-wrapper { border-radius: 10px !important; box-shadow: 0 4px 20px rgba(0,0,0,0.12) !important; }
+.leaflet-tooltip { border-radius: 6px !important; font-size: 12px !important; padding: 3px 8px !important; }
+
+.leaflet-draw-toolbar a { background-color: white !important; }
+.leaflet-draw-section { background: white; }
