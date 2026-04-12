@@ -13,3 +13,6 @@ N_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\qu
 BULK_DENSITY_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\Bulk_Density.tif"
 CEC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\CEC.tif"
 SOC_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\quality\SOC.tif"
+
+# crop recomendation
+PREV_CROP_DATA_PATH = r"C:\Users\debas\OneDrive\Desktop\Final Year Project\Main_prj\new ds\crop_recomendation\filtered_prev_data.csv"
