@@ -11,4 +11,3 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
 soil_file = BASE_DIR / "new ds" / "soil_map_ref" / "WB_SOIL_SHP.shp"
 
 soil_gdf = gpd.read_file(soil_file)
-soil_gdf = soil_gdf.to_crs(epsg=4326)
