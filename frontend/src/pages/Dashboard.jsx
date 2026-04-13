@@ -1,58 +1,48 @@
-import { useState } from "react"
-import Navbar from "../components/Navbar"
-import MapSection from "../components/MapSection"
-import ResultPanel from "../components/ResultPanel"
-import InfoCards from "../components/InfoCards"
-import Loader from "../components/Loader"
+import { useState, useCallback } from 'react'
+import Navbar      from '../components/Navbar'
+import MapSection  from '../components/MapSection'
+import InfoCards   from '../components/InfoCards'
+import ResultPanel from '../components/ResultPanel'
 
-function Dashboard() {
-  const [location, setLocation] = useState(null)
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState(null)
+export default function Dashboard() {
+  const [mode,       setMode]       = useState('click')
+  const [polygons,   setPolygons]   = useState([])
+  const [selectedId, setSelectedId] = useState(null)
 
-  const handleAnalyze = () => {
-    if (!location) return alert("Select a location")
-
-    setLoading(true)
-
-    setTimeout(() => {
-      setData({
-        soil: "Alluvial",
-        crop: "Rice, Wheat",
-        water: "Moderate",
-        quality: "Good",
-      })
-      setLoading(false)
-    }, 2000)
-  }
+  // Called twice: once with status:'loading', once with status:'done' + data
+  const handlePolygonCreated = useCallback((poly) => {
+    setPolygons(prev => {
+      const exists = prev.find(p => p.id === poly.id)
+      if (exists) return prev.map(p => p.id === poly.id ? { ...p, ...poly } : p)
+      return [...prev, poly]
+    })
+  }, [])
 
   return (
-    <div className="bg-mist-900 min-h-screen">
-      <Navbar />
-
-      <div className="max-w-5xl mx-auto p-6">
-        <h1 className="text-3xl text-green-400 font-bold mb-2">
-          Smart Soil & Crop Prediction System
-        </h1>
-        <p className="text-gray-400 mb-4">
-          AI-powered satellite analysis for better farming decisions
-        </p>
-
-        <MapSection setLocation={setLocation} />
-
-        <button
-          onClick={handleAnalyze}
-          className="mt-4 bg-green-600 outline-none hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-full shadow-md"
-        >
-          Analyze Soil
-        </button>
-
-        {loading && <Loader />}
-        <ResultPanel data={data} />
-        <InfoCards />
+    <div style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden', fontFamily:'system-ui, sans-serif', background:'#f8fafc' }}>
+      <Navbar mode={mode} onModeChange={setMode} />
+      <InfoCards polygons={polygons} selectedId={selectedId} />
+      <div style={{ display:'flex', flex:1, overflow:'hidden', minHeight:0 }}>
+        <div style={{ flex:1, position:'relative', minHeight:0, minWidth:0 }}>
+          <MapSection
+            mode={mode}
+            polygons={polygons}
+            selectedPolygonId={selectedId}
+            onPolygonCreated={handlePolygonCreated}
+            onPolygonSelect={setSelectedId}
+          />
+        </div>
+        <ResultPanel
+          polygons={polygons}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+          onDelete={id => {
+            setPolygons(prev => prev.filter(p => p.id !== id))
+            if (selectedId === id) setSelectedId(null)
+          }}
+          onClearAll={() => { setPolygons([]); setSelectedId(null) }}
+        />
       </div>
     </div>
   )
 }
-
-export default Dashboard
