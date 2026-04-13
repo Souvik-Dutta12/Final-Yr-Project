@@ -5,18 +5,7 @@ import 'leaflet-draw/dist/leaflet.draw.css'
 import 'leaflet-draw'
 import { getSoilByPoint, getSoilByPolygon, analyseFarmland } from '../services/api'
 
-const WB_CITIES = [
-  { name: 'Kolkata',     lat: 22.5726, lng: 88.3639, info: 'Capital of West Bengal' },
-  { name: 'Darjeeling',  lat: 27.041,  lng: 88.2663, info: 'Famous hill station' },
-  { name: 'Siliguri',    lat: 26.7271, lng: 88.3953, info: 'Gateway to North East' },
-  { name: 'Asansol',     lat: 23.6833, lng: 86.9667, info: 'Second largest city' },
-  { name: 'Durgapur',    lat: 23.5204, lng: 87.3119, info: 'Industrial steel hub' },
-  { name: 'Bankura',     lat: 23.23,   lng: 87.07,   info: 'Bishnupur temples' },
-  { name: 'Murshidabad', lat: 24.18,   lng: 88.27,   info: 'Nawab capital' },
-  { name: 'Malda',       lat: 25.0108, lng: 88.1438, info: 'Mango cultivation' },
-  { name: 'Howrah',      lat: 22.5958, lng: 88.2636, info: 'Twin city of Kolkata' },
-  { name: 'Jalpaiguri',  lat: 26.5175, lng: 88.7273, info: 'Dooars gateway' },
-]
+
 
 let polyCount = 0
 
@@ -50,6 +39,7 @@ export default function MapSection({
   const drawControlRef    = useRef(null)
   const drawnItemsRef     = useRef(new L.FeatureGroup())
   const analysisLayerRef  = useRef(new L.FeatureGroup())
+  const soilLayerRef = useRef(new L.FeatureGroup())
   const layerMapRef       = useRef(new Map())
   const clickMarkerRef    = useRef(null)
   const modeRef           = useRef(mode)
@@ -109,16 +99,11 @@ export default function MapSection({
       ).addTo(map)
     }).catch(() => {})
 
-    WB_CITIES.forEach(city => {
-      const m = L.circleMarker([city.lat, city.lng], {
-        radius:5, fillColor:'#1d4ed8', color:'#fff', weight:1.5, fillOpacity:0.9
-      }).addTo(map)
-      m.bindTooltip(city.name, { direction:'top' })
-      m.bindPopup(`<b>${city.name}</b><br/><small>${city.info}</small>`)
-    })
+    
 
     drawnItemsRef.current.addTo(map)
     analysisLayerRef.current.addTo(map)
+    soilLayerRef.current.addTo(map)
 
     const dc = new L.Control.Draw({
       edit: { featureGroup: drawnItemsRef.current, remove: true },
@@ -164,7 +149,7 @@ export default function MapSection({
           ${dist ? `<div style="font-size:12px;color:#4b5563;margin-top:2px">📍 ${dist}${state ? ', '+state : ''}</div>` : ''}
           <hr style="margin:8px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="display:flex;align-items:center;gap:8px;background:#f0fdf4;border-radius:8px;padding:8px 10px">
-            <span style="font-size:20px">🌱</span>
+            
             <div>
               <div style="font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Soil Type</div>
               <div style="font-size:13px;font-weight:700;color:#15803d">${soil || 'Unavailable'}</div>
@@ -209,6 +194,8 @@ export default function MapSection({
         getSoilByPolygon(coords),
         analyseFarmland(coords),
       ])
+      console.log('soilRes:', soilRes)
+      console.log('farmRes:', farmRes)
 
       setAnalysing(false)
 
@@ -218,7 +205,7 @@ export default function MapSection({
         if (fc?.features) {
           analysisLayerRef.current.clearLayers()
           fc.features.forEach(feat => {
-            const label = feat.properties?.label || 'unknown'
+            const label = feat.properties?.class || 'unknown'
             const color = LAND_COLORS[label] || '#888'
             L.geoJSON(feat, {
               style: { color, fillColor: color, fillOpacity: 0.45, weight: 1.5 },
@@ -230,12 +217,49 @@ export default function MapSection({
 
       // Build popup
       const soilData = soilRes.status === 'fulfilled' ? soilRes.value?.data : null
-      const dist     = soilData?.distribution || []
+      const distrib  = soilData?.distribution || []
+
+// Draw on Soil GeoJSON map 
+if (soilData?.geojson) {
+  soilLayerRef.current.clearLayers()
+  try {
+    const soilGeoJson = typeof soilData.geojson === 'string'
+      ? JSON.parse(soilData.geojson)
+      : soilData.geojson
+
+    // soil class → color mapping (from distrib )
+    const soilColorMap = {}
+    distrib.forEach((d, i) => {
+      soilColorMap[d.soil_class] = SOIL_COLORS[i % SOIL_COLORS.length]
+    })
+
+    L.geoJSON(soilGeoJson, {
+      style: feature => {
+        const soilClass = feature.properties?.soil_class
+        const color = soilColorMap[soilClass] || '#94a3b8'
+        return {
+          color: color,
+          fillColor: color,
+          fillOpacity: 0.45,
+          weight: 0.5,
+        }
+      },
+      onEachFeature: (feature, layer) => {
+        const soilClass = feature.properties?.soil_class
+        if (soilClass) {
+          layer.bindTooltip(soilClass, { sticky: true })
+        }
+      }
+    }).addTo(soilLayerRef.current)
+  } catch(e) {
+    console.error('Soil GeoJSON parse error:', e)
+  }
+}
       const farmData = farmRes.status === 'fulfilled' ? farmRes.value?.data : null
       const features = farmData?.features || []
 
       // Soil distribution rows
-      const soilRows = dist.map((d, i) => `
+      const soilRows = distrib.map((d, i) => `
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
           <div style="width:10px;height:10px;border-radius:3px;background:${SOIL_COLORS[i % SOIL_COLORS.length]};flex-shrink:0"></div>
           <div style="flex:1;font-size:12px;color:#374151">${d.soil_class}</div>
@@ -245,7 +269,7 @@ export default function MapSection({
 
       // Land use counts
       const landCount = features.reduce((acc, f) => {
-        const l = f.properties?.label || 'unknown'
+        const l = f.properties?.class || 'unknown'
         acc[l] = (acc[l] || 0) + 1
         return acc
       }, {})
@@ -265,7 +289,7 @@ export default function MapSection({
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
 
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🌱 Soil Distribution</div>
-          ${dist.length > 0 ? soilRows : '<div style="font-size:12px;color:#94a3b8">No soil data available</div>'}
+          ${distrib.length > 0 ? soilRows : '<div style="font-size:12px;color:#94a3b8">No soil data available</div>'}
 
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
 
@@ -278,7 +302,7 @@ export default function MapSection({
       if (onPolygonCreated) onPolygonCreated({
         id, name, coordinates: coords, area,
         status: 'done',
-        soilDistribution: dist,
+        soilDistribution: distrib,
         landUse: landCount,
       })
     })
@@ -334,11 +358,14 @@ export default function MapSection({
     layerMapRef.current.forEach((layer,id) => {
       if (!ids.has(id)) {
         drawnItemsRef.current.removeLayer(layer)
-        layerMapRef.current.delete(id)
-        analysisLayerRef.current.clearLayers()
+      layerMapRef.current.delete(id)
+      analysisLayerRef.current.clearLayers()
+      soilLayerRef.current.clearLayers()
       }
     })
   }, [polygons])
+
+  
 
   return (
     <div style={{ position:'relative', width:'100%', height:'100%' }}>
