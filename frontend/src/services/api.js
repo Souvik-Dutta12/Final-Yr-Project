@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000/api/v1";
+const BASE_URL = "http://localhost:8010/api/v1";
 
 export async function getSoilByPoint(lat, lon) {
   const res = await fetch(`${BASE_URL}/soil/point?lat=${lat}&lon=${lon}`);
