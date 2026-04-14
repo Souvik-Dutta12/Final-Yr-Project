@@ -132,7 +132,10 @@ export default function MapPage() {
   const selected = polygons.find(p => p.id === selectedId)
 
   return (
-    <div style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden', fontFamily:'system-ui,sans-serif', background:'#f8fafc' }}>
+    <div 
+    className='flex flex-col h-screen overflow-hidden bg-[#f8fafc]'
+    // style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden', fontFamily:'system-ui,sans-serif', background:'#f8fafc' }}
+    >
 
       {/* Navbar */}
       <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', padding:'10px 20px', background:'#fff', borderBottom:'1px solid #e2e8f0', flexShrink:0 }}>
