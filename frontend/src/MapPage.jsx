@@ -4,18 +4,6 @@ import 'leaflet/dist/leaflet.css'
 import 'leaflet-draw/dist/leaflet.draw.css'
 import 'leaflet-draw'
 
-const WB_CITIES = [
-  { name: 'Kolkata', lat: 22.5726, lng: 88.3639, info: 'Capital of West Bengal' },
-  { name: 'Darjeeling', lat: 27.041, lng: 88.2663, info: 'Famous hill station' },
-  { name: 'Siliguri', lat: 26.7271, lng: 88.3953, info: 'Gateway to North East' },
-  { name: 'Asansol', lat: 23.6833, lng: 86.9667, info: 'Second largest city' },
-  { name: 'Durgapur', lat: 23.5204, lng: 87.3119, info: 'Industrial steel hub' },
-  { name: 'Bankura', lat: 23.23, lng: 87.07, info: 'Bishnupur temples' },
-  { name: 'Murshidabad', lat: 24.18, lng: 88.27, info: 'Nawab capital' },
-  { name: 'Malda', lat: 25.0108, lng: 88.1438, info: 'Mango cultivation' },
-  { name: 'Howrah', lat: 22.5958, lng: 88.2636, info: 'Twin city of Kolkata' },
-  { name: 'Jalpaiguri', lat: 26.5175, lng: 88.7273, info: 'Dooars gateway' },
-]
 
 let polyCount = 0
 
@@ -66,14 +54,6 @@ export default function MapPage() {
       }
     }, { style: { color:'#2563eb', weight:2.5, opacity:0.5, fillColor:'#3b82f6', fillOpacity:0.06, dashArray:'6 4' } }).addTo(map)
 
-    // City markers
-    WB_CITIES.forEach(city => {
-      const m = L.circleMarker([city.lat, city.lng], {
-        radius: 5, fillColor: '#1d4ed8', color: '#fff', weight: 1.5, fillOpacity: 0.9
-      }).addTo(map)
-      m.bindTooltip(city.name, { direction: 'top' })
-      m.bindPopup(`<b>${city.name}</b><br/><small>${city.info}</small>`)
-    })
 
     drawnItems.current.addTo(map)
 
