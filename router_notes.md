@@ -1,6 +1,15 @@
+> # SOIL TYPE
 get req -- http://127.0.0.1:8000/soil/?lat=22.5726&lon=88.3639
+**Input**
+```js
+lat = 22.5726
+lon = 88.3639
+```
+
 post req -- http://127.0.0.1:8000/soil/polygon
-post req -- http://127.0.0.1:8000/farmland/analyse
+
+**Input**
+```js
 {
   "polygon": {
     "type": "Polygon",
@@ -12,12 +21,36 @@ post req -- http://127.0.0.1:8000/farmland/analyse
         [85.8, 24.0],
         [86.0, 22.0]
     ]]
+  }
 }
+```
+> # FARMLAND
+
+post req -- http://127.0.0.1:8000/farmland/analyse
+
+**Input**
+```js
+{
+  "polygon": {
+    "type": "Polygon",
+    "coordinates": [[
+        [86.0, 22.0],
+        [88.5, 22.2],
+        [89.2, 24.5],
+        [87.5, 25.5],
+        [85.8, 24.0],
+        [86.0, 22.0]
+    ]]
+  }
 }
+```
 
-
+> # CROP  RECOMENDATION
 
 post req -- http://127.0.0.1:8000/crops-reccomendation/crop-insights
+
+**Input**
+```js
 {
   "features":  {
     "N": 0.118,
@@ -27,8 +60,12 @@ post req -- http://127.0.0.1:8000/crops-reccomendation/crop-insights
     "rainfall": 200
   }
 }
+```
 
 post req -- http://127.0.0.1:8000/crops-reccomendation/crop-insights/polygon
+
+**Input**
+```js
 {
   "soil_data": {
     "data": {
@@ -76,3 +113,4 @@ post req -- http://127.0.0.1:8000/crops-reccomendation/crop-insights/polygon
     }
   }
 }
+```

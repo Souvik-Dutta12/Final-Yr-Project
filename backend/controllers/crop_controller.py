@@ -47,7 +47,7 @@ async def get_crop_insights_polygon_controller(body: dict):
     if not isinstance(soils, list) or len(soils) == 0:
         raise APIError(400, "No soil classes found")
     
-    # 🔹 Call service
+    # 🔹 Call servicecd 
     result = get_crop_insights_polygon(
         soil_data=soil_data,
     )
