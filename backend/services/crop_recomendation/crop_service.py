@@ -10,42 +10,69 @@ le = joblib.load("services/crop_recomendation/model/label_encoder.pkl")
 scaler = joblib.load("services/crop_recomendation/model/scalar.pkl")
 
 
-def get_crop_insights(state , district, features):
-    # Normalize text
-    df["state_name"] = df["state_name"].str.lower()
-    df["district_name"] = df["district_name"].str.lower()
-
-    state = state.lower()
-    district = district.lower()
-
-    # Current crops
-    filtered = df[
-        (df["state_name"] == state) &
-        (df["district_name"] == district)
-    ]
-
-    current_crops = list(filtered["crop_name"].unique()) if not filtered.empty else []
-
+def get_crop_insights(features):
     # ML Prediction (Top 3)
     X = pd.DataFrame([{
-        "N": features["N"],
-        "temperature": features["temperature"],
-        "humidity": features["humidity"],
-        "ph": features["ph"],
-        "rainfall": features["rainfall"]
+        "N": float(features["N"]),
+        "temperature": float(features["temperature"]),
+        "humidity": float(features["humidity"]),
+        "ph": float(features["ph"]),
+        "rainfall": float(features["rainfall"])
     }])
 
-    X_scaled = scaler.transform(X)
-    X_scaled = pd.DataFrame(X_scaled, columns=X.columns)
-    probs = model.predict_proba(X_scaled)
+    probs = model.predict_proba(X)
     top3_idx = np.argsort(probs[0])[-3:]
 
-    predicted_crops = le.inverse_transform(top3_idx)
+    predicted_crops = le.inverse_transform(top3_idx).tolist()
 
-    # Remove duplicates
-    extra_crops = [c for c in predicted_crops if c not in current_crops]
 
     return {
-        "currentCrops": current_crops,
-        "recommendedCrops": extra_crops
+        "recommendedCrops": predicted_crops
+    }
+
+
+def get_crop_insights_polygon(soil_data):
+
+    result = []
+    soil_classes = soil_data["data"]["soil_quality_by_class"]
+
+    for soil in soil_classes:
+
+
+        soil_class = soil.get("soil_class")
+        props = soil.get("properties", {})
+        weather = soil.get("weather", {})
+
+
+        if props.get("nitrogen") is None or props.get("ph") is None:
+            continue
+
+        if (
+            weather.get("temperature") is None or
+            weather.get("humidity") is None or
+            weather.get("rainfall") is None
+        ):
+            continue
+
+        # ML Prediction
+        X = pd.DataFrame([{
+            "N": float(props["nitrogen"]),
+            "temperature": float(weather["temperature"]),
+            "humidity": float(weather["humidity"]),
+            "ph": float(props["ph"]),
+            "rainfall": float(weather["rainfall"])
+        }])
+
+        probs = model.predict_proba(X)
+        top3_idx = np.argsort(probs[0])[::-1][:3]
+
+        predicted_crops = le.inverse_transform(top3_idx).tolist()
+
+        result.append({
+            "soil_class": soil_class,
+            "recommendedCrops": predicted_crops
+        })
+
+    return {
+        "results": result
     }
