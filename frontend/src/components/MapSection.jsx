@@ -75,6 +75,25 @@ export default function MapSection({
     labelLayerRef.current = L.tileLayer(
       'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
       { attribution: '', maxZoom: 19, pane: 'overlayPane' })
+    const WB_BOUNDS = L.latLngBounds(L.latLng(21.3, 85.8), L.latLng(27.8, 89.9))
+    const map = L.map(containerRef.current, {
+      center: [23.5, 87.8], zoom: 7, minZoom: 7, maxZoom: 18,
+      maxBounds: WB_BOUNDS, maxBoundsViscosity: 1.0,
+    })
+    map.fitBounds(WB_BOUNDS, { padding: [10, 10] })
+
+    const normalLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      { attribution: '© OpenStreetMap contributors', maxZoom: 19 })
+    normalLayer.addTo(map)
+    normalLayerRef.current = normalLayer
+
+    satelliteLayerRef.current = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+      { attribution: '© Esri', maxZoom: 19 })
+
+    labelLayerRef.current = L.tileLayer(
+      'https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',
+      { attribution: '', maxZoom: 19, pane: 'overlayPane' })
 
     map.whenReady(() => setLoading(false))
 
@@ -110,6 +129,8 @@ export default function MapSection({
       draw: {
         polygon: { allowIntersection:false, showArea:false, shapeOptions:{ color:'#2563eb', fillColor:'#3b82f6', fillOpacity:0.25, weight:2 } },
         polyline:false, rectangle:false, circle:false, marker:false, circlemarker:false,
+        polygon: { allowIntersection:false, showArea:false, shapeOptions:{ color:'#2563eb', fillColor:'#3b82f6', fillOpacity:0.25, weight:2 } },
+        polyline:false, rectangle:false, circle:false, marker:false, circlemarker:false,
       }
     })
     drawControlRef.current = dc
@@ -117,14 +138,19 @@ export default function MapSection({
 
     // ── Click to inspect ──
     map.on('click', async e => {
+    // ── Click to inspect ──
+    map.on('click', async e => {
       if (modeRef.current !== 'click') return
       const { lat, lng } = e.latlng
+      if (clickMarkerRef.current) { map.removeLayer(clickMarkerRef.current); clickMarkerRef.current = null }
       if (clickMarkerRef.current) { map.removeLayer(clickMarkerRef.current); clickMarkerRef.current = null }
 
       const icon = L.divIcon({
         html: `<div style="background:#2563eb;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);color:white;font-size:13px">📍</div>`,
         iconSize:[26,26], iconAnchor:[13,26], className:''
+        iconSize:[26,26], iconAnchor:[13,26], className:''
       })
+      const marker = L.marker([lat,lng],{icon}).addTo(map)
       const marker = L.marker([lat,lng],{icon}).addTo(map)
       clickMarkerRef.current = marker
       marker.bindPopup(`<div style="min-width:200px"><b>📍 Loading…</b><br/><small style="color:#6b7280;font-family:monospace">${lat.toFixed(5)}, ${lng.toFixed(5)}</small></div>`).openPopup()
@@ -163,16 +189,34 @@ export default function MapSection({
 
     // ── Polygon drawn ──
     map.on(L.Draw.Event.CREATED, async event => {
+    // ── Polygon drawn ──
+    map.on(L.Draw.Event.CREATED, async event => {
       const layer = event.layer
       drawnItemsRef.current.addLayer(layer)
       const raw   = layer.getLatLngs()
       const ring  = Array.isArray(raw[0]) ? raw[0] : raw
+      const raw   = layer.getLatLngs()
+      const ring  = Array.isArray(raw[0]) ? raw[0] : raw
       const coords = ring.map(ll => [ll.lat, ll.lng])
+      const area  = ring.length > 0 ? L.GeometryUtil.geodesicArea(ring) : 0
       const area  = ring.length > 0 ? L.GeometryUtil.geodesicArea(ring) : 0
       polyCount++
       const id   = `poly-${Date.now()}-${polyCount}`
+      const id   = `poly-${Date.now()}-${polyCount}`
       const name = `Polygon ${polyCount}`
       layerMapRef.current.set(id, layer)
+
+      layer.bindPopup(`
+        <div style="min-width:220px;font-family:system-ui,sans-serif">
+          <b>${name}</b> · ${formatArea(area)}<br/>
+          <div style="margin-top:8px;display:flex;align-items:center;gap:8px;color:#64748b;font-size:12px">
+            <div style="width:16px;height:16px;border:2px solid #2563eb;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite"></div>
+            Analysing…
+          </div>
+          <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+        </div>
+      `).openPopup()
+
 
       layer.bindPopup(`
         <div style="min-width:220px;font-family:system-ui,sans-serif">
@@ -327,22 +371,55 @@ if (soilData?.geojson) {
   }, [mapView])
 
   // Draw control toggle
+  }, []) // eslint-disable-line
+
+  // Tile layer swap
   useEffect(() => {
+    const map=mapRef.current, norm=normalLayerRef.current
+    const sat=satelliteLayerRef.current, label=labelLayerRef.current
+    if (!map||!norm||!sat||!label) return
+    if (mapView==='satellite') {
+      if (map.hasLayer(norm))  map.removeLayer(norm)
+      if (!map.hasLayer(sat))  { sat.addTo(map); sat.bringToBack() }
+      if (!map.hasLayer(label)) label.addTo(map)
+    } else {
+      if (map.hasLayer(sat))   map.removeLayer(sat)
+      if (map.hasLayer(label)) map.removeLayer(label)
+      if (!map.hasLayer(norm)) { norm.addTo(map); norm.bringToBack() }
+    }
+  }, [mapView])
+
+  // Draw control toggle
+  useEffect(() => {
+    const map=mapRef.current, dc=drawControlRef.current
+    if (!map||!dc) return
+    if (mode==='draw') {
     const map=mapRef.current, dc=drawControlRef.current
     if (!map||!dc) return
     if (mode==='draw') {
       dc.addTo(map)
       map.getContainer().style.cursor='crosshair'
       if (clickMarkerRef.current) { map.removeLayer(clickMarkerRef.current); clickMarkerRef.current=null }
+      map.getContainer().style.cursor='crosshair'
+      if (clickMarkerRef.current) { map.removeLayer(clickMarkerRef.current); clickMarkerRef.current=null }
     } else {
       document.dispatchEvent(new KeyboardEvent('keydown',{keyCode:27,key:'Escape',bubbles:true}))
+      document.dispatchEvent(new KeyboardEvent('keydown',{keyCode:27,key:'Escape',bubbles:true}))
       dc.remove()
+      map.getContainer().style.cursor=''
       map.getContainer().style.cursor=''
     }
   }, [mode])
 
   // Highlight selected
+  // Highlight selected
   useEffect(() => {
+    layerMapRef.current.forEach((layer,id) => {
+      layer.setStyle(
+        id===selectedPolygonId
+          ? { color:'#dc2626', fillColor:'#ef4444', fillOpacity:0.3, weight:3 }
+          : { color:'#2563eb', fillColor:'#3b82f6', fillOpacity:0.25, weight:2 }
+      )
     layerMapRef.current.forEach((layer,id) => {
       layer.setStyle(
         id===selectedPolygonId
@@ -352,6 +429,7 @@ if (soilData?.geojson) {
     })
   }, [selectedPolygonId])
 
+  // Sync deleted polygons
   // Sync deleted polygons
   useEffect(() => {
     const ids = new Set(polygons.map(p=>p.id))
@@ -371,6 +449,8 @@ if (soilData?.geojson) {
     <div style={{ position:'relative', width:'100%', height:'100%' }}>
 
       {/* Map loading */}
+
+      {/* Map loading */}
       {loading && (
         <div style={{ position:'absolute', inset:0, background:'rgba(255,255,255,.85)', display:'flex', alignItems:'center', justifyContent:'center', zIndex:999, flexDirection:'column', gap:10 }}>
           <div style={{ width:32, height:32, border:'3px solid #e2e8f0', borderTop:'3px solid #2563eb', borderRadius:'50%', animation:'spin .8s linear infinite' }} />
@@ -388,9 +468,29 @@ if (soilData?.geojson) {
       )}
 
       {/* Mode hint */}
+
+      {/* Analysis loading banner */}
+      {analysing && (
+        <div style={{ position:'absolute', bottom:80, left:'50%', transform:'translateX(-50%)', zIndex:1000, background:'#1e293b', color:'#fff', padding:'8px 18px', borderRadius:999, fontSize:12, fontWeight:600, display:'flex', alignItems:'center', gap:8, boxShadow:'0 4px 12px rgba(0,0,0,.25)' }}>
+          <div style={{ width:14, height:14, border:'2px solid rgba(255,255,255,.3)', borderTop:'2px solid #fff', borderRadius:'50%', animation:'spin .8s linear infinite' }} />
+          Analysing polygon… this may take a moment
+        </div>
+      )}
+
+      {/* Mode hint */}
       <div style={{ position:'absolute', top:12, left:'50%', transform:'translateX(-50%)', zIndex:1000, padding:'5px 14px', borderRadius:999, fontSize:12, fontWeight:600, whiteSpace:'nowrap', background:mode==='draw'?'#2563eb':'#fff', color:mode==='draw'?'#fff':'#374151', border:mode==='draw'?'none':'1px solid #e2e8f0', boxShadow:'0 2px 8px rgba(0,0,0,.1)' }}>
         {mode==='draw' ? '✏️ Click to place points, double-click to finish' : '👆 Click anywhere on the map to inspect'}
       </div>
+
+      {/* Map/Satellite toggle */}
+      <div style={{ position:'absolute', bottom:32, left:12, zIndex:1000, display:'flex', borderRadius:10, overflow:'hidden', boxShadow:'0 2px 10px rgba(0,0,0,.2)', border:'1.5px solid #e2e8f0' }}>
+        {[{id:'normal',label:'🗺️ Map'},{id:'satellite',label:'🛰️ Satellite'}].map(v => (
+          <button key={v.id} onClick={() => setMapView(v.id)} style={{ padding:'8px 14px', fontSize:12, fontWeight:600, cursor:'pointer', background:mapView===v.id?'#2563eb':'#fff', color:mapView===v.id?'#fff':'#374151', border:'none', transition:'background 0.18s, color 0.18s' }}>
+            {v.label}
+          </button>
+        ))}
+      </div>
+
 
       {/* Map/Satellite toggle */}
       <div style={{ position:'absolute', bottom:32, left:12, zIndex:1000, display:'flex', borderRadius:10, overflow:'hidden', boxShadow:'0 2px 10px rgba(0,0,0,.2)', border:'1.5px solid #e2e8f0' }}>
