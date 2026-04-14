@@ -1,0 +1,69 @@
+{
+  "base_features": [
+    "N",
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall"
+  ],
+  "all_features": [
+    "N",
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall",
+    "humidity_temp",
+    "rain_temp_ratio",
+    "ph_dev",
+    "N_humidity",
+    "log_rainfall",
+    "log_N"
+  ],
+  "skewed_cols": [
+    "N",
+    "humidity",
+    "rainfall",
+    "N_humidity",
+    "rain_temp_ratio",
+    "log_rainfall",
+    "log_N"
+  ],
+  "other_cols": [
+    "temperature",
+    "ph",
+    "humidity_temp",
+    "ph_dev"
+  ],
+  "classes": [
+    "apple",
+    "banana",
+    "blackgram",
+    "chickpea",
+    "coconut",
+    "coffee",
+    "cotton",
+    "grapes",
+    "jute",
+    "kidneybeans",
+    "lentil",
+    "maize",
+    "mango",
+    "mothbeans",
+    "mungbean",
+    "muskmelon",
+    "orange",
+    "papaya",
+    "pigeonpeas",
+    "pomegranate",
+    "rice",
+    "watermelon"
+  ],
+  "best_model": "LightGBM",
+  "test_accuracy": {
+    "XGBoost": 0.9576,
+    "LightGBM": 0.9697,
+    "RandomForest": 0.9545,
+    "ExtraTrees": 0.9545,
+    "Stacking": 0.9606
+  }
+}
