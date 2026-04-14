@@ -1,9 +1,7 @@
 import pandas as pd
 import joblib
 import numpy as np
-from services.load_files import PREV_CROP_DATA_PATH
 
-df = pd.read_csv(PREV_CROP_DATA_PATH)
 
 model = joblib.load("services/crop_recomendation/model/stacking_model.pkl")
 scaler = joblib.load("services/crop_recomendation/model/standard_scaler.pkl")
