@@ -1,0 +1,116 @@
+> # SOIL TYPE
+get req -- http://127.0.0.1:8000/soil/?lat=22.5726&lon=88.3639
+**Input**
+```js
+lat = 22.5726
+lon = 88.3639
+```
+
+post req -- http://127.0.0.1:8000/soil/polygon
+
+**Input**
+```js
+{
+  "polygon": {
+    "type": "Polygon",
+    "coordinates": [[
+        [86.0, 22.0],
+        [88.5, 22.2],
+        [89.2, 24.5],
+        [87.5, 25.5],
+        [85.8, 24.0],
+        [86.0, 22.0]
+    ]]
+  }
+}
+```
+> # FARMLAND
+
+post req -- http://127.0.0.1:8000/farmland/analyse
+
+**Input**
+```js
+{
+  "polygon": {
+    "type": "Polygon",
+    "coordinates": [[
+        [86.0, 22.0],
+        [88.5, 22.2],
+        [89.2, 24.5],
+        [87.5, 25.5],
+        [85.8, 24.0],
+        [86.0, 22.0]
+    ]]
+  }
+}
+```
+
+> # CROP  RECOMENDATION
+
+post req -- http://127.0.0.1:8000/crops-reccomendation/crop-insights
+
+**Input**
+```js
+{
+  "features":  {
+    "N": 0.118,
+    "temperature": 25,
+    "humidity": 80,
+    "ph": 6.38,
+    "rainfall": 200
+  }
+}
+```
+
+post req -- http://127.0.0.1:8000/crops-reccomendation/crop-insights/polygon
+
+**Input**
+```js
+{
+  "soil_data": {
+    "data": {
+      "soil_quality_by_class": [
+        {
+          "soil_class": "Lixisols",
+          "area_percentage": 45,
+          "properties": {
+            "ph": 6.2,
+            "nitrogen": 0.13
+          },
+          "weather": {
+            "temperature": 25,
+            "humidity": 80,
+            "rainfall": 200
+          }
+        },
+        {
+          "soil_class": "Acrisols",
+          "area_percentage": 30,
+          "properties": {
+            "ph": 5.5,
+            "nitrogen": 0.09
+          },
+          "weather": {
+            "temperature": 27,
+            "humidity": 75,
+            "rainfall": 180
+          }
+        },
+        {
+          "soil_class": "Vertisols",
+          "area_percentage": 25,
+          "properties": {
+            "ph": 7.2,
+            "nitrogen": 0.18
+          },
+          "weather": {
+            "temperature": 30,
+            "humidity": 65,
+            "rainfall": 150
+          }
+        }
+      ]
+    }
+  }
+}
+```

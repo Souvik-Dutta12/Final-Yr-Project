@@ -33,7 +33,6 @@ async def get_soil_point(lat, lon):
         "Soil type fetched"
     ).to_dict()
 
-
 async def get_soil_polygon(polygon):
 
     if not polygon:

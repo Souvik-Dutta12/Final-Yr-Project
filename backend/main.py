@@ -3,6 +3,7 @@ from fastapi.responses import JSONResponse
 from utils.api_error import APIError
 from routes.soil_routes import router as soil_router
 from routes.farmland_routes import router as farmland_router
+from routes.crop_routes import router as crop_router
 
 app = FastAPI()
 
@@ -15,7 +16,7 @@ async def api_error_handler(request, exc: APIError):
 
 app.include_router(soil_router)
 app.include_router(farmland_router)
-
+app.include_router(crop_router)
 
 @app.get("/")
 def home():

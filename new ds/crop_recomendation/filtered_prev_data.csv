@@ -1,0 +1,1283 @@
+_id,id,year,state_name,state_code,district_name,district_code,crop_name,crop_code,crop_type,season,area,area_unit,production,production_unit,yield,yield_unit
+432870,432869,2021-2022,West Bengal,19,Alipurduar,664,Arhar/Tur,202.0,Pulses,Rabi,408.0,Hectare,642.0,Tonnes,1.574,Tonnes/Hectare
+432871,432870,2021-2022,West Bengal,19,Alipurduar,664,Gram,201.0,Pulses,Rabi,181.0,Hectare,215.0,Tonnes,1.188,Tonnes/Hectare
+432872,432871,2021-2022,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Autumn,120.0,Hectare,185.0,Tonnes,1.542,Tonnes/Hectare
+432873,432872,2021-2022,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Rabi,130.0,Hectare,205.0,Tonnes,1.577,Tonnes/Hectare
+432874,432873,2021-2022,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Summer,225.0,Hectare,487.0,Tonnes,2.164,Tonnes/Hectare
+432875,432874,2021-2022,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Total,475.0,Hectare,877.0,Tonnes,1.846,Tonnes/Hectare
+432876,432875,2021-2022,West Bengal,19,Alipurduar,664,Horse-Gram,206.0,Pulses,Rabi,15.0,Hectare,6.0,Tonnes,0.4,Tonnes/Hectare
+432877,432876,2021-2022,West Bengal,19,Alipurduar,664,Jute,1102.0,Fiber Crops,Kharif,13837.0,Hectare,163126.0,Tonnes,11.789,Tonnes/Hectare
+432878,432877,2021-2022,West Bengal,19,Alipurduar,664,Khesari,521.0,Spices,Rabi,2351.0,Hectare,2575.0,Tonnes,1.095,Tonnes/Hectare
+432879,432878,2021-2022,West Bengal,19,Alipurduar,664,Linseed,1005.0,Oilseeds,Rabi,435.0,Hectare,156.0,Tonnes,0.359,Tonnes/Hectare
+432880,432879,2021-2022,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Autumn,4320.0,Hectare,9759.0,Tonnes,2.259,Tonnes/Hectare
+432881,432880,2021-2022,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Rabi,11800.0,Hectare,55696.0,Tonnes,4.72,Tonnes/Hectare
+432882,432881,2021-2022,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Summer,8800.0,Hectare,54384.0,Tonnes,6.18,Tonnes/Hectare
+432883,432882,2021-2022,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Total,24920.0,Hectare,119839.0,Tonnes,4.809,Tonnes/Hectare
+432884,432883,2021-2022,West Bengal,19,Alipurduar,664,Masoor,205.0,Pulses,Rabi,3341.0,Hectare,2338.0,Tonnes,0.7,Tonnes/Hectare
+432885,432884,2021-2022,West Bengal,19,Alipurduar,664,Mesta,1103.0,Fiber Crops,Kharif,146.0,Hectare,1485.0,Tonnes,10.171,Tonnes/Hectare
+432886,432885,2021-2022,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Kharif,215.0,Hectare,185.0,Tonnes,0.86,Tonnes/Hectare
+432887,432886,2021-2022,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Rabi,200.0,Hectare,129.0,Tonnes,0.645,Tonnes/Hectare
+432888,432887,2021-2022,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Summer,197.0,Hectare,206.0,Tonnes,1.046,Tonnes/Hectare
+432889,432888,2021-2022,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Total,612.0,Hectare,520.0,Tonnes,0.85,Tonnes/Hectare
+432890,432889,2021-2022,West Bengal,19,Alipurduar,664,Niger Seed,1010.0,Oilseeds,Kharif,370.0,Hectare,211.0,Tonnes,0.57,Tonnes/Hectare
+432891,432890,2021-2022,West Bengal,19,Alipurduar,664,Peas & Beans (Pulses),213.0,Pulses,Rabi,294.0,Hectare,291.0,Tonnes,0.99,Tonnes/Hectare
+432892,432891,2021-2022,West Bengal,19,Alipurduar,664,Potato,701.0,Vegetable,Rabi,19374.0,Hectare,642917.0,Tonnes,33.185,Tonnes/Hectare
+432893,432892,2021-2022,West Bengal,19,Alipurduar,664,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,5030.0,Hectare,5258.0,Tonnes,1.045,Tonnes/Hectare
+432894,432893,2021-2022,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Autumn,11309.0,Hectare,21348.0,Tonnes,1.888,Tonnes/Hectare
+432895,432894,2021-2022,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Summer,5574.0,Hectare,13543.0,Tonnes,2.43,Tonnes/Hectare
+432896,432895,2021-2022,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Total,96618.0,Hectare,233569.0,Tonnes,2.417,Tonnes/Hectare
+432897,432896,2021-2022,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Winter,79735.0,Hectare,198678.0,Tonnes,2.492,Tonnes/Hectare
+432898,432897,2021-2022,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Autumn,175.0,Hectare,131.0,Tonnes,0.749,Tonnes/Hectare
+432899,432898,2021-2022,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Summer,181.0,Hectare,153.0,Tonnes,0.845,Tonnes/Hectare
+432900,432899,2021-2022,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Total,556.0,Hectare,444.0,Tonnes,0.799,Tonnes/Hectare
+432901,432900,2021-2022,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Winter,200.0,Hectare,160.0,Tonnes,0.8,Tonnes/Hectare
+432902,432901,2021-2022,West Bengal,19,Alipurduar,664,Sugarcane,401.0,Sugar,Whole Year,36.0,Hectare,2927.0,Tonnes,81.306,Tonnes/Hectare
+432903,432902,2021-2022,West Bengal,19,Alipurduar,664,Urad,203.0,Pulses,Kharif,1231.0,Hectare,493.0,Tonnes,0.4,Tonnes/Hectare
+432904,432903,2021-2022,West Bengal,19,Alipurduar,664,Urad,203.0,Pulses,Rabi,180.0,Hectare,126.0,Tonnes,0.7,Tonnes/Hectare
+432905,432904,2021-2022,West Bengal,19,Alipurduar,664,Urad,203.0,Pulses,Total,1411.0,Hectare,619.0,Tonnes,0.439,Tonnes/Hectare
+432906,432905,2021-2022,West Bengal,19,Alipurduar,664,Wheat,106.0,Cereals,Rabi,3318.0,Hectare,9065.0,Tonnes,2.732,Tonnes/Hectare
+432907,432906,2021-2022,West Bengal,19,Bankura,305,Arhar/Tur,202.0,Pulses,Rabi,47.0,Hectare,72.0,Tonnes,1.532,Tonnes/Hectare
+432908,432907,2021-2022,West Bengal,19,Bankura,305,Gram,201.0,Pulses,Rabi,1382.0,Hectare,1608.0,Tonnes,1.164,Tonnes/Hectare
+432909,432908,2021-2022,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Autumn,540.0,Hectare,529.0,Tonnes,0.98,Tonnes/Hectare
+432910,432909,2021-2022,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Rabi,529.0,Hectare,820.0,Tonnes,1.55,Tonnes/Hectare
+432911,432910,2021-2022,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Summer,1246.0,Hectare,2905.0,Tonnes,2.331,Tonnes/Hectare
+432912,432911,2021-2022,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Total,2315.0,Hectare,4254.0,Tonnes,1.838,Tonnes/Hectare
+432913,432912,2021-2022,West Bengal,19,Bankura,305,Jute,1102.0,Fiber Crops,Kharif,20.0,Hectare,355.0,Tonnes,17.75,Tonnes/Hectare
+432914,432913,2021-2022,West Bengal,19,Bankura,305,Khesari,521.0,Spices,Rabi,3035.0,Hectare,3790.0,Tonnes,1.249,Tonnes/Hectare
+432915,432914,2021-2022,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Autumn,132.0,Hectare,317.0,Tonnes,2.402,Tonnes/Hectare
+432916,432915,2021-2022,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Rabi,523.0,Hectare,1786.0,Tonnes,3.415,Tonnes/Hectare
+432917,432916,2021-2022,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Summer,444.0,Hectare,1245.0,Tonnes,2.804,Tonnes/Hectare
+432918,432917,2021-2022,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Total,1099.0,Hectare,3348.0,Tonnes,3.046,Tonnes/Hectare
+432919,432918,2021-2022,West Bengal,19,Bankura,305,Masoor,205.0,Pulses,Rabi,4839.0,Hectare,3003.0,Tonnes,0.621,Tonnes/Hectare
+432920,432919,2021-2022,West Bengal,19,Bankura,305,Mesta,1103.0,Fiber Crops,Kharif,18.0,Hectare,54.0,Tonnes,3.0,Tonnes/Hectare
+432921,432920,2021-2022,West Bengal,19,Bankura,305,Moong(Green Gram),204.0,Pulses,Rabi,12.0,Hectare,6.0,Tonnes,0.5,Tonnes/Hectare
+432922,432921,2021-2022,West Bengal,19,Bankura,305,Moong(Green Gram),204.0,Pulses,Summer,465.0,Hectare,460.0,Tonnes,0.989,Tonnes/Hectare
+432923,432922,2021-2022,West Bengal,19,Bankura,305,Moong(Green Gram),204.0,Pulses,Total,477.0,Hectare,466.0,Tonnes,0.977,Tonnes/Hectare
+432924,432923,2021-2022,West Bengal,19,Bankura,305,Peas & Beans (Pulses),213.0,Pulses,Rabi,531.0,Hectare,525.0,Tonnes,0.989,Tonnes/Hectare
+432925,432924,2021-2022,West Bengal,19,Bankura,305,Potato,701.0,Vegetable,Rabi,40147.0,Hectare,888002.0,Tonnes,22.119,Tonnes/Hectare
+432926,432925,2021-2022,West Bengal,19,Bankura,305,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,23740.0,Hectare,20142.0,Tonnes,0.848,Tonnes/Hectare
+432927,432926,2021-2022,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Autumn,20485.0,Hectare,50010.0,Tonnes,2.441,Tonnes/Hectare
+432928,432927,2021-2022,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Summer,55216.0,Hectare,175284.0,Tonnes,3.175,Tonnes/Hectare
+432929,432928,2021-2022,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Total,414890.0,Hectare,1277977.0,Tonnes,3.08,Tonnes/Hectare
+432930,432929,2021-2022,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Winter,339189.0,Hectare,1052683.0,Tonnes,3.104,Tonnes/Hectare
+432931,432930,2021-2022,West Bengal,19,Bankura,305,Sannhamp,1104.0,Fiber Crops,Kharif,45.0,Hectare,216.0,Tonnes,4.8,Tonnes/Hectare
+432932,432931,2021-2022,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Autumn,11.0,Hectare,8.0,Tonnes,0.727,Tonnes/Hectare
+432933,432932,2021-2022,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Summer,32777.0,Hectare,26922.0,Tonnes,0.821,Tonnes/Hectare
+432934,432933,2021-2022,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Total,32829.0,Hectare,26952.0,Tonnes,0.821,Tonnes/Hectare
+432935,432934,2021-2022,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Winter,41.0,Hectare,22.0,Tonnes,0.537,Tonnes/Hectare
+432936,432935,2021-2022,West Bengal,19,Bankura,305,Small Millets,108.0,Cereals,Autumn,29.0,Hectare,15.0,Tonnes,0.517,Tonnes/Hectare
+432937,432936,2021-2022,West Bengal,19,Bankura,305,Sugarcane,401.0,Sugar,Whole Year,28.0,Hectare,6453.0,Tonnes,230.464,Tonnes/Hectare
+432938,432937,2021-2022,West Bengal,19,Bankura,305,Sunflower,1007.0,Oilseeds,Kharif,96.0,Hectare,92.0,Tonnes,0.958,Tonnes/Hectare
+432939,432938,2021-2022,West Bengal,19,Bankura,305,Urad,203.0,Pulses,Kharif,21.0,Hectare,9.0,Tonnes,0.429,Tonnes/Hectare
+432940,432939,2021-2022,West Bengal,19,Bankura,305,Urad,203.0,Pulses,Rabi,13.0,Hectare,7.0,Tonnes,0.538,Tonnes/Hectare
+432941,432940,2021-2022,West Bengal,19,Bankura,305,Urad,203.0,Pulses,Total,34.0,Hectare,16.0,Tonnes,0.471,Tonnes/Hectare
+432942,432941,2021-2022,West Bengal,19,Bankura,305,Wheat,106.0,Cereals,Rabi,1938.0,Hectare,4978.0,Tonnes,2.569,Tonnes/Hectare
+432943,432942,2021-2022,West Bengal,19,Birbhum,307,Arhar/Tur,202.0,Pulses,Rabi,725.0,Hectare,1140.0,Tonnes,1.572,Tonnes/Hectare
+432944,432943,2021-2022,West Bengal,19,Birbhum,307,Barley,107.0,Cereals,Rabi,5.0,Hectare,8.0,Tonnes,1.6,Tonnes/Hectare
+432945,432944,2021-2022,West Bengal,19,Birbhum,307,Gram,201.0,Pulses,Rabi,11682.0,Hectare,15032.0,Tonnes,1.287,Tonnes/Hectare
+432946,432945,2021-2022,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Autumn,813.0,Hectare,1179.0,Tonnes,1.45,Tonnes/Hectare
+432947,432946,2021-2022,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Rabi,60.0,Hectare,71.0,Tonnes,1.183,Tonnes/Hectare
+432948,432947,2021-2022,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Summer,61.0,Hectare,131.0,Tonnes,2.148,Tonnes/Hectare
+432949,432948,2021-2022,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Total,934.0,Hectare,1381.0,Tonnes,1.479,Tonnes/Hectare
+432950,432949,2021-2022,West Bengal,19,Birbhum,307,Horse-Gram,206.0,Pulses,Rabi,130.0,Hectare,77.0,Tonnes,0.592,Tonnes/Hectare
+432951,432950,2021-2022,West Bengal,19,Birbhum,307,Jute,1102.0,Fiber Crops,Kharif,150.0,Hectare,3179.0,Tonnes,21.193,Tonnes/Hectare
+432952,432951,2021-2022,West Bengal,19,Birbhum,307,Khesari,521.0,Spices,Rabi,5583.0,Hectare,5618.0,Tonnes,1.006,Tonnes/Hectare
+432953,432952,2021-2022,West Bengal,19,Birbhum,307,Linseed,1005.0,Oilseeds,Rabi,403.0,Hectare,144.0,Tonnes,0.357,Tonnes/Hectare
+432954,432953,2021-2022,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Autumn,248.0,Hectare,707.0,Tonnes,2.851,Tonnes/Hectare
+432955,432954,2021-2022,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Rabi,950.0,Hectare,3378.0,Tonnes,3.556,Tonnes/Hectare
+432956,432955,2021-2022,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Summer,1050.0,Hectare,2117.0,Tonnes,2.016,Tonnes/Hectare
+432957,432956,2021-2022,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Total,2248.0,Hectare,6202.0,Tonnes,2.759,Tonnes/Hectare
+432958,432957,2021-2022,West Bengal,19,Birbhum,307,Masoor,205.0,Pulses,Rabi,20578.0,Hectare,19009.0,Tonnes,0.924,Tonnes/Hectare
+432959,432958,2021-2022,West Bengal,19,Birbhum,307,Mesta,1103.0,Fiber Crops,Kharif,14.0,Hectare,185.0,Tonnes,13.214,Tonnes/Hectare
+432960,432959,2021-2022,West Bengal,19,Birbhum,307,Moong(Green Gram),204.0,Pulses,Summer,2044.0,Hectare,3151.0,Tonnes,1.542,Tonnes/Hectare
+432961,432960,2021-2022,West Bengal,19,Birbhum,307,Other Kharif Pulses,288.0,Pulses,Kharif,245.0,Hectare,185.0,Tonnes,0.755,Tonnes/Hectare
+432962,432961,2021-2022,West Bengal,19,Birbhum,307,Peas & Beans (Pulses),213.0,Pulses,Rabi,321.0,Hectare,328.0,Tonnes,1.022,Tonnes/Hectare
+432963,432962,2021-2022,West Bengal,19,Birbhum,307,Potato,701.0,Vegetable,Rabi,19712.0,Hectare,578915.0,Tonnes,29.369,Tonnes/Hectare
+432964,432963,2021-2022,West Bengal,19,Birbhum,307,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,44779.0,Hectare,41404.0,Tonnes,0.925,Tonnes/Hectare
+432965,432964,2021-2022,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Autumn,4135.0,Hectare,19634.0,Tonnes,4.748,Tonnes/Hectare
+432966,432965,2021-2022,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Summer,85349.0,Hectare,303107.0,Tonnes,3.551,Tonnes/Hectare
+432967,432966,2021-2022,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Total,391218.0,Hectare,1341135.0,Tonnes,3.428,Tonnes/Hectare
+432968,432967,2021-2022,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Winter,301734.0,Hectare,1018394.0,Tonnes,3.375,Tonnes/Hectare
+432969,432968,2021-2022,West Bengal,19,Birbhum,307,Safflower,1008.0,Oilseeds,Rabi,15.0,Hectare,9.0,Tonnes,0.6,Tonnes/Hectare
+432970,432969,2021-2022,West Bengal,19,Birbhum,307,Sannhamp,1104.0,Fiber Crops,Kharif,33.0,Hectare,106.0,Tonnes,3.212,Tonnes/Hectare
+432971,432970,2021-2022,West Bengal,19,Birbhum,307,Sesamum,1003.0,Oilseeds,Summer,5747.0,Hectare,4154.0,Tonnes,0.723,Tonnes/Hectare
+432972,432971,2021-2022,West Bengal,19,Birbhum,307,Soyabean,1009.0,Oilseeds,Kharif,18.0,Hectare,35.0,Tonnes,1.944,Tonnes/Hectare
+432973,432972,2021-2022,West Bengal,19,Birbhum,307,Sugarcane,401.0,Sugar,Whole Year,884.0,Hectare,75678.0,Tonnes,85.609,Tonnes/Hectare
+432974,432973,2021-2022,West Bengal,19,Birbhum,307,Sunflower,1007.0,Oilseeds,Kharif,55.0,Hectare,38.0,Tonnes,0.691,Tonnes/Hectare
+432975,432974,2021-2022,West Bengal,19,Birbhum,307,Urad,203.0,Pulses,Kharif,174.0,Hectare,122.0,Tonnes,0.701,Tonnes/Hectare
+432976,432975,2021-2022,West Bengal,19,Birbhum,307,Wheat,106.0,Cereals,Rabi,26240.0,Hectare,70178.0,Tonnes,2.674,Tonnes/Hectare
+432977,432976,2021-2022,West Bengal,19,Cooch Behar,308,Gram,201.0,Pulses,Rabi,57.0,Hectare,68.0,Tonnes,1.193,Tonnes/Hectare
+432978,432977,2021-2022,West Bengal,19,Cooch Behar,308,Groundnut,1001.0,Oilseeds,Rabi,705.0,Hectare,1058.0,Tonnes,1.501,Tonnes/Hectare
+432979,432978,2021-2022,West Bengal,19,Cooch Behar,308,Groundnut,1001.0,Oilseeds,Summer,134.0,Hectare,290.0,Tonnes,2.164,Tonnes/Hectare
+432980,432979,2021-2022,West Bengal,19,Cooch Behar,308,Groundnut,1001.0,Oilseeds,Total,839.0,Hectare,1348.0,Tonnes,1.607,Tonnes/Hectare
+432981,432980,2021-2022,West Bengal,19,Cooch Behar,308,Horse-Gram,206.0,Pulses,Rabi,150.0,Hectare,83.0,Tonnes,0.553,Tonnes/Hectare
+432982,432981,2021-2022,West Bengal,19,Cooch Behar,308,Jute,1102.0,Fiber Crops,Kharif,59121.0,Hectare,965231.0,Tonnes,16.326,Tonnes/Hectare
+432983,432982,2021-2022,West Bengal,19,Cooch Behar,308,Khesari,521.0,Spices,Rabi,2646.0,Hectare,2898.0,Tonnes,1.095,Tonnes/Hectare
+432984,432983,2021-2022,West Bengal,19,Cooch Behar,308,Linseed,1005.0,Oilseeds,Rabi,387.0,Hectare,139.0,Tonnes,0.359,Tonnes/Hectare
+432985,432984,2021-2022,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Autumn,3311.0,Hectare,7480.0,Tonnes,2.259,Tonnes/Hectare
+432986,432985,2021-2022,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Rabi,37180.0,Hectare,290004.0,Tonnes,7.8,Tonnes/Hectare
+432987,432986,2021-2022,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Summer,8600.0,Hectare,59340.0,Tonnes,6.9,Tonnes/Hectare
+432988,432987,2021-2022,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Total,49091.0,Hectare,356824.0,Tonnes,7.269,Tonnes/Hectare
+432989,432988,2021-2022,West Bengal,19,Cooch Behar,308,Masoor,205.0,Pulses,Rabi,2855.0,Hectare,1370.0,Tonnes,0.48,Tonnes/Hectare
+432990,432989,2021-2022,West Bengal,19,Cooch Behar,308,Mesta,1103.0,Fiber Crops,Kharif,139.0,Hectare,1650.0,Tonnes,11.871,Tonnes/Hectare
+432991,432990,2021-2022,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Kharif,24.0,Hectare,14.0,Tonnes,0.583,Tonnes/Hectare
+432992,432991,2021-2022,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Rabi,60.0,Hectare,46.0,Tonnes,0.767,Tonnes/Hectare
+432993,432992,2021-2022,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Summer,610.0,Hectare,638.0,Tonnes,1.046,Tonnes/Hectare
+432994,432993,2021-2022,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Total,694.0,Hectare,698.0,Tonnes,1.006,Tonnes/Hectare
+432995,432994,2021-2022,West Bengal,19,Cooch Behar,308,Niger Seed,1010.0,Oilseeds,Kharif,110.0,Hectare,65.0,Tonnes,0.591,Tonnes/Hectare
+432996,432995,2021-2022,West Bengal,19,Cooch Behar,308,Other Kharif Pulses,288.0,Pulses,Kharif,700.0,Hectare,441.0,Tonnes,0.63,Tonnes/Hectare
+432997,432996,2021-2022,West Bengal,19,Cooch Behar,308,Peas & Beans (Pulses),213.0,Pulses,Rabi,1110.0,Hectare,1098.0,Tonnes,0.989,Tonnes/Hectare
+432998,432997,2021-2022,West Bengal,19,Cooch Behar,308,Potato,701.0,Vegetable,Rabi,32855.0,Hectare,1198869.0,Tonnes,36.49,Tonnes/Hectare
+432999,432998,2021-2022,West Bengal,19,Cooch Behar,308,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,36576.0,Hectare,38643.0,Tonnes,1.057,Tonnes/Hectare
+433000,432999,2021-2022,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Autumn,6512.0,Hectare,14289.0,Tonnes,2.194,Tonnes/Hectare
+433001,433000,2021-2022,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Summer,43480.0,Hectare,157045.0,Tonnes,3.612,Tonnes/Hectare
+433002,433001,2021-2022,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Total,265486.0,Hectare,829955.0,Tonnes,3.126,Tonnes/Hectare
+433003,433002,2021-2022,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Winter,215494.0,Hectare,658621.0,Tonnes,3.056,Tonnes/Hectare
+433004,433003,2021-2022,West Bengal,19,Cooch Behar,308,Sannhamp,1104.0,Fiber Crops,Kharif,25.0,Hectare,200.0,Tonnes,8.0,Tonnes/Hectare
+433005,433004,2021-2022,West Bengal,19,Cooch Behar,308,Sesamum,1003.0,Oilseeds,Summer,705.0,Hectare,596.0,Tonnes,0.845,Tonnes/Hectare
+433006,433005,2021-2022,West Bengal,19,Cooch Behar,308,Sesamum,1003.0,Oilseeds,Total,875.0,Hectare,703.0,Tonnes,0.803,Tonnes/Hectare
+433007,433006,2021-2022,West Bengal,19,Cooch Behar,308,Sesamum,1003.0,Oilseeds,Winter,170.0,Hectare,107.0,Tonnes,0.629,Tonnes/Hectare
+433008,433007,2021-2022,West Bengal,19,Cooch Behar,308,Small Millets,108.0,Cereals,Autumn,76.0,Hectare,85.0,Tonnes,1.118,Tonnes/Hectare
+433009,433008,2021-2022,West Bengal,19,Cooch Behar,308,Sugarcane,401.0,Sugar,Whole Year,117.0,Hectare,9513.0,Tonnes,81.308,Tonnes/Hectare
+433010,433009,2021-2022,West Bengal,19,Cooch Behar,308,Sunflower,1007.0,Oilseeds,Kharif,60.0,Hectare,72.0,Tonnes,1.2,Tonnes/Hectare
+433011,433010,2021-2022,West Bengal,19,Cooch Behar,308,Tobacco,1302.0,Drugs And Narcotics,Whole Year,12505.0,Hectare,17363.0,Tonnes,1.388,Tonnes/Hectare
+433012,433011,2021-2022,West Bengal,19,Cooch Behar,308,Urad,203.0,Pulses,Kharif,1595.0,Hectare,639.0,Tonnes,0.401,Tonnes/Hectare
+433013,433012,2021-2022,West Bengal,19,Cooch Behar,308,Urad,203.0,Pulses,Rabi,3000.0,Hectare,2370.0,Tonnes,0.79,Tonnes/Hectare
+433014,433013,2021-2022,West Bengal,19,Cooch Behar,308,Urad,203.0,Pulses,Total,4595.0,Hectare,3009.0,Tonnes,0.655,Tonnes/Hectare
+433015,433014,2021-2022,West Bengal,19,Cooch Behar,308,Wheat,106.0,Cereals,Rabi,5334.0,Hectare,14911.0,Tonnes,2.795,Tonnes/Hectare
+433016,433015,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Arhar/Tur,202.0,Pulses,Rabi,37.0,Hectare,58.0,Tonnes,1.568,Tonnes/Hectare
+433017,433016,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Gram,201.0,Pulses,Rabi,394.0,Hectare,478.0,Tonnes,1.213,Tonnes/Hectare
+433018,433017,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Groundnut,1001.0,Oilseeds,Summer,97.0,Hectare,244.0,Tonnes,2.515,Tonnes/Hectare
+433019,433018,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Jute,1102.0,Fiber Crops,Kharif,19108.0,Hectare,346803.0,Tonnes,18.15,Tonnes/Hectare
+433020,433019,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Khesari,521.0,Spices,Rabi,2048.0,Hectare,1837.0,Tonnes,0.897,Tonnes/Hectare
+433021,433020,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Linseed,1005.0,Oilseeds,Rabi,43.0,Hectare,17.0,Tonnes,0.395,Tonnes/Hectare
+433022,433021,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Maize,104.0,Cereals,Autumn,29.0,Hectare,123.0,Tonnes,4.241,Tonnes/Hectare
+433023,433022,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Maize,104.0,Cereals,Summer,4970.0,Hectare,50386.0,Tonnes,10.138,Tonnes/Hectare
+433024,433023,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Maize,104.0,Cereals,Total,4999.0,Hectare,50509.0,Tonnes,10.104,Tonnes/Hectare
+433025,433024,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Masoor,205.0,Pulses,Rabi,4635.0,Hectare,3529.0,Tonnes,0.761,Tonnes/Hectare
+433026,433025,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Mesta,1103.0,Fiber Crops,Kharif,5801.0,Hectare,79705.0,Tonnes,13.74,Tonnes/Hectare
+433027,433026,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Moong(Green Gram),204.0,Pulses,Summer,221.0,Hectare,230.0,Tonnes,1.041,Tonnes/Hectare
+433028,433027,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Peas & Beans (Pulses),213.0,Pulses,Rabi,425.0,Hectare,318.0,Tonnes,0.748,Tonnes/Hectare
+433029,433028,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Potato,701.0,Vegetable,Rabi,19048.0,Hectare,521699.0,Tonnes,27.389,Tonnes/Hectare
+433030,433029,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,70276.0,Hectare,100399.0,Tonnes,1.429,Tonnes/Hectare
+433031,433030,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Autumn,794.0,Hectare,2071.0,Tonnes,2.608,Tonnes/Hectare
+433032,433031,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Summer,41611.0,Hectare,146255.0,Tonnes,3.515,Tonnes/Hectare
+433033,433032,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Total,205026.0,Hectare,633897.0,Tonnes,3.092,Tonnes/Hectare
+433034,433033,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Winter,162621.0,Hectare,485571.0,Tonnes,2.986,Tonnes/Hectare
+433035,433034,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Sesamum,1003.0,Oilseeds,Summer,107.0,Hectare,90.0,Tonnes,0.841,Tonnes/Hectare
+433036,433035,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Sesamum,1003.0,Oilseeds,Total,137.0,Hectare,109.0,Tonnes,0.796,Tonnes/Hectare
+433037,433036,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Sesamum,1003.0,Oilseeds,Winter,30.0,Hectare,19.0,Tonnes,0.633,Tonnes/Hectare
+433038,433037,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Sugarcane,401.0,Sugar,Whole Year,16.0,Hectare,1424.0,Tonnes,89.0,Tonnes/Hectare
+433039,433038,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Urad,203.0,Pulses,Kharif,850.0,Hectare,554.0,Tonnes,0.652,Tonnes/Hectare
+433040,433039,2021-2022,West Bengal,19,Dakshin Dinajpur,310,Wheat,106.0,Cereals,Rabi,52678.0,Hectare,180693.0,Tonnes,3.43,Tonnes/Hectare
+433041,433040,2021-2022,West Bengal,19,Darjeeling,309,Arhar/Tur,202.0,Pulses,Rabi,29.0,Hectare,46.0,Tonnes,1.586,Tonnes/Hectare
+433042,433041,2021-2022,West Bengal,19,Darjeeling,309,Groundnut,1001.0,Oilseeds,Summer,53.0,Hectare,115.0,Tonnes,2.17,Tonnes/Hectare
+433043,433042,2021-2022,West Bengal,19,Darjeeling,309,Jute,1102.0,Fiber Crops,Kharif,2716.0,Hectare,38697.0,Tonnes,14.248,Tonnes/Hectare
+433044,433043,2021-2022,West Bengal,19,Darjeeling,309,Khesari,521.0,Spices,Rabi,93.0,Hectare,102.0,Tonnes,1.097,Tonnes/Hectare
+433045,433044,2021-2022,West Bengal,19,Darjeeling,309,Linseed,1005.0,Oilseeds,Rabi,98.0,Hectare,35.0,Tonnes,0.357,Tonnes/Hectare
+433046,433045,2021-2022,West Bengal,19,Darjeeling,309,Maize,104.0,Cereals,Autumn,4262.0,Hectare,10904.0,Tonnes,2.558,Tonnes/Hectare
+433047,433046,2021-2022,West Bengal,19,Darjeeling,309,Masoor,205.0,Pulses,Rabi,66.0,Hectare,39.0,Tonnes,0.591,Tonnes/Hectare
+433048,433047,2021-2022,West Bengal,19,Darjeeling,309,Mesta,1103.0,Fiber Crops,Kharif,15.0,Hectare,153.0,Tonnes,10.2,Tonnes/Hectare
+433049,433048,2021-2022,West Bengal,19,Darjeeling,309,Moong(Green Gram),204.0,Pulses,Summer,183.0,Hectare,191.0,Tonnes,1.044,Tonnes/Hectare
+433050,433049,2021-2022,West Bengal,19,Darjeeling,309,Peas & Beans (Pulses),213.0,Pulses,Rabi,202.0,Hectare,200.0,Tonnes,0.99,Tonnes/Hectare
+433051,433050,2021-2022,West Bengal,19,Darjeeling,309,Potato,701.0,Vegetable,Rabi,1229.0,Hectare,30894.0,Tonnes,25.138,Tonnes/Hectare
+433052,433051,2021-2022,West Bengal,19,Darjeeling,309,Potato,701.0,Vegetable,Summer,695.0,Hectare,8340.0,Tonnes,12.0,Tonnes/Hectare
+433053,433052,2021-2022,West Bengal,19,Darjeeling,309,Potato,701.0,Vegetable,Total,1924.0,Hectare,39234.0,Tonnes,20.392,Tonnes/Hectare
+433054,433053,2021-2022,West Bengal,19,Darjeeling,309,Ragi,105.0,Cereals,Autumn,3570.0,Hectare,3570.0,Tonnes,1.0,Tonnes/Hectare
+433055,433054,2021-2022,West Bengal,19,Darjeeling,309,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,336.0,Hectare,262.0,Tonnes,0.78,Tonnes/Hectare
+433056,433055,2021-2022,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Autumn,3324.0,Hectare,6883.0,Tonnes,2.071,Tonnes/Hectare
+433057,433056,2021-2022,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Summer,2175.0,Hectare,6907.0,Tonnes,3.176,Tonnes/Hectare
+433058,433057,2021-2022,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Total,26767.0,Hectare,68209.0,Tonnes,2.548,Tonnes/Hectare
+433059,433058,2021-2022,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Winter,21268.0,Hectare,54419.0,Tonnes,2.559,Tonnes/Hectare
+433060,433059,2021-2022,West Bengal,19,Darjeeling,309,Sesamum,1003.0,Oilseeds,Summer,124.0,Hectare,105.0,Tonnes,0.847,Tonnes/Hectare
+433061,433060,2021-2022,West Bengal,19,Darjeeling,309,Soyabean,1009.0,Oilseeds,Kharif,215.0,Hectare,151.0,Tonnes,0.702,Tonnes/Hectare
+433062,433061,2021-2022,West Bengal,19,Darjeeling,309,Sugarcane,401.0,Sugar,Whole Year,11.0,Hectare,894.0,Tonnes,81.273,Tonnes/Hectare
+433063,433062,2021-2022,West Bengal,19,Darjeeling,309,Urad,203.0,Pulses,Kharif,406.0,Hectare,163.0,Tonnes,0.401,Tonnes/Hectare
+433064,433063,2021-2022,West Bengal,19,Darjeeling,309,Wheat,106.0,Cereals,Rabi,303.0,Hectare,710.0,Tonnes,2.343,Tonnes/Hectare
+433065,433064,2021-2022,West Bengal,19,Hooghly,312,Arhar/Tur,202.0,Pulses,Rabi,51.0,Hectare,80.0,Tonnes,1.569,Tonnes/Hectare
+433066,433065,2021-2022,West Bengal,19,Hooghly,312,Gram,201.0,Pulses,Rabi,42.0,Hectare,53.0,Tonnes,1.262,Tonnes/Hectare
+433067,433066,2021-2022,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Autumn,98.0,Hectare,196.0,Tonnes,2.0,Tonnes/Hectare
+433068,433067,2021-2022,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Rabi,275.0,Hectare,255.0,Tonnes,0.927,Tonnes/Hectare
+433069,433068,2021-2022,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Summer,19759.0,Hectare,44990.0,Tonnes,2.277,Tonnes/Hectare
+433070,433069,2021-2022,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Total,20132.0,Hectare,45441.0,Tonnes,2.257,Tonnes/Hectare
+433071,433070,2021-2022,West Bengal,19,Hooghly,312,Jute,1102.0,Fiber Crops,Kharif,12910.0,Hectare,276672.0,Tonnes,21.431,Tonnes/Hectare
+433072,433071,2021-2022,West Bengal,19,Hooghly,312,Khesari,521.0,Spices,Rabi,421.0,Hectare,436.0,Tonnes,1.036,Tonnes/Hectare
+433073,433072,2021-2022,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Autumn,42.0,Hectare,120.0,Tonnes,2.857,Tonnes/Hectare
+433074,433073,2021-2022,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Rabi,100.0,Hectare,252.0,Tonnes,2.52,Tonnes/Hectare
+433075,433074,2021-2022,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Summer,226.0,Hectare,582.0,Tonnes,2.575,Tonnes/Hectare
+433076,433075,2021-2022,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Total,368.0,Hectare,954.0,Tonnes,2.592,Tonnes/Hectare
+433077,433076,2021-2022,West Bengal,19,Hooghly,312,Masoor,205.0,Pulses,Rabi,2958.0,Hectare,1083.0,Tonnes,0.366,Tonnes/Hectare
+433078,433077,2021-2022,West Bengal,19,Hooghly,312,Mesta,1103.0,Fiber Crops,Kharif,96.0,Hectare,1270.0,Tonnes,13.229,Tonnes/Hectare
+433079,433078,2021-2022,West Bengal,19,Hooghly,312,Moong(Green Gram),204.0,Pulses,Kharif,12.0,Hectare,5.0,Tonnes,0.417,Tonnes/Hectare
+433080,433079,2021-2022,West Bengal,19,Hooghly,312,Moong(Green Gram),204.0,Pulses,Summer,864.0,Hectare,1051.0,Tonnes,1.216,Tonnes/Hectare
+433081,433080,2021-2022,West Bengal,19,Hooghly,312,Moong(Green Gram),204.0,Pulses,Total,876.0,Hectare,1056.0,Tonnes,1.205,Tonnes/Hectare
+433082,433081,2021-2022,West Bengal,19,Hooghly,312,Peas & Beans (Pulses),213.0,Pulses,Rabi,735.0,Hectare,791.0,Tonnes,1.076,Tonnes/Hectare
+433083,433082,2021-2022,West Bengal,19,Hooghly,312,Potato,701.0,Vegetable,Rabi,72540.0,Hectare,1897825.0,Tonnes,26.162,Tonnes/Hectare
+433084,433083,2021-2022,West Bengal,19,Hooghly,312,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,4328.0,Hectare,4230.0,Tonnes,0.977,Tonnes/Hectare
+433085,433084,2021-2022,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Autumn,6891.0,Hectare,20303.0,Tonnes,2.946,Tonnes/Hectare
+433086,433085,2021-2022,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Summer,63521.0,Hectare,216290.0,Tonnes,3.405,Tonnes/Hectare
+433087,433086,2021-2022,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Total,250680.0,Hectare,823039.0,Tonnes,3.283,Tonnes/Hectare
+433088,433087,2021-2022,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Winter,180268.0,Hectare,586446.0,Tonnes,3.253,Tonnes/Hectare
+433089,433088,2021-2022,West Bengal,19,Hooghly,312,Sesamum,1003.0,Oilseeds,Summer,37427.0,Hectare,34993.0,Tonnes,0.935,Tonnes/Hectare
+433090,433089,2021-2022,West Bengal,19,Hooghly,312,Sugarcane,401.0,Sugar,Whole Year,366.0,Hectare,27963.0,Tonnes,76.402,Tonnes/Hectare
+433091,433090,2021-2022,West Bengal,19,Hooghly,312,Urad,203.0,Pulses,Kharif,4.0,Hectare,3.0,Tonnes,0.75,Tonnes/Hectare
+433092,433091,2021-2022,West Bengal,19,Hooghly,312,Wheat,106.0,Cereals,Rabi,5.0,Hectare,14.0,Tonnes,2.8,Tonnes/Hectare
+433093,433092,2021-2022,West Bengal,19,Howrah,313,Gram,201.0,Pulses,Rabi,14.0,Hectare,11.0,Tonnes,0.786,Tonnes/Hectare
+433094,433093,2021-2022,West Bengal,19,Howrah,313,Groundnut,1001.0,Oilseeds,Summer,4805.0,Hectare,16215.0,Tonnes,3.375,Tonnes/Hectare
+433095,433094,2021-2022,West Bengal,19,Howrah,313,Jute,1102.0,Fiber Crops,Kharif,4481.0,Hectare,85664.0,Tonnes,19.117,Tonnes/Hectare
+433096,433095,2021-2022,West Bengal,19,Howrah,313,Khesari,521.0,Spices,Rabi,1737.0,Hectare,1431.0,Tonnes,0.824,Tonnes/Hectare
+433097,433096,2021-2022,West Bengal,19,Howrah,313,Linseed,1005.0,Oilseeds,Rabi,26.0,Hectare,9.0,Tonnes,0.346,Tonnes/Hectare
+433098,433097,2021-2022,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Autumn,3.0,Hectare,9.0,Tonnes,3.0,Tonnes/Hectare
+433099,433098,2021-2022,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Rabi,32.0,Hectare,116.0,Tonnes,3.625,Tonnes/Hectare
+433100,433099,2021-2022,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Summer,64.0,Hectare,101.0,Tonnes,1.578,Tonnes/Hectare
+433101,433100,2021-2022,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Total,99.0,Hectare,226.0,Tonnes,2.283,Tonnes/Hectare
+433102,433101,2021-2022,West Bengal,19,Howrah,313,Masoor,205.0,Pulses,Rabi,79.0,Hectare,74.0,Tonnes,0.937,Tonnes/Hectare
+433103,433102,2021-2022,West Bengal,19,Howrah,313,Moong(Green Gram),204.0,Pulses,Summer,1781.0,Hectare,1686.0,Tonnes,0.947,Tonnes/Hectare
+433104,433103,2021-2022,West Bengal,19,Howrah,313,Peas & Beans (Pulses),213.0,Pulses,Rabi,31.0,Hectare,34.0,Tonnes,1.097,Tonnes/Hectare
+433105,433104,2021-2022,West Bengal,19,Howrah,313,Potato,701.0,Vegetable,Rabi,3656.0,Hectare,106148.0,Tonnes,29.034,Tonnes/Hectare
+433106,433105,2021-2022,West Bengal,19,Howrah,313,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,1573.0,Hectare,1180.0,Tonnes,0.75,Tonnes/Hectare
+433107,433106,2021-2022,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Autumn,1115.0,Hectare,3293.0,Tonnes,2.953,Tonnes/Hectare
+433108,433107,2021-2022,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Summer,30507.0,Hectare,102974.0,Tonnes,3.375,Tonnes/Hectare
+433109,433108,2021-2022,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Total,87811.0,Hectare,189576.0,Tonnes,2.159,Tonnes/Hectare
+433110,433109,2021-2022,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Winter,56189.0,Hectare,83309.0,Tonnes,1.483,Tonnes/Hectare
+433111,433110,2021-2022,West Bengal,19,Howrah,313,Sesamum,1003.0,Oilseeds,Summer,3513.0,Hectare,3817.0,Tonnes,1.087,Tonnes/Hectare
+433112,433111,2021-2022,West Bengal,19,Howrah,313,Sugarcane,401.0,Sugar,Whole Year,97.0,Hectare,7887.0,Tonnes,81.309,Tonnes/Hectare
+433113,433112,2021-2022,West Bengal,19,Howrah,313,Sunflower,1007.0,Oilseeds,Kharif,15.0,Hectare,15.0,Tonnes,1.0,Tonnes/Hectare
+433114,433113,2021-2022,West Bengal,19,Howrah,313,Urad,203.0,Pulses,Kharif,8.0,Hectare,4.0,Tonnes,0.5,Tonnes/Hectare
+433115,433114,2021-2022,West Bengal,19,Howrah,313,Wheat,106.0,Cereals,Rabi,194.0,Hectare,625.0,Tonnes,3.222,Tonnes/Hectare
+433116,433115,2021-2022,West Bengal,19,Jalpaiguri,314,Arhar/Tur,202.0,Pulses,Rabi,56.0,Hectare,88.0,Tonnes,1.571,Tonnes/Hectare
+433117,433116,2021-2022,West Bengal,19,Jalpaiguri,314,Gram,201.0,Pulses,Rabi,26.0,Hectare,31.0,Tonnes,1.192,Tonnes/Hectare
+433118,433117,2021-2022,West Bengal,19,Jalpaiguri,314,Groundnut,1001.0,Oilseeds,Rabi,1480.0,Hectare,2967.0,Tonnes,2.005,Tonnes/Hectare
+433119,433118,2021-2022,West Bengal,19,Jalpaiguri,314,Groundnut,1001.0,Oilseeds,Summer,3266.0,Hectare,8025.0,Tonnes,2.457,Tonnes/Hectare
+433120,433119,2021-2022,West Bengal,19,Jalpaiguri,314,Groundnut,1001.0,Oilseeds,Total,4746.0,Hectare,10992.0,Tonnes,2.316,Tonnes/Hectare
+433121,433120,2021-2022,West Bengal,19,Jalpaiguri,314,Horse-Gram,206.0,Pulses,Rabi,35.0,Hectare,22.0,Tonnes,0.629,Tonnes/Hectare
+433122,433121,2021-2022,West Bengal,19,Jalpaiguri,314,Jute,1102.0,Fiber Crops,Kharif,25903.0,Hectare,434695.0,Tonnes,16.782,Tonnes/Hectare
+433123,433122,2021-2022,West Bengal,19,Jalpaiguri,314,Khesari,521.0,Spices,Rabi,1315.0,Hectare,1440.0,Tonnes,1.095,Tonnes/Hectare
+433124,433123,2021-2022,West Bengal,19,Jalpaiguri,314,Linseed,1005.0,Oilseeds,Rabi,243.0,Hectare,87.0,Tonnes,0.358,Tonnes/Hectare
+433125,433124,2021-2022,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Autumn,2071.0,Hectare,4679.0,Tonnes,2.259,Tonnes/Hectare
+433126,433125,2021-2022,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Rabi,2550.0,Hectare,13158.0,Tonnes,5.16,Tonnes/Hectare
+433127,433126,2021-2022,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Summer,10620.0,Hectare,53684.0,Tonnes,5.055,Tonnes/Hectare
+433128,433127,2021-2022,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Total,15241.0,Hectare,71521.0,Tonnes,4.693,Tonnes/Hectare
+433129,433128,2021-2022,West Bengal,19,Jalpaiguri,314,Masoor,205.0,Pulses,Rabi,1573.0,Hectare,698.0,Tonnes,0.444,Tonnes/Hectare
+433130,433129,2021-2022,West Bengal,19,Jalpaiguri,314,Mesta,1103.0,Fiber Crops,Kharif,33.0,Hectare,336.0,Tonnes,10.182,Tonnes/Hectare
+433131,433130,2021-2022,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Kharif,435.0,Hectare,200.0,Tonnes,0.46,Tonnes/Hectare
+433132,433131,2021-2022,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Rabi,10.0,Hectare,8.0,Tonnes,0.8,Tonnes/Hectare
+433133,433132,2021-2022,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Summer,186.0,Hectare,195.0,Tonnes,1.048,Tonnes/Hectare
+433134,433133,2021-2022,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Total,631.0,Hectare,403.0,Tonnes,0.639,Tonnes/Hectare
+433135,433134,2021-2022,West Bengal,19,Jalpaiguri,314,Niger Seed,1010.0,Oilseeds,Kharif,290.0,Hectare,168.0,Tonnes,0.579,Tonnes/Hectare
+433136,433135,2021-2022,West Bengal,19,Jalpaiguri,314,Peas & Beans (Pulses),213.0,Pulses,Rabi,1505.0,Hectare,1488.0,Tonnes,0.989,Tonnes/Hectare
+433137,433136,2021-2022,West Bengal,19,Jalpaiguri,314,Potato,701.0,Vegetable,Rabi,30411.0,Hectare,1078548.0,Tonnes,35.466,Tonnes/Hectare
+433138,433137,2021-2022,West Bengal,19,Jalpaiguri,314,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,5692.0,Hectare,5466.0,Tonnes,0.96,Tonnes/Hectare
+433139,433138,2021-2022,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Autumn,9429.0,Hectare,21272.0,Tonnes,2.256,Tonnes/Hectare
+433140,433139,2021-2022,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Summer,17480.0,Hectare,54681.0,Tonnes,3.128,Tonnes/Hectare
+433141,433140,2021-2022,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Total,138411.0,Hectare,372134.0,Tonnes,2.689,Tonnes/Hectare
+433142,433141,2021-2022,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Winter,111502.0,Hectare,296181.0,Tonnes,2.656,Tonnes/Hectare
+433143,433142,2021-2022,West Bengal,19,Jalpaiguri,314,Sesamum,1003.0,Oilseeds,Summer,716.0,Hectare,635.0,Tonnes,0.887,Tonnes/Hectare
+433144,433143,2021-2022,West Bengal,19,Jalpaiguri,314,Sesamum,1003.0,Oilseeds,Total,791.0,Hectare,690.0,Tonnes,0.872,Tonnes/Hectare
+433145,433144,2021-2022,West Bengal,19,Jalpaiguri,314,Sesamum,1003.0,Oilseeds,Winter,75.0,Hectare,55.0,Tonnes,0.733,Tonnes/Hectare
+433146,433145,2021-2022,West Bengal,19,Jalpaiguri,314,Sugarcane,401.0,Sugar,Whole Year,138.0,Hectare,11221.0,Tonnes,81.312,Tonnes/Hectare
+433147,433146,2021-2022,West Bengal,19,Jalpaiguri,314,Sunflower,1007.0,Oilseeds,Kharif,10.0,Hectare,10.0,Tonnes,1.0,Tonnes/Hectare
+433148,433147,2021-2022,West Bengal,19,Jalpaiguri,314,Tobacco,1302.0,Drugs And Narcotics,Whole Year,55.0,Hectare,92.0,Tonnes,1.673,Tonnes/Hectare
+433149,433148,2021-2022,West Bengal,19,Jalpaiguri,314,Urad,203.0,Pulses,Kharif,766.0,Hectare,259.0,Tonnes,0.338,Tonnes/Hectare
+433150,433149,2021-2022,West Bengal,19,Jalpaiguri,314,Urad,203.0,Pulses,Rabi,60.0,Hectare,49.0,Tonnes,0.817,Tonnes/Hectare
+433151,433150,2021-2022,West Bengal,19,Jalpaiguri,314,Urad,203.0,Pulses,Total,826.0,Hectare,308.0,Tonnes,0.373,Tonnes/Hectare
+433152,433151,2021-2022,West Bengal,19,Jalpaiguri,314,Wheat,106.0,Cereals,Rabi,2326.0,Hectare,6502.0,Tonnes,2.795,Tonnes/Hectare
+433153,433152,2021-2022,West Bengal,19,Jhargram,703,Arhar/Tur,202.0,Pulses,Rabi,108.0,Hectare,166.0,Tonnes,1.537,Tonnes/Hectare
+433154,433153,2021-2022,West Bengal,19,Jhargram,703,Gram,201.0,Pulses,Rabi,509.0,Hectare,740.0,Tonnes,1.454,Tonnes/Hectare
+433155,433154,2021-2022,West Bengal,19,Jhargram,703,Groundnut,1001.0,Oilseeds,Rabi,1415.0,Hectare,3099.0,Tonnes,2.19,Tonnes/Hectare
+433156,433155,2021-2022,West Bengal,19,Jhargram,703,Groundnut,1001.0,Oilseeds,Summer,3327.0,Hectare,5969.0,Tonnes,1.794,Tonnes/Hectare
+433157,433156,2021-2022,West Bengal,19,Jhargram,703,Groundnut,1001.0,Oilseeds,Total,4742.0,Hectare,9068.0,Tonnes,1.912,Tonnes/Hectare
+433158,433157,2021-2022,West Bengal,19,Jhargram,703,Horse-Gram,206.0,Pulses,Rabi,102.0,Hectare,64.0,Tonnes,0.627,Tonnes/Hectare
+433159,433158,2021-2022,West Bengal,19,Jhargram,703,Khesari,521.0,Spices,Rabi,2110.0,Hectare,2312.0,Tonnes,1.096,Tonnes/Hectare
+433160,433159,2021-2022,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Autumn,413.0,Hectare,992.0,Tonnes,2.402,Tonnes/Hectare
+433161,433160,2021-2022,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Rabi,851.0,Hectare,2085.0,Tonnes,2.45,Tonnes/Hectare
+433162,433161,2021-2022,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Summer,950.0,Hectare,2651.0,Tonnes,2.791,Tonnes/Hectare
+433163,433162,2021-2022,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Total,2214.0,Hectare,5728.0,Tonnes,2.587,Tonnes/Hectare
+433164,433163,2021-2022,West Bengal,19,Jhargram,703,Masoor,205.0,Pulses,Rabi,2274.0,Hectare,3574.0,Tonnes,1.572,Tonnes/Hectare
+433165,433164,2021-2022,West Bengal,19,Jhargram,703,Mesta,1103.0,Fiber Crops,Kharif,18.0,Hectare,54.0,Tonnes,3.0,Tonnes/Hectare
+433166,433165,2021-2022,West Bengal,19,Jhargram,703,Moong(Green Gram),204.0,Pulses,Rabi,580.0,Hectare,487.0,Tonnes,0.84,Tonnes/Hectare
+433167,433166,2021-2022,West Bengal,19,Jhargram,703,Moong(Green Gram),204.0,Pulses,Summer,1684.0,Hectare,784.0,Tonnes,0.466,Tonnes/Hectare
+433168,433167,2021-2022,West Bengal,19,Jhargram,703,Moong(Green Gram),204.0,Pulses,Total,2264.0,Hectare,1271.0,Tonnes,0.561,Tonnes/Hectare
+433169,433168,2021-2022,West Bengal,19,Jhargram,703,Peas & Beans (Pulses),213.0,Pulses,Rabi,358.0,Hectare,354.0,Tonnes,0.989,Tonnes/Hectare
+433170,433169,2021-2022,West Bengal,19,Jhargram,703,Potato,701.0,Vegetable,Rabi,4442.0,Hectare,136387.0,Tonnes,30.704,Tonnes/Hectare
+433171,433170,2021-2022,West Bengal,19,Jhargram,703,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,5841.0,Hectare,4706.0,Tonnes,0.806,Tonnes/Hectare
+433172,433171,2021-2022,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Autumn,8628.0,Hectare,19504.0,Tonnes,2.261,Tonnes/Hectare
+433173,433172,2021-2022,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Summer,21131.0,Hectare,68568.0,Tonnes,3.245,Tonnes/Hectare
+433174,433173,2021-2022,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Total,169350.0,Hectare,474139.0,Tonnes,2.8,Tonnes/Hectare
+433175,433174,2021-2022,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Winter,139591.0,Hectare,386067.0,Tonnes,2.766,Tonnes/Hectare
+433176,433175,2021-2022,West Bengal,19,Jhargram,703,Sannhamp,1104.0,Fiber Crops,Kharif,72.0,Hectare,162.0,Tonnes,2.25,Tonnes/Hectare
+433177,433176,2021-2022,West Bengal,19,Jhargram,703,Sesamum,1003.0,Oilseeds,Summer,6854.0,Hectare,5984.0,Tonnes,0.873,Tonnes/Hectare
+433178,433177,2021-2022,West Bengal,19,Jhargram,703,Sugarcane,401.0,Sugar,Whole Year,1546.0,Hectare,116297.0,Tonnes,75.224,Tonnes/Hectare
+433179,433178,2021-2022,West Bengal,19,Jhargram,703,Sunflower,1007.0,Oilseeds,Kharif,203.0,Hectare,321.0,Tonnes,1.581,Tonnes/Hectare
+433180,433179,2021-2022,West Bengal,19,Jhargram,703,Urad,203.0,Pulses,Kharif,245.0,Hectare,103.0,Tonnes,0.42,Tonnes/Hectare
+433181,433180,2021-2022,West Bengal,19,Jhargram,703,Urad,203.0,Pulses,Rabi,110.0,Hectare,80.0,Tonnes,0.727,Tonnes/Hectare
+433182,433181,2021-2022,West Bengal,19,Jhargram,703,Urad,203.0,Pulses,Total,355.0,Hectare,183.0,Tonnes,0.515,Tonnes/Hectare
+433183,433182,2021-2022,West Bengal,19,Jhargram,703,Wheat,106.0,Cereals,Rabi,910.0,Hectare,2341.0,Tonnes,2.573,Tonnes/Hectare
+433184,433183,2021-2022,West Bengal,19,Kalimpong,702,Barley,107.0,Cereals,Rabi,48.0,Hectare,120.0,Tonnes,2.5,Tonnes/Hectare
+433185,433184,2021-2022,West Bengal,19,Kalimpong,702,Maize,104.0,Cereals,Autumn,11432.0,Hectare,28365.0,Tonnes,2.481,Tonnes/Hectare
+433186,433185,2021-2022,West Bengal,19,Kalimpong,702,Maize,104.0,Cereals,Summer,11105.0,Hectare,19933.0,Tonnes,1.795,Tonnes/Hectare
+433187,433186,2021-2022,West Bengal,19,Kalimpong,702,Maize,104.0,Cereals,Total,22537.0,Hectare,48298.0,Tonnes,2.143,Tonnes/Hectare
+433188,433187,2021-2022,West Bengal,19,Kalimpong,702,Peas & Beans (Pulses),213.0,Pulses,Rabi,52.0,Hectare,51.0,Tonnes,0.981,Tonnes/Hectare
+433189,433188,2021-2022,West Bengal,19,Kalimpong,702,Potato,701.0,Vegetable,Rabi,1198.0,Hectare,22947.0,Tonnes,19.154,Tonnes/Hectare
+433190,433189,2021-2022,West Bengal,19,Kalimpong,702,Potato,701.0,Vegetable,Summer,20.0,Hectare,110.0,Tonnes,5.5,Tonnes/Hectare
+433191,433190,2021-2022,West Bengal,19,Kalimpong,702,Potato,701.0,Vegetable,Total,1218.0,Hectare,23057.0,Tonnes,18.93,Tonnes/Hectare
+433192,433191,2021-2022,West Bengal,19,Kalimpong,702,Ragi,105.0,Cereals,Autumn,1700.0,Hectare,2669.0,Tonnes,1.57,Tonnes/Hectare
+433193,433192,2021-2022,West Bengal,19,Kalimpong,702,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,113.0,Hectare,101.0,Tonnes,0.894,Tonnes/Hectare
+433194,433193,2021-2022,West Bengal,19,Kalimpong,702,Rice,101.0,Cereals,Winter,4870.0,Hectare,10153.0,Tonnes,2.085,Tonnes/Hectare
+433195,433194,2021-2022,West Bengal,19,Kalimpong,702,Small Millets,108.0,Cereals,Rabi,675.0,Hectare,1050.0,Tonnes,1.556,Tonnes/Hectare
+433196,433195,2021-2022,West Bengal,19,Kalimpong,702,Urad,203.0,Pulses,Kharif,13.0,Hectare,5.0,Tonnes,0.385,Tonnes/Hectare
+433197,433196,2021-2022,West Bengal,19,Malda,316,Arhar/Tur,202.0,Pulses,Rabi,86.0,Hectare,135.0,Tonnes,1.57,Tonnes/Hectare
+433198,433197,2021-2022,West Bengal,19,Malda,316,Gram,201.0,Pulses,Rabi,1796.0,Hectare,2411.0,Tonnes,1.342,Tonnes/Hectare
+433199,433198,2021-2022,West Bengal,19,Malda,316,Groundnut,1001.0,Oilseeds,Summer,471.0,Hectare,1185.0,Tonnes,2.516,Tonnes/Hectare
+433200,433199,2021-2022,West Bengal,19,Malda,316,Horse-Gram,206.0,Pulses,Rabi,94.0,Hectare,69.0,Tonnes,0.734,Tonnes/Hectare
+433201,433200,2021-2022,West Bengal,19,Malda,316,Jute,1102.0,Fiber Crops,Kharif,28912.0,Hectare,458068.0,Tonnes,15.844,Tonnes/Hectare
+433202,433201,2021-2022,West Bengal,19,Malda,316,Khesari,521.0,Spices,Rabi,3063.0,Hectare,4659.0,Tonnes,1.521,Tonnes/Hectare
+433203,433202,2021-2022,West Bengal,19,Malda,316,Linseed,1005.0,Oilseeds,Rabi,41.0,Hectare,26.0,Tonnes,0.634,Tonnes/Hectare
+433204,433203,2021-2022,West Bengal,19,Malda,316,Maize,104.0,Cereals,Autumn,8401.0,Hectare,32664.0,Tonnes,3.888,Tonnes/Hectare
+433205,433204,2021-2022,West Bengal,19,Malda,316,Maize,104.0,Cereals,Rabi,35280.0,Hectare,330044.0,Tonnes,9.355,Tonnes/Hectare
+433206,433205,2021-2022,West Bengal,19,Malda,316,Maize,104.0,Cereals,Summer,11340.0,Hectare,88339.0,Tonnes,7.79,Tonnes/Hectare
+433207,433206,2021-2022,West Bengal,19,Malda,316,Maize,104.0,Cereals,Total,55021.0,Hectare,451047.0,Tonnes,8.198,Tonnes/Hectare
+433208,433207,2021-2022,West Bengal,19,Malda,316,Masoor,205.0,Pulses,Rabi,12249.0,Hectare,15366.0,Tonnes,1.254,Tonnes/Hectare
+433209,433208,2021-2022,West Bengal,19,Malda,316,Mesta,1103.0,Fiber Crops,Kharif,762.0,Hectare,9107.0,Tonnes,11.951,Tonnes/Hectare
+433210,433209,2021-2022,West Bengal,19,Malda,316,Moong(Green Gram),204.0,Pulses,Summer,2360.0,Hectare,2459.0,Tonnes,1.042,Tonnes/Hectare
+433211,433210,2021-2022,West Bengal,19,Malda,316,Peas & Beans (Pulses),213.0,Pulses,Rabi,618.0,Hectare,686.0,Tonnes,1.11,Tonnes/Hectare
+433212,433211,2021-2022,West Bengal,19,Malda,316,Potato,701.0,Vegetable,Rabi,10140.0,Hectare,366235.0,Tonnes,36.118,Tonnes/Hectare
+433213,433212,2021-2022,West Bengal,19,Malda,316,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,40085.0,Hectare,65006.0,Tonnes,1.622,Tonnes/Hectare
+433214,433213,2021-2022,West Bengal,19,Malda,316,Rice,101.0,Cereals,Autumn,3589.0,Hectare,9360.0,Tonnes,2.608,Tonnes/Hectare
+433215,433214,2021-2022,West Bengal,19,Malda,316,Rice,101.0,Cereals,Summer,63112.0,Hectare,229185.0,Tonnes,3.631,Tonnes/Hectare
+433216,433215,2021-2022,West Bengal,19,Malda,316,Rice,101.0,Cereals,Total,214180.0,Hectare,671935.0,Tonnes,3.137,Tonnes/Hectare
+433217,433216,2021-2022,West Bengal,19,Malda,316,Rice,101.0,Cereals,Winter,147479.0,Hectare,433390.0,Tonnes,2.939,Tonnes/Hectare
+433218,433217,2021-2022,West Bengal,19,Malda,316,Sesamum,1003.0,Oilseeds,Summer,419.0,Hectare,352.0,Tonnes,0.84,Tonnes/Hectare
+433219,433218,2021-2022,West Bengal,19,Malda,316,Sugarcane,401.0,Sugar,Whole Year,2385.0,Hectare,229117.0,Tonnes,96.066,Tonnes/Hectare
+433220,433219,2021-2022,West Bengal,19,Malda,316,Urad,203.0,Pulses,Kharif,10897.0,Hectare,10470.0,Tonnes,0.961,Tonnes/Hectare
+433221,433220,2021-2022,West Bengal,19,Malda,316,Wheat,106.0,Cereals,Rabi,22911.0,Hectare,65797.0,Tonnes,2.872,Tonnes/Hectare
+433222,433221,2021-2022,West Bengal,19,Murshidabad,319,Arhar/Tur,202.0,Pulses,Rabi,254.0,Hectare,400.0,Tonnes,1.575,Tonnes/Hectare
+433223,433222,2021-2022,West Bengal,19,Murshidabad,319,Barley,107.0,Cereals,Rabi,120.0,Hectare,159.0,Tonnes,1.325,Tonnes/Hectare
+433224,433223,2021-2022,West Bengal,19,Murshidabad,319,Gram,201.0,Pulses,Rabi,11538.0,Hectare,14732.0,Tonnes,1.277,Tonnes/Hectare
+433225,433224,2021-2022,West Bengal,19,Murshidabad,319,Groundnut,1001.0,Oilseeds,Rabi,100.0,Hectare,99.0,Tonnes,0.99,Tonnes/Hectare
+433226,433225,2021-2022,West Bengal,19,Murshidabad,319,Groundnut,1001.0,Oilseeds,Summer,542.0,Hectare,1364.0,Tonnes,2.517,Tonnes/Hectare
+433227,433226,2021-2022,West Bengal,19,Murshidabad,319,Groundnut,1001.0,Oilseeds,Total,642.0,Hectare,1463.0,Tonnes,2.279,Tonnes/Hectare
+433228,433227,2021-2022,West Bengal,19,Murshidabad,319,Horse-Gram,206.0,Pulses,Rabi,42.0,Hectare,10.0,Tonnes,0.238,Tonnes/Hectare
+433229,433228,2021-2022,West Bengal,19,Murshidabad,319,Jowar,102.0,Cereals,Autumn,125.0,Hectare,69.0,Tonnes,0.552,Tonnes/Hectare
+433230,433229,2021-2022,West Bengal,19,Murshidabad,319,Jute,1102.0,Fiber Crops,Kharif,139984.0,Hectare,1847907.0,Tonnes,13.201,Tonnes/Hectare
+433231,433230,2021-2022,West Bengal,19,Murshidabad,319,Khesari,521.0,Spices,Rabi,10815.0,Hectare,8622.0,Tonnes,0.797,Tonnes/Hectare
+433232,433231,2021-2022,West Bengal,19,Murshidabad,319,Linseed,1005.0,Oilseeds,Rabi,435.0,Hectare,223.0,Tonnes,0.513,Tonnes/Hectare
+433233,433232,2021-2022,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Autumn,3513.0,Hectare,14885.0,Tonnes,4.237,Tonnes/Hectare
+433234,433233,2021-2022,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Rabi,27005.0,Hectare,157871.0,Tonnes,5.846,Tonnes/Hectare
+433235,433234,2021-2022,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Summer,20840.0,Hectare,123665.0,Tonnes,5.934,Tonnes/Hectare
+433236,433235,2021-2022,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Total,51358.0,Hectare,296421.0,Tonnes,5.772,Tonnes/Hectare
+433237,433236,2021-2022,West Bengal,19,Murshidabad,319,Masoor,205.0,Pulses,Rabi,31465.0,Hectare,20929.0,Tonnes,0.665,Tonnes/Hectare
+433238,433237,2021-2022,West Bengal,19,Murshidabad,319,Mesta,1103.0,Fiber Crops,Kharif,1804.0,Hectare,23326.0,Tonnes,12.93,Tonnes/Hectare
+433239,433238,2021-2022,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Kharif,405.0,Hectare,433.0,Tonnes,1.069,Tonnes/Hectare
+433240,433239,2021-2022,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Rabi,70.0,Hectare,48.0,Tonnes,0.686,Tonnes/Hectare
+433241,433240,2021-2022,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Summer,2387.0,Hectare,2488.0,Tonnes,1.042,Tonnes/Hectare
+433242,433241,2021-2022,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Total,2862.0,Hectare,2969.0,Tonnes,1.037,Tonnes/Hectare
+433243,433242,2021-2022,West Bengal,19,Murshidabad,319,Peas & Beans (Pulses),213.0,Pulses,Rabi,2212.0,Hectare,1723.0,Tonnes,0.779,Tonnes/Hectare
+433244,433243,2021-2022,West Bengal,19,Murshidabad,319,Potato,701.0,Vegetable,Rabi,13004.0,Hectare,421244.0,Tonnes,32.393,Tonnes/Hectare
+433245,433244,2021-2022,West Bengal,19,Murshidabad,319,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,117076.0,Hectare,152050.0,Tonnes,1.299,Tonnes/Hectare
+433246,433245,2021-2022,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Autumn,11194.0,Hectare,28718.0,Tonnes,2.565,Tonnes/Hectare
+433247,433246,2021-2022,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Summer,88489.0,Hectare,323933.0,Tonnes,3.661,Tonnes/Hectare
+433248,433247,2021-2022,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Total,306042.0,Hectare,1005326.0,Tonnes,3.285,Tonnes/Hectare
+433249,433248,2021-2022,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Winter,206359.0,Hectare,652675.0,Tonnes,3.163,Tonnes/Hectare
+433250,433249,2021-2022,West Bengal,19,Murshidabad,319,Sesamum,1003.0,Oilseeds,Summer,24074.0,Hectare,21971.0,Tonnes,0.913,Tonnes/Hectare
+433251,433250,2021-2022,West Bengal,19,Murshidabad,319,Sesamum,1003.0,Oilseeds,Total,24104.0,Hectare,21994.0,Tonnes,0.912,Tonnes/Hectare
+433252,433251,2021-2022,West Bengal,19,Murshidabad,319,Sesamum,1003.0,Oilseeds,Winter,30.0,Hectare,23.0,Tonnes,0.767,Tonnes/Hectare
+433253,433252,2021-2022,West Bengal,19,Murshidabad,319,Sugarcane,401.0,Sugar,Whole Year,3322.0,Hectare,278763.0,Tonnes,83.914,Tonnes/Hectare
+433254,433253,2021-2022,West Bengal,19,Murshidabad,319,Urad,203.0,Pulses,Kharif,17937.0,Hectare,13777.0,Tonnes,0.768,Tonnes/Hectare
+433255,433254,2021-2022,West Bengal,19,Murshidabad,319,Urad,203.0,Pulses,Rabi,2210.0,Hectare,2449.0,Tonnes,1.108,Tonnes/Hectare
+433256,433255,2021-2022,West Bengal,19,Murshidabad,319,Urad,203.0,Pulses,Total,20147.0,Hectare,16226.0,Tonnes,0.805,Tonnes/Hectare
+433257,433256,2021-2022,West Bengal,19,Murshidabad,319,Wheat,106.0,Cereals,Rabi,57720.0,Hectare,163157.0,Tonnes,2.827,Tonnes/Hectare
+433258,433257,2021-2022,West Bengal,19,Nadia,320,Arhar/Tur,202.0,Pulses,Rabi,22.0,Hectare,35.0,Tonnes,1.591,Tonnes/Hectare
+433259,433258,2021-2022,West Bengal,19,Nadia,320,Gram,201.0,Pulses,Rabi,5808.0,Hectare,4184.0,Tonnes,0.72,Tonnes/Hectare
+433260,433259,2021-2022,West Bengal,19,Nadia,320,Groundnut,1001.0,Oilseeds,Rabi,943.0,Hectare,2038.0,Tonnes,2.161,Tonnes/Hectare
+433261,433260,2021-2022,West Bengal,19,Nadia,320,Groundnut,1001.0,Oilseeds,Summer,2237.0,Hectare,3871.0,Tonnes,1.73,Tonnes/Hectare
+433262,433261,2021-2022,West Bengal,19,Nadia,320,Groundnut,1001.0,Oilseeds,Total,3180.0,Hectare,5909.0,Tonnes,1.858,Tonnes/Hectare
+433263,433262,2021-2022,West Bengal,19,Nadia,320,Jute,1102.0,Fiber Crops,Kharif,96807.0,Hectare,1665108.0,Tonnes,17.2,Tonnes/Hectare
+433264,433263,2021-2022,West Bengal,19,Nadia,320,Khesari,521.0,Spices,Rabi,1685.0,Hectare,1042.0,Tonnes,0.618,Tonnes/Hectare
+433265,433264,2021-2022,West Bengal,19,Nadia,320,Linseed,1005.0,Oilseeds,Rabi,113.0,Hectare,40.0,Tonnes,0.354,Tonnes/Hectare
+433266,433265,2021-2022,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Autumn,784.0,Hectare,2236.0,Tonnes,2.852,Tonnes/Hectare
+433267,433266,2021-2022,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Rabi,7200.0,Hectare,40147.0,Tonnes,5.576,Tonnes/Hectare
+433268,433267,2021-2022,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Summer,8837.0,Hectare,55638.0,Tonnes,6.296,Tonnes/Hectare
+433269,433268,2021-2022,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Total,16821.0,Hectare,98021.0,Tonnes,5.827,Tonnes/Hectare
+433270,433269,2021-2022,West Bengal,19,Nadia,320,Masoor,205.0,Pulses,Rabi,32270.0,Hectare,18220.0,Tonnes,0.565,Tonnes/Hectare
+433271,433270,2021-2022,West Bengal,19,Nadia,320,Mesta,1103.0,Fiber Crops,Kharif,369.0,Hectare,5598.0,Tonnes,15.171,Tonnes/Hectare
+433272,433271,2021-2022,West Bengal,19,Nadia,320,Moong(Green Gram),204.0,Pulses,Summer,3418.0,Hectare,2199.0,Tonnes,0.643,Tonnes/Hectare
+433273,433272,2021-2022,West Bengal,19,Nadia,320,Other Rabi Pulses,288.0,Pulses,Rabi,896.0,Hectare,854.0,Tonnes,0.953,Tonnes/Hectare
+433274,433273,2021-2022,West Bengal,19,Nadia,320,Peas & Beans (Pulses),213.0,Pulses,Rabi,4526.0,Hectare,2955.0,Tonnes,0.653,Tonnes/Hectare
+433275,433274,2021-2022,West Bengal,19,Nadia,320,Potato,701.0,Vegetable,Rabi,5803.0,Hectare,186030.0,Tonnes,32.058,Tonnes/Hectare
+433276,433275,2021-2022,West Bengal,19,Nadia,320,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,83592.0,Hectare,85946.0,Tonnes,1.028,Tonnes/Hectare
+433277,433276,2021-2022,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Autumn,43284.0,Hectare,121067.0,Tonnes,2.797,Tonnes/Hectare
+433278,433277,2021-2022,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Summer,77544.0,Hectare,280268.0,Tonnes,3.614,Tonnes/Hectare
+433279,433278,2021-2022,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Total,220570.0,Hectare,702605.0,Tonnes,3.185,Tonnes/Hectare
+433280,433279,2021-2022,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Winter,99742.0,Hectare,301270.0,Tonnes,3.02,Tonnes/Hectare
+433281,433280,2021-2022,West Bengal,19,Nadia,320,Sesamum,1003.0,Oilseeds,Summer,31738.0,Hectare,32288.0,Tonnes,1.017,Tonnes/Hectare
+433282,433281,2021-2022,West Bengal,19,Nadia,320,Sugarcane,401.0,Sugar,Whole Year,2153.0,Hectare,175064.0,Tonnes,81.312,Tonnes/Hectare
+433283,433282,2021-2022,West Bengal,19,Nadia,320,Sunflower,1007.0,Oilseeds,Kharif,39.0,Hectare,69.0,Tonnes,1.769,Tonnes/Hectare
+433284,433283,2021-2022,West Bengal,19,Nadia,320,Urad,203.0,Pulses,Kharif,14297.0,Hectare,8570.0,Tonnes,0.599,Tonnes/Hectare
+433285,433284,2021-2022,West Bengal,19,Nadia,320,Wheat,106.0,Cereals,Rabi,10389.0,Hectare,31199.0,Tonnes,3.003,Tonnes/Hectare
+433286,433285,2021-2022,West Bengal,19,North 24 Parganas,303,Arhar/Tur,202.0,Pulses,Rabi,62.0,Hectare,97.0,Tonnes,1.565,Tonnes/Hectare
+433287,433286,2021-2022,West Bengal,19,North 24 Parganas,303,Gram,201.0,Pulses,Rabi,397.0,Hectare,307.0,Tonnes,0.773,Tonnes/Hectare
+433288,433287,2021-2022,West Bengal,19,North 24 Parganas,303,Groundnut,1001.0,Oilseeds,Rabi,183.0,Hectare,288.0,Tonnes,1.574,Tonnes/Hectare
+433289,433288,2021-2022,West Bengal,19,North 24 Parganas,303,Groundnut,1001.0,Oilseeds,Summer,1242.0,Hectare,2734.0,Tonnes,2.201,Tonnes/Hectare
+433290,433289,2021-2022,West Bengal,19,North 24 Parganas,303,Groundnut,1001.0,Oilseeds,Total,1425.0,Hectare,3022.0,Tonnes,2.121,Tonnes/Hectare
+433291,433290,2021-2022,West Bengal,19,North 24 Parganas,303,Jute,1102.0,Fiber Crops,Kharif,59370.0,Hectare,1165565.0,Tonnes,19.632,Tonnes/Hectare
+433292,433291,2021-2022,West Bengal,19,North 24 Parganas,303,Khesari,521.0,Spices,Rabi,2555.0,Hectare,3119.0,Tonnes,1.221,Tonnes/Hectare
+433293,433292,2021-2022,West Bengal,19,North 24 Parganas,303,Linseed,1005.0,Oilseeds,Rabi,37.0,Hectare,13.0,Tonnes,0.351,Tonnes/Hectare
+433294,433293,2021-2022,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Autumn,188.0,Hectare,536.0,Tonnes,2.851,Tonnes/Hectare
+433295,433294,2021-2022,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Rabi,60.0,Hectare,218.0,Tonnes,3.633,Tonnes/Hectare
+433296,433295,2021-2022,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Summer,260.0,Hectare,737.0,Tonnes,2.835,Tonnes/Hectare
+433297,433296,2021-2022,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Total,508.0,Hectare,1491.0,Tonnes,2.935,Tonnes/Hectare
+433298,433297,2021-2022,West Bengal,19,North 24 Parganas,303,Masoor,205.0,Pulses,Rabi,12135.0,Hectare,10455.0,Tonnes,0.862,Tonnes/Hectare
+433299,433298,2021-2022,West Bengal,19,North 24 Parganas,303,Mesta,1103.0,Fiber Crops,Kharif,1708.0,Hectare,34065.0,Tonnes,19.944,Tonnes/Hectare
+433300,433299,2021-2022,West Bengal,19,North 24 Parganas,303,Moong(Green Gram),204.0,Pulses,Rabi,95.0,Hectare,93.0,Tonnes,0.979,Tonnes/Hectare
+433301,433300,2021-2022,West Bengal,19,North 24 Parganas,303,Moong(Green Gram),204.0,Pulses,Summer,993.0,Hectare,639.0,Tonnes,0.644,Tonnes/Hectare
+433302,433301,2021-2022,West Bengal,19,North 24 Parganas,303,Moong(Green Gram),204.0,Pulses,Total,1088.0,Hectare,732.0,Tonnes,0.673,Tonnes/Hectare
+433303,433302,2021-2022,West Bengal,19,North 24 Parganas,303,Peas & Beans (Pulses),213.0,Pulses,Rabi,1178.0,Hectare,1283.0,Tonnes,1.089,Tonnes/Hectare
+433304,433303,2021-2022,West Bengal,19,North 24 Parganas,303,Potato,701.0,Vegetable,Rabi,8669.0,Hectare,266210.0,Tonnes,30.708,Tonnes/Hectare
+433305,433304,2021-2022,West Bengal,19,North 24 Parganas,303,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,38894.0,Hectare,55136.0,Tonnes,1.418,Tonnes/Hectare
+433306,433305,2021-2022,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Autumn,20929.0,Hectare,66452.0,Tonnes,3.175,Tonnes/Hectare
+433307,433306,2021-2022,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Summer,63938.0,Hectare,236253.0,Tonnes,3.695,Tonnes/Hectare
+433308,433307,2021-2022,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Total,224638.0,Hectare,776628.0,Tonnes,3.457,Tonnes/Hectare
+433309,433308,2021-2022,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Winter,139771.0,Hectare,473923.0,Tonnes,3.391,Tonnes/Hectare
+433310,433309,2021-2022,West Bengal,19,North 24 Parganas,303,Sesamum,1003.0,Oilseeds,Summer,17687.0,Hectare,24244.0,Tonnes,1.371,Tonnes/Hectare
+433311,433310,2021-2022,West Bengal,19,North 24 Parganas,303,Sugarcane,401.0,Sugar,Whole Year,1718.0,Hectare,139694.0,Tonnes,81.312,Tonnes/Hectare
+433312,433311,2021-2022,West Bengal,19,North 24 Parganas,303,Sunflower,1007.0,Oilseeds,Kharif,200.0,Hectare,297.0,Tonnes,1.485,Tonnes/Hectare
+433313,433312,2021-2022,West Bengal,19,North 24 Parganas,303,Urad,203.0,Pulses,Kharif,4107.0,Hectare,2260.0,Tonnes,0.55,Tonnes/Hectare
+433314,433313,2021-2022,West Bengal,19,North 24 Parganas,303,Urad,203.0,Pulses,Rabi,76.0,Hectare,77.0,Tonnes,1.013,Tonnes/Hectare
+433315,433314,2021-2022,West Bengal,19,North 24 Parganas,303,Urad,203.0,Pulses,Total,4183.0,Hectare,2337.0,Tonnes,0.559,Tonnes/Hectare
+433316,433315,2021-2022,West Bengal,19,North 24 Parganas,303,Wheat,106.0,Cereals,Rabi,1950.0,Hectare,6278.0,Tonnes,3.219,Tonnes/Hectare
+433317,433316,2021-2022,West Bengal,19,Paschim Bardhaman,704,Arhar/Tur,202.0,Pulses,Rabi,40.0,Hectare,63.0,Tonnes,1.575,Tonnes/Hectare
+433318,433317,2021-2022,West Bengal,19,Paschim Bardhaman,704,Gram,201.0,Pulses,Rabi,441.0,Hectare,551.0,Tonnes,1.249,Tonnes/Hectare
+433319,433318,2021-2022,West Bengal,19,Paschim Bardhaman,704,Groundnut,1001.0,Oilseeds,Autumn,130.0,Hectare,143.0,Tonnes,1.1,Tonnes/Hectare
+433320,433319,2021-2022,West Bengal,19,Paschim Bardhaman,704,Jute,1102.0,Fiber Crops,Kharif,7.0,Hectare,148.0,Tonnes,21.143,Tonnes/Hectare
+433321,433320,2021-2022,West Bengal,19,Paschim Bardhaman,704,Khesari,521.0,Spices,Rabi,865.0,Hectare,895.0,Tonnes,1.035,Tonnes/Hectare
+433322,433321,2021-2022,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Autumn,34.0,Hectare,97.0,Tonnes,2.853,Tonnes/Hectare
+433323,433322,2021-2022,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Rabi,456.0,Hectare,1094.0,Tonnes,2.399,Tonnes/Hectare
+433324,433323,2021-2022,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Summer,295.0,Hectare,723.0,Tonnes,2.451,Tonnes/Hectare
+433325,433324,2021-2022,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Total,785.0,Hectare,1914.0,Tonnes,2.438,Tonnes/Hectare
+433326,433325,2021-2022,West Bengal,19,Paschim Bardhaman,704,Masoor,205.0,Pulses,Rabi,1342.0,Hectare,970.0,Tonnes,0.723,Tonnes/Hectare
+433327,433326,2021-2022,West Bengal,19,Paschim Bardhaman,704,Mesta,1103.0,Fiber Crops,Kharif,5.0,Hectare,66.0,Tonnes,13.2,Tonnes/Hectare
+433328,433327,2021-2022,West Bengal,19,Paschim Bardhaman,704,Moong(Green Gram),204.0,Pulses,Summer,147.0,Hectare,179.0,Tonnes,1.218,Tonnes/Hectare
+433329,433328,2021-2022,West Bengal,19,Paschim Bardhaman,704,Peas & Beans (Pulses),213.0,Pulses,Rabi,37.0,Hectare,40.0,Tonnes,1.081,Tonnes/Hectare
+433330,433329,2021-2022,West Bengal,19,Paschim Bardhaman,704,Potato,701.0,Vegetable,Rabi,259.0,Hectare,9422.0,Tonnes,36.378,Tonnes/Hectare
+433331,433330,2021-2022,West Bengal,19,Paschim Bardhaman,704,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,2337.0,Hectare,2092.0,Tonnes,0.895,Tonnes/Hectare
+433332,433331,2021-2022,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Autumn,48.0,Hectare,164.0,Tonnes,3.417,Tonnes/Hectare
+433333,433332,2021-2022,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Summer,894.0,Hectare,2755.0,Tonnes,3.082,Tonnes/Hectare
+433334,433333,2021-2022,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Total,40000.0,Hectare,123412.0,Tonnes,3.085,Tonnes/Hectare
+433335,433334,2021-2022,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Winter,39058.0,Hectare,120493.0,Tonnes,3.085,Tonnes/Hectare
+433336,433335,2021-2022,West Bengal,19,Paschim Bardhaman,704,Sesamum,1003.0,Oilseeds,Summer,438.0,Hectare,409.0,Tonnes,0.934,Tonnes/Hectare
+433337,433336,2021-2022,West Bengal,19,Paschim Bardhaman,704,Sugarcane,401.0,Sugar,Whole Year,28.0,Hectare,2139.0,Tonnes,76.393,Tonnes/Hectare
+433338,433337,2021-2022,West Bengal,19,Paschim Bardhaman,704,Sunflower,1007.0,Oilseeds,Kharif,2.0,Hectare,3.0,Tonnes,1.5,Tonnes/Hectare
+433339,433338,2021-2022,West Bengal,19,Paschim Bardhaman,704,Urad,203.0,Pulses,Kharif,24.0,Hectare,17.0,Tonnes,0.708,Tonnes/Hectare
+433340,433339,2021-2022,West Bengal,19,Paschim Bardhaman,704,Wheat,106.0,Cereals,Rabi,710.0,Hectare,1879.0,Tonnes,2.646,Tonnes/Hectare
+433341,433340,2021-2022,West Bengal,19,Paschim Medinipur,318,Arhar/Tur,202.0,Pulses,Rabi,42.0,Hectare,65.0,Tonnes,1.548,Tonnes/Hectare
+433342,433341,2021-2022,West Bengal,19,Paschim Medinipur,318,Gram,201.0,Pulses,Rabi,183.0,Hectare,266.0,Tonnes,1.454,Tonnes/Hectare
+433343,433342,2021-2022,West Bengal,19,Paschim Medinipur,318,Groundnut,1001.0,Oilseeds,Rabi,130.0,Hectare,273.0,Tonnes,2.1,Tonnes/Hectare
+433344,433343,2021-2022,West Bengal,19,Paschim Medinipur,318,Groundnut,1001.0,Oilseeds,Summer,9653.0,Hectare,21696.0,Tonnes,2.248,Tonnes/Hectare
+433345,433344,2021-2022,West Bengal,19,Paschim Medinipur,318,Groundnut,1001.0,Oilseeds,Total,9783.0,Hectare,21969.0,Tonnes,2.246,Tonnes/Hectare
+433346,433345,2021-2022,West Bengal,19,Paschim Medinipur,318,Jute,1102.0,Fiber Crops,Kharif,3573.0,Hectare,59174.0,Tonnes,16.561,Tonnes/Hectare
+433347,433346,2021-2022,West Bengal,19,Paschim Medinipur,318,Khesari,521.0,Spices,Rabi,1153.0,Hectare,1264.0,Tonnes,1.096,Tonnes/Hectare
+433348,433347,2021-2022,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Autumn,241.0,Hectare,579.0,Tonnes,2.402,Tonnes/Hectare
+433349,433348,2021-2022,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Rabi,480.0,Hectare,1296.0,Tonnes,2.7,Tonnes/Hectare
+433350,433349,2021-2022,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Summer,657.0,Hectare,1873.0,Tonnes,2.851,Tonnes/Hectare
+433351,433350,2021-2022,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Total,1378.0,Hectare,3748.0,Tonnes,2.72,Tonnes/Hectare
+433352,433351,2021-2022,West Bengal,19,Paschim Medinipur,318,Masoor,205.0,Pulses,Rabi,2326.0,Hectare,2941.0,Tonnes,1.264,Tonnes/Hectare
+433353,433352,2021-2022,West Bengal,19,Paschim Medinipur,318,Moong(Green Gram),204.0,Pulses,Rabi,143.0,Hectare,100.0,Tonnes,0.699,Tonnes/Hectare
+433354,433353,2021-2022,West Bengal,19,Paschim Medinipur,318,Moong(Green Gram),204.0,Pulses,Summer,3762.0,Hectare,2678.0,Tonnes,0.712,Tonnes/Hectare
+433355,433354,2021-2022,West Bengal,19,Paschim Medinipur,318,Moong(Green Gram),204.0,Pulses,Total,3905.0,Hectare,2778.0,Tonnes,0.711,Tonnes/Hectare
+433356,433355,2021-2022,West Bengal,19,Paschim Medinipur,318,Peas & Beans (Pulses),213.0,Pulses,Rabi,162.0,Hectare,160.0,Tonnes,0.988,Tonnes/Hectare
+433357,433356,2021-2022,West Bengal,19,Paschim Medinipur,318,Potato,701.0,Vegetable,Rabi,65019.0,Hectare,1629722.0,Tonnes,25.065,Tonnes/Hectare
+433358,433357,2021-2022,West Bengal,19,Paschim Medinipur,318,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,13539.0,Hectare,12360.0,Tonnes,0.913,Tonnes/Hectare
+433359,433358,2021-2022,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Autumn,32920.0,Hectare,87707.0,Tonnes,2.664,Tonnes/Hectare
+433360,433359,2021-2022,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Summer,203533.0,Hectare,707327.0,Tonnes,3.475,Tonnes/Hectare
+433361,433360,2021-2022,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Total,612847.0,Hectare,1783515.0,Tonnes,2.91,Tonnes/Hectare
+433362,433361,2021-2022,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Winter,376394.0,Hectare,988481.0,Tonnes,2.626,Tonnes/Hectare
+433363,433362,2021-2022,West Bengal,19,Paschim Medinipur,318,Sesamum,1003.0,Oilseeds,Summer,69259.0,Hectare,74452.0,Tonnes,1.075,Tonnes/Hectare
+433364,433363,2021-2022,West Bengal,19,Paschim Medinipur,318,Sugarcane,401.0,Sugar,Whole Year,2644.0,Hectare,198893.0,Tonnes,75.224,Tonnes/Hectare
+433365,433364,2021-2022,West Bengal,19,Paschim Medinipur,318,Sunflower,1007.0,Oilseeds,Kharif,31.0,Hectare,33.0,Tonnes,1.065,Tonnes/Hectare
+433366,433365,2021-2022,West Bengal,19,Paschim Medinipur,318,Urad,203.0,Pulses,Kharif,176.0,Hectare,74.0,Tonnes,0.42,Tonnes/Hectare
+433367,433366,2021-2022,West Bengal,19,Paschim Medinipur,318,Urad,203.0,Pulses,Rabi,10.0,Hectare,9.0,Tonnes,0.9,Tonnes/Hectare
+433368,433367,2021-2022,West Bengal,19,Paschim Medinipur,318,Urad,203.0,Pulses,Total,186.0,Hectare,83.0,Tonnes,0.446,Tonnes/Hectare
+433369,433368,2021-2022,West Bengal,19,Paschim Medinipur,318,Wheat,106.0,Cereals,Rabi,901.0,Hectare,2318.0,Tonnes,2.573,Tonnes/Hectare
+433370,433369,2021-2022,West Bengal,19,Purba Bardhaman,306,Arhar/Tur,202.0,Pulses,Rabi,16.0,Hectare,25.0,Tonnes,1.562,Tonnes/Hectare
+433371,433370,2021-2022,West Bengal,19,Purba Bardhaman,306,Gram,201.0,Pulses,Rabi,1958.0,Hectare,2410.0,Tonnes,1.231,Tonnes/Hectare
+433372,433371,2021-2022,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Autumn,212.0,Hectare,326.0,Tonnes,1.538,Tonnes/Hectare
+433373,433372,2021-2022,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Rabi,50.0,Hectare,74.0,Tonnes,1.48,Tonnes/Hectare
+433374,433373,2021-2022,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Summer,544.0,Hectare,1294.0,Tonnes,2.379,Tonnes/Hectare
+433375,433374,2021-2022,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Total,806.0,Hectare,1694.0,Tonnes,2.102,Tonnes/Hectare
+433376,433375,2021-2022,West Bengal,19,Purba Bardhaman,306,Jute,1102.0,Fiber Crops,Kharif,11195.0,Hectare,223110.0,Tonnes,19.929,Tonnes/Hectare
+433377,433376,2021-2022,West Bengal,19,Purba Bardhaman,306,Khesari,521.0,Spices,Rabi,1571.0,Hectare,1625.0,Tonnes,1.034,Tonnes/Hectare
+433378,433377,2021-2022,West Bengal,19,Purba Bardhaman,306,Linseed,1005.0,Oilseeds,Rabi,75.0,Hectare,27.0,Tonnes,0.36,Tonnes/Hectare
+433379,433378,2021-2022,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Autumn,20.0,Hectare,57.0,Tonnes,2.85,Tonnes/Hectare
+433380,433379,2021-2022,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Rabi,42.0,Hectare,50.0,Tonnes,1.19,Tonnes/Hectare
+433381,433380,2021-2022,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Summer,61.0,Hectare,88.0,Tonnes,1.443,Tonnes/Hectare
+433382,433381,2021-2022,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Total,123.0,Hectare,195.0,Tonnes,1.585,Tonnes/Hectare
+433383,433382,2021-2022,West Bengal,19,Purba Bardhaman,306,Masoor,205.0,Pulses,Rabi,7119.0,Hectare,6408.0,Tonnes,0.9,Tonnes/Hectare
+433384,433383,2021-2022,West Bengal,19,Purba Bardhaman,306,Mesta,1103.0,Fiber Crops,Kharif,173.0,Hectare,2289.0,Tonnes,13.231,Tonnes/Hectare
+433385,433384,2021-2022,West Bengal,19,Purba Bardhaman,306,Moong(Green Gram),204.0,Pulses,Kharif,52.0,Hectare,47.0,Tonnes,0.904,Tonnes/Hectare
+433386,433385,2021-2022,West Bengal,19,Purba Bardhaman,306,Moong(Green Gram),204.0,Pulses,Summer,755.0,Hectare,919.0,Tonnes,1.217,Tonnes/Hectare
+433387,433386,2021-2022,West Bengal,19,Purba Bardhaman,306,Moong(Green Gram),204.0,Pulses,Total,807.0,Hectare,966.0,Tonnes,1.197,Tonnes/Hectare
+433388,433387,2021-2022,West Bengal,19,Purba Bardhaman,306,Peas & Beans (Pulses),213.0,Pulses,Rabi,342.0,Hectare,368.0,Tonnes,1.076,Tonnes/Hectare
+433389,433388,2021-2022,West Bengal,19,Purba Bardhaman,306,Potato,701.0,Vegetable,Rabi,66061.0,Hectare,1453711.0,Tonnes,22.006,Tonnes/Hectare
+433390,433389,2021-2022,West Bengal,19,Purba Bardhaman,306,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,30510.0,Hectare,30420.0,Tonnes,0.997,Tonnes/Hectare
+433391,433390,2021-2022,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Autumn,12785.0,Hectare,41126.0,Tonnes,3.217,Tonnes/Hectare
+433392,433391,2021-2022,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Summer,157717.0,Hectare,568618.0,Tonnes,3.605,Tonnes/Hectare
+433393,433392,2021-2022,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Total,539684.0,Hectare,1696899.0,Tonnes,3.144,Tonnes/Hectare
+433394,433393,2021-2022,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Winter,369182.0,Hectare,1087155.0,Tonnes,2.945,Tonnes/Hectare
+433395,433394,2021-2022,West Bengal,19,Purba Bardhaman,306,Sesamum,1003.0,Oilseeds,Summer,22999.0,Hectare,18204.0,Tonnes,0.792,Tonnes/Hectare
+433396,433395,2021-2022,West Bengal,19,Purba Bardhaman,306,Sugarcane,401.0,Sugar,Whole Year,1790.0,Hectare,128620.0,Tonnes,71.855,Tonnes/Hectare
+433397,433396,2021-2022,West Bengal,19,Purba Bardhaman,306,Sunflower,1007.0,Oilseeds,Kharif,60.0,Hectare,72.0,Tonnes,1.2,Tonnes/Hectare
+433398,433397,2021-2022,West Bengal,19,Purba Bardhaman,306,Urad,203.0,Pulses,Kharif,232.0,Hectare,163.0,Tonnes,0.703,Tonnes/Hectare
+433399,433398,2021-2022,West Bengal,19,Purba Bardhaman,306,Wheat,106.0,Cereals,Rabi,2020.0,Hectare,5552.0,Tonnes,2.749,Tonnes/Hectare
+433400,433399,2021-2022,West Bengal,19,Purba Medinipur,317,Gram,201.0,Pulses,Rabi,435.0,Hectare,633.0,Tonnes,1.455,Tonnes/Hectare
+433401,433400,2021-2022,West Bengal,19,Purba Medinipur,317,Groundnut,1001.0,Oilseeds,Summer,15109.0,Hectare,58785.0,Tonnes,3.891,Tonnes/Hectare
+433402,433401,2021-2022,West Bengal,19,Purba Medinipur,317,Jute,1102.0,Fiber Crops,Kharif,236.0,Hectare,3790.0,Tonnes,16.059,Tonnes/Hectare
+433403,433402,2021-2022,West Bengal,19,Purba Medinipur,317,Khesari,521.0,Spices,Rabi,13924.0,Hectare,13740.0,Tonnes,0.987,Tonnes/Hectare
+433404,433403,2021-2022,West Bengal,19,Purba Medinipur,317,Maize,104.0,Cereals,Autumn,4.0,Hectare,10.0,Tonnes,2.5,Tonnes/Hectare
+433405,433404,2021-2022,West Bengal,19,Purba Medinipur,317,Maize,104.0,Cereals,Summer,235.0,Hectare,696.0,Tonnes,2.962,Tonnes/Hectare
+433406,433405,2021-2022,West Bengal,19,Purba Medinipur,317,Maize,104.0,Cereals,Total,239.0,Hectare,706.0,Tonnes,2.954,Tonnes/Hectare
+433407,433406,2021-2022,West Bengal,19,Purba Medinipur,317,Masoor,205.0,Pulses,Rabi,1951.0,Hectare,1630.0,Tonnes,0.835,Tonnes/Hectare
+433408,433407,2021-2022,West Bengal,19,Purba Medinipur,317,Moong(Green Gram),204.0,Pulses,Summer,1710.0,Hectare,2996.0,Tonnes,1.752,Tonnes/Hectare
+433409,433408,2021-2022,West Bengal,19,Purba Medinipur,317,Potato,701.0,Vegetable,Rabi,3642.0,Hectare,83654.0,Tonnes,22.969,Tonnes/Hectare
+433410,433409,2021-2022,West Bengal,19,Purba Medinipur,317,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,4188.0,Hectare,4192.0,Tonnes,1.001,Tonnes/Hectare
+433411,433410,2021-2022,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Autumn,11066.0,Hectare,8744.0,Tonnes,0.79,Tonnes/Hectare
+433412,433411,2021-2022,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Summer,141820.0,Hectare,590432.0,Tonnes,4.163,Tonnes/Hectare
+433413,433412,2021-2022,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Total,403055.0,Hectare,1098444.0,Tonnes,2.725,Tonnes/Hectare
+433414,433413,2021-2022,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Winter,250169.0,Hectare,499268.0,Tonnes,1.996,Tonnes/Hectare
+433415,433414,2021-2022,West Bengal,19,Purba Medinipur,317,Sesamum,1003.0,Oilseeds,Summer,252.0,Hectare,268.0,Tonnes,1.063,Tonnes/Hectare
+433416,433415,2021-2022,West Bengal,19,Purba Medinipur,317,Sugarcane,401.0,Sugar,Whole Year,84.0,Hectare,6319.0,Tonnes,75.226,Tonnes/Hectare
+433417,433416,2021-2022,West Bengal,19,Purba Medinipur,317,Urad,203.0,Pulses,Kharif,1099.0,Hectare,463.0,Tonnes,0.421,Tonnes/Hectare
+433418,433417,2021-2022,West Bengal,19,Purulia,321,Arhar/Tur,202.0,Pulses,Rabi,740.0,Hectare,1160.0,Tonnes,1.568,Tonnes/Hectare
+433419,433418,2021-2022,West Bengal,19,Purulia,321,Bajra,103.0,Cereals,Kharif,72.0,Hectare,31.0,Tonnes,0.431,Tonnes/Hectare
+433420,433419,2021-2022,West Bengal,19,Purulia,321,Gram,201.0,Pulses,Rabi,2756.0,Hectare,4060.0,Tonnes,1.473,Tonnes/Hectare
+433421,433420,2021-2022,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Autumn,3350.0,Hectare,4322.0,Tonnes,1.29,Tonnes/Hectare
+433422,433421,2021-2022,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Rabi,102.0,Hectare,193.0,Tonnes,1.892,Tonnes/Hectare
+433423,433422,2021-2022,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Summer,42.0,Hectare,125.0,Tonnes,2.976,Tonnes/Hectare
+433424,433423,2021-2022,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Total,3494.0,Hectare,4640.0,Tonnes,1.328,Tonnes/Hectare
+433425,433424,2021-2022,West Bengal,19,Purulia,321,Horse-Gram,206.0,Pulses,Rabi,1225.0,Hectare,615.0,Tonnes,0.502,Tonnes/Hectare
+433426,433425,2021-2022,West Bengal,19,Purulia,321,Jowar,102.0,Cereals,Autumn,63.0,Hectare,32.0,Tonnes,0.508,Tonnes/Hectare
+433427,433426,2021-2022,West Bengal,19,Purulia,321,Khesari,521.0,Spices,Rabi,4816.0,Hectare,5621.0,Tonnes,1.167,Tonnes/Hectare
+433428,433427,2021-2022,West Bengal,19,Purulia,321,Linseed,1005.0,Oilseeds,Rabi,540.0,Hectare,151.0,Tonnes,0.28,Tonnes/Hectare
+433429,433428,2021-2022,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Autumn,4628.0,Hectare,10320.0,Tonnes,2.23,Tonnes/Hectare
+433430,433429,2021-2022,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Rabi,254.0,Hectare,457.0,Tonnes,1.799,Tonnes/Hectare
+433431,433430,2021-2022,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Summer,254.0,Hectare,714.0,Tonnes,2.811,Tonnes/Hectare
+433432,433431,2021-2022,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Total,5136.0,Hectare,11491.0,Tonnes,2.237,Tonnes/Hectare
+433433,433432,2021-2022,West Bengal,19,Purulia,321,Masoor,205.0,Pulses,Rabi,2863.0,Hectare,1686.0,Tonnes,0.589,Tonnes/Hectare
+433434,433433,2021-2022,West Bengal,19,Purulia,321,Mesta,1103.0,Fiber Crops,Kharif,267.0,Hectare,671.0,Tonnes,2.513,Tonnes/Hectare
+433435,433434,2021-2022,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Kharif,800.0,Hectare,468.0,Tonnes,0.585,Tonnes/Hectare
+433436,433435,2021-2022,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Rabi,90.0,Hectare,59.0,Tonnes,0.656,Tonnes/Hectare
+433437,433436,2021-2022,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Summer,416.0,Hectare,527.0,Tonnes,1.267,Tonnes/Hectare
+433438,433437,2021-2022,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Total,1306.0,Hectare,1054.0,Tonnes,0.807,Tonnes/Hectare
+433439,433438,2021-2022,West Bengal,19,Purulia,321,Niger Seed,1010.0,Oilseeds,Kharif,350.0,Hectare,142.0,Tonnes,0.406,Tonnes/Hectare
+433440,433439,2021-2022,West Bengal,19,Purulia,321,Peas & Beans (Pulses),213.0,Pulses,Rabi,553.0,Hectare,547.0,Tonnes,0.989,Tonnes/Hectare
+433441,433440,2021-2022,West Bengal,19,Purulia,321,Potato,701.0,Vegetable,Rabi,1595.0,Hectare,23347.0,Tonnes,14.638,Tonnes/Hectare
+433442,433441,2021-2022,West Bengal,19,Purulia,321,Ragi,105.0,Cereals,Autumn,56.0,Hectare,24.0,Tonnes,0.429,Tonnes/Hectare
+433443,433442,2021-2022,West Bengal,19,Purulia,321,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,8924.0,Hectare,9935.0,Tonnes,1.113,Tonnes/Hectare
+433444,433443,2021-2022,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Autumn,288.0,Hectare,655.0,Tonnes,2.274,Tonnes/Hectare
+433445,433444,2021-2022,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Summer,608.0,Hectare,1678.0,Tonnes,2.76,Tonnes/Hectare
+433446,433445,2021-2022,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Total,327125.0,Hectare,964715.0,Tonnes,2.949,Tonnes/Hectare
+433447,433446,2021-2022,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Winter,326229.0,Hectare,962382.0,Tonnes,2.95,Tonnes/Hectare
+433448,433447,2021-2022,West Bengal,19,Purulia,321,Sannhamp,1104.0,Fiber Crops,Kharif,122.0,Hectare,567.0,Tonnes,4.648,Tonnes/Hectare
+433449,433448,2021-2022,West Bengal,19,Purulia,321,Sesamum,1003.0,Oilseeds,Autumn,350.0,Hectare,242.0,Tonnes,0.691,Tonnes/Hectare
+433450,433449,2021-2022,West Bengal,19,Purulia,321,Sesamum,1003.0,Oilseeds,Summer,113.0,Hectare,131.0,Tonnes,1.159,Tonnes/Hectare
+433451,433450,2021-2022,West Bengal,19,Purulia,321,Sesamum,1003.0,Oilseeds,Total,463.0,Hectare,373.0,Tonnes,0.806,Tonnes/Hectare
+433452,433451,2021-2022,West Bengal,19,Purulia,321,Small Millets,108.0,Cereals,Autumn,508.0,Hectare,196.0,Tonnes,0.386,Tonnes/Hectare
+433453,433452,2021-2022,West Bengal,19,Purulia,321,Sugarcane,401.0,Sugar,Whole Year,826.0,Hectare,102550.0,Tonnes,124.153,Tonnes/Hectare
+433454,433453,2021-2022,West Bengal,19,Purulia,321,Sunflower,1007.0,Oilseeds,Kharif,25.0,Hectare,30.0,Tonnes,1.2,Tonnes/Hectare
+433455,433454,2021-2022,West Bengal,19,Purulia,321,Urad,203.0,Pulses,Kharif,10363.0,Hectare,4864.0,Tonnes,0.469,Tonnes/Hectare
+433456,433455,2021-2022,West Bengal,19,Purulia,321,Wheat,106.0,Cereals,Rabi,586.0,Hectare,1508.0,Tonnes,2.573,Tonnes/Hectare
+433457,433456,2021-2022,West Bengal,19,South 24 Parganas,304,Arhar/Tur,202.0,Pulses,Rabi,330.0,Hectare,519.0,Tonnes,1.573,Tonnes/Hectare
+433458,433457,2021-2022,West Bengal,19,South 24 Parganas,304,Cotton(Lint),1101.0,Fiber Crops,Kharif,80.0,Hectare,254.0,Tonnes,3.175,Tonnes/Hectare
+433459,433458,2021-2022,West Bengal,19,South 24 Parganas,304,Gram,201.0,Pulses,Rabi,88.0,Hectare,68.0,Tonnes,0.773,Tonnes/Hectare
+433460,433459,2021-2022,West Bengal,19,South 24 Parganas,304,Groundnut,1001.0,Oilseeds,Summer,35.0,Hectare,66.0,Tonnes,1.886,Tonnes/Hectare
+433461,433460,2021-2022,West Bengal,19,South 24 Parganas,304,Jute,1102.0,Fiber Crops,Kharif,475.0,Hectare,12482.0,Tonnes,26.278,Tonnes/Hectare
+433462,433461,2021-2022,West Bengal,19,South 24 Parganas,304,Khesari,521.0,Spices,Rabi,25576.0,Hectare,33849.0,Tonnes,1.323,Tonnes/Hectare
+433463,433462,2021-2022,West Bengal,19,South 24 Parganas,304,Linseed,1005.0,Oilseeds,Rabi,198.0,Hectare,71.0,Tonnes,0.359,Tonnes/Hectare
+433464,433463,2021-2022,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Autumn,13.0,Hectare,37.0,Tonnes,2.846,Tonnes/Hectare
+433465,433464,2021-2022,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Rabi,85.0,Hectare,436.0,Tonnes,5.129,Tonnes/Hectare
+433466,433465,2021-2022,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Summer,130.0,Hectare,248.0,Tonnes,1.908,Tonnes/Hectare
+433467,433466,2021-2022,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Total,228.0,Hectare,721.0,Tonnes,3.162,Tonnes/Hectare
+433468,433467,2021-2022,West Bengal,19,South 24 Parganas,304,Masoor,205.0,Pulses,Rabi,826.0,Hectare,832.0,Tonnes,1.007,Tonnes/Hectare
+433469,433468,2021-2022,West Bengal,19,South 24 Parganas,304,Moong(Green Gram),204.0,Pulses,Summer,44901.0,Hectare,28346.0,Tonnes,0.631,Tonnes/Hectare
+433470,433469,2021-2022,West Bengal,19,South 24 Parganas,304,Peas & Beans (Pulses),213.0,Pulses,Rabi,1148.0,Hectare,1251.0,Tonnes,1.09,Tonnes/Hectare
+433471,433470,2021-2022,West Bengal,19,South 24 Parganas,304,Potato,701.0,Vegetable,Rabi,3476.0,Hectare,91897.0,Tonnes,26.438,Tonnes/Hectare
+433472,433471,2021-2022,West Bengal,19,South 24 Parganas,304,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,4368.0,Hectare,5343.0,Tonnes,1.223,Tonnes/Hectare
+433473,433472,2021-2022,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Autumn,4388.0,Hectare,13468.0,Tonnes,3.069,Tonnes/Hectare
+433474,433473,2021-2022,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Summer,89083.0,Hectare,380726.0,Tonnes,4.274,Tonnes/Hectare
+433475,433474,2021-2022,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Total,401062.0,Hectare,1159618.0,Tonnes,2.891,Tonnes/Hectare
+433476,433475,2021-2022,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Winter,307591.0,Hectare,765424.0,Tonnes,2.488,Tonnes/Hectare
+433477,433476,2021-2022,West Bengal,19,South 24 Parganas,304,Sesamum,1003.0,Oilseeds,Summer,2888.0,Hectare,3218.0,Tonnes,1.114,Tonnes/Hectare
+433478,433477,2021-2022,West Bengal,19,South 24 Parganas,304,Sugarcane,401.0,Sugar,Whole Year,83.0,Hectare,6749.0,Tonnes,81.313,Tonnes/Hectare
+433479,433478,2021-2022,West Bengal,19,South 24 Parganas,304,Sunflower,1007.0,Oilseeds,Kharif,3557.0,Hectare,4251.0,Tonnes,1.195,Tonnes/Hectare
+433480,433479,2021-2022,West Bengal,19,South 24 Parganas,304,Urad,203.0,Pulses,Kharif,572.0,Hectare,315.0,Tonnes,0.551,Tonnes/Hectare
+433481,433480,2021-2022,West Bengal,19,South 24 Parganas,304,Wheat,106.0,Cereals,Rabi,699.0,Hectare,2250.0,Tonnes,3.219,Tonnes/Hectare
+433482,433481,2021-2022,West Bengal,19,Uttar Dinajpur,311,Arhar/Tur,202.0,Pulses,Rabi,233.0,Hectare,366.0,Tonnes,1.571,Tonnes/Hectare
+433483,433482,2021-2022,West Bengal,19,Uttar Dinajpur,311,Gram,201.0,Pulses,Rabi,259.0,Hectare,314.0,Tonnes,1.212,Tonnes/Hectare
+433484,433483,2021-2022,West Bengal,19,Uttar Dinajpur,311,Groundnut,1001.0,Oilseeds,Rabi,42.0,Hectare,83.0,Tonnes,1.976,Tonnes/Hectare
+433485,433484,2021-2022,West Bengal,19,Uttar Dinajpur,311,Jute,1102.0,Fiber Crops,Kharif,27183.0,Hectare,434313.0,Tonnes,15.977,Tonnes/Hectare
+433486,433485,2021-2022,West Bengal,19,Uttar Dinajpur,311,Khesari,521.0,Spices,Rabi,845.0,Hectare,758.0,Tonnes,0.897,Tonnes/Hectare
+433487,433486,2021-2022,West Bengal,19,Uttar Dinajpur,311,Linseed,1005.0,Oilseeds,Rabi,287.0,Hectare,113.0,Tonnes,0.394,Tonnes/Hectare
+433488,433487,2021-2022,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Autumn,7914.0,Hectare,33532.0,Tonnes,4.237,Tonnes/Hectare
+433489,433488,2021-2022,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Rabi,39850.0,Hectare,420418.0,Tonnes,10.55,Tonnes/Hectare
+433490,433489,2021-2022,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Summer,54900.0,Hectare,531432.0,Tonnes,9.68,Tonnes/Hectare
+433491,433490,2021-2022,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Total,102664.0,Hectare,985382.0,Tonnes,9.598,Tonnes/Hectare
+433492,433491,2021-2022,West Bengal,19,Uttar Dinajpur,311,Masoor,205.0,Pulses,Rabi,2078.0,Hectare,1114.0,Tonnes,0.536,Tonnes/Hectare
+433493,433492,2021-2022,West Bengal,19,Uttar Dinajpur,311,Mesta,1103.0,Fiber Crops,Kharif,1179.0,Hectare,10621.0,Tonnes,9.008,Tonnes/Hectare
+433494,433493,2021-2022,West Bengal,19,Uttar Dinajpur,311,Moong(Green Gram),204.0,Pulses,Rabi,45.0,Hectare,30.0,Tonnes,0.667,Tonnes/Hectare
+433495,433494,2021-2022,West Bengal,19,Uttar Dinajpur,311,Moong(Green Gram),204.0,Pulses,Summer,1448.0,Hectare,1509.0,Tonnes,1.042,Tonnes/Hectare
+433496,433495,2021-2022,West Bengal,19,Uttar Dinajpur,311,Moong(Green Gram),204.0,Pulses,Total,1493.0,Hectare,1539.0,Tonnes,1.031,Tonnes/Hectare
+433497,433496,2021-2022,West Bengal,19,Uttar Dinajpur,311,Peas & Beans (Pulses),213.0,Pulses,Rabi,678.0,Hectare,508.0,Tonnes,0.749,Tonnes/Hectare
+433498,433497,2021-2022,West Bengal,19,Uttar Dinajpur,311,Potato,701.0,Vegetable,Rabi,25171.0,Hectare,768509.0,Tonnes,30.532,Tonnes/Hectare
+433499,433498,2021-2022,West Bengal,19,Uttar Dinajpur,311,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,68543.0,Hectare,99259.0,Tonnes,1.448,Tonnes/Hectare
+433500,433499,2021-2022,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Autumn,2730.0,Hectare,7120.0,Tonnes,2.608,Tonnes/Hectare
+433501,433500,2021-2022,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Summer,47436.0,Hectare,140814.0,Tonnes,2.969,Tonnes/Hectare
+433502,433501,2021-2022,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Total,245423.0,Hectare,673511.0,Tonnes,2.744,Tonnes/Hectare
+433503,433502,2021-2022,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Winter,195257.0,Hectare,525577.0,Tonnes,2.692,Tonnes/Hectare
+433504,433503,2021-2022,West Bengal,19,Uttar Dinajpur,311,Sesamum,1003.0,Oilseeds,Summer,708.0,Hectare,503.0,Tonnes,0.71,Tonnes/Hectare
+433505,433504,2021-2022,West Bengal,19,Uttar Dinajpur,311,Sugarcane,401.0,Sugar,Whole Year,709.0,Hectare,63096.0,Tonnes,88.993,Tonnes/Hectare
+433506,433505,2021-2022,West Bengal,19,Uttar Dinajpur,311,Sunflower,1007.0,Oilseeds,Kharif,4.0,Hectare,3.0,Tonnes,0.75,Tonnes/Hectare
+433507,433506,2021-2022,West Bengal,19,Uttar Dinajpur,311,Urad,203.0,Pulses,Kharif,1701.0,Hectare,1023.0,Tonnes,0.601,Tonnes/Hectare
+433508,433507,2021-2022,West Bengal,19,Uttar Dinajpur,311,Urad,203.0,Pulses,Rabi,650.0,Hectare,631.0,Tonnes,0.971,Tonnes/Hectare
+433509,433508,2021-2022,West Bengal,19,Uttar Dinajpur,311,Urad,203.0,Pulses,Total,2351.0,Hectare,1654.0,Tonnes,0.704,Tonnes/Hectare
+433510,433509,2021-2022,West Bengal,19,Uttar Dinajpur,311,Wheat,106.0,Cereals,Rabi,29375.0,Hectare,85806.0,Tonnes,2.921,Tonnes/Hectare
+454719,454718,2022-2023,West Bengal,19,Alipurduar,664,Arhar/Tur,202.0,Pulses,Rabi,379.0,Hectare,598.0,Tonnes,1.578,Tonnes/Hectare
+454720,454719,2022-2023,West Bengal,19,Alipurduar,664,Gram,201.0,Pulses,Rabi,204.0,Hectare,257.0,Tonnes,1.26,Tonnes/Hectare
+454721,454720,2022-2023,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Autumn,145.0,Hectare,225.0,Tonnes,1.552,Tonnes/Hectare
+454722,454721,2022-2023,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Rabi,145.0,Hectare,225.0,Tonnes,1.552,Tonnes/Hectare
+454723,454722,2022-2023,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Summer,209.0,Hectare,321.0,Tonnes,1.536,Tonnes/Hectare
+454724,454723,2022-2023,West Bengal,19,Alipurduar,664,Groundnut,1001.0,Oilseeds,Total,499.0,Hectare,771.0,Tonnes,1.545,Tonnes/Hectare
+454725,454724,2022-2023,West Bengal,19,Alipurduar,664,Horse-Gram,206.0,Pulses,Rabi,10.0,Hectare,4.0,Tonnes,0.4,Tonnes/Hectare
+454726,454725,2022-2023,West Bengal,19,Alipurduar,664,Jute,1102.0,Fiber Crops,Kharif,14814.0,Hectare,184281.0,Tonnes,12.44,Tonnes/Hectare
+454727,454726,2022-2023,West Bengal,19,Alipurduar,664,Khesari,521.0,Spices,Rabi,2382.0,Hectare,3014.0,Tonnes,1.265,Tonnes/Hectare
+454728,454727,2022-2023,West Bengal,19,Alipurduar,664,Linseed,1005.0,Oilseeds,Rabi,436.0,Hectare,177.0,Tonnes,0.406,Tonnes/Hectare
+454729,454728,2022-2023,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Autumn,5367.0,Hectare,17107.0,Tonnes,3.187,Tonnes/Hectare
+454730,454729,2022-2023,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Rabi,10991.0,Hectare,28159.0,Tonnes,2.562,Tonnes/Hectare
+454731,454730,2022-2023,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Summer,13954.0,Hectare,117154.0,Tonnes,8.396,Tonnes/Hectare
+454732,454731,2022-2023,West Bengal,19,Alipurduar,664,Maize,104.0,Cereals,Total,30312.0,Hectare,162420.0,Tonnes,5.358,Tonnes/Hectare
+454733,454732,2022-2023,West Bengal,19,Alipurduar,664,Masoor,205.0,Pulses,Rabi,4024.0,Hectare,2387.0,Tonnes,0.593,Tonnes/Hectare
+454734,454733,2022-2023,West Bengal,19,Alipurduar,664,Mesta,1103.0,Fiber Crops,Kharif,123.0,Hectare,1743.0,Tonnes,14.171,Tonnes/Hectare
+454735,454734,2022-2023,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Kharif,240.0,Hectare,211.0,Tonnes,0.879,Tonnes/Hectare
+454736,454735,2022-2023,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Rabi,270.0,Hectare,176.0,Tonnes,0.652,Tonnes/Hectare
+454737,454736,2022-2023,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Summer,305.0,Hectare,315.0,Tonnes,1.033,Tonnes/Hectare
+454738,454737,2022-2023,West Bengal,19,Alipurduar,664,Moong(Green Gram),204.0,Pulses,Total,815.0,Hectare,702.0,Tonnes,0.861,Tonnes/Hectare
+454739,454738,2022-2023,West Bengal,19,Alipurduar,664,Niger Seed,1010.0,Oilseeds,Kharif,375.0,Hectare,216.0,Tonnes,0.576,Tonnes/Hectare
+454740,454739,2022-2023,West Bengal,19,Alipurduar,664,Peas & Beans (Pulses),213.0,Pulses,Rabi,316.0,Hectare,359.0,Tonnes,1.136,Tonnes/Hectare
+454741,454740,2022-2023,West Bengal,19,Alipurduar,664,Potato,701.0,Vegetable,Rabi,21696.0,Hectare,689942.0,Tonnes,31.8,Tonnes/Hectare
+454742,454741,2022-2023,West Bengal,19,Alipurduar,664,Ragi,105.0,Cereals,Autumn,23.0,Hectare,19.0,Tonnes,0.826,Tonnes/Hectare
+454743,454742,2022-2023,West Bengal,19,Alipurduar,664,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,5262.0,Hectare,3892.0,Tonnes,0.74,Tonnes/Hectare
+454744,454743,2022-2023,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Autumn,9296.0,Hectare,15560.0,Tonnes,1.674,Tonnes/Hectare
+454745,454744,2022-2023,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Summer,7399.0,Hectare,19285.0,Tonnes,2.606,Tonnes/Hectare
+454746,454745,2022-2023,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Total,99262.0,Hectare,238197.0,Tonnes,2.4,Tonnes/Hectare
+454747,454746,2022-2023,West Bengal,19,Alipurduar,664,Rice,101.0,Cereals,Winter,82567.0,Hectare,203352.0,Tonnes,2.463,Tonnes/Hectare
+454748,454747,2022-2023,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Autumn,180.0,Hectare,144.0,Tonnes,0.8,Tonnes/Hectare
+454749,454748,2022-2023,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Summer,159.0,Hectare,154.0,Tonnes,0.969,Tonnes/Hectare
+454750,454749,2022-2023,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Total,569.0,Hectare,485.0,Tonnes,0.852,Tonnes/Hectare
+454751,454750,2022-2023,West Bengal,19,Alipurduar,664,Sesamum,1003.0,Oilseeds,Winter,230.0,Hectare,187.0,Tonnes,0.813,Tonnes/Hectare
+454752,454751,2022-2023,West Bengal,19,Alipurduar,664,Sugarcane,401.0,Sugar,Whole Year,56.0,Hectare,4371.0,Tonnes,78.054,Tonnes/Hectare
+454753,454752,2022-2023,West Bengal,19,Alipurduar,664,Sunflower,1007.0,Oilseeds,Kharif,5.0,Hectare,4.0,Tonnes,0.8,Tonnes/Hectare
+454754,454753,2022-2023,West Bengal,19,Alipurduar,664,Urad,203.0,Pulses,Kharif,1321.0,Hectare,900.0,Tonnes,0.681,Tonnes/Hectare
+454755,454754,2022-2023,West Bengal,19,Alipurduar,664,Urad,203.0,Pulses,Rabi,235.0,Hectare,168.0,Tonnes,0.715,Tonnes/Hectare
+454756,454755,2022-2023,West Bengal,19,Alipurduar,664,Urad,203.0,Pulses,Total,1556.0,Hectare,1068.0,Tonnes,0.686,Tonnes/Hectare
+454757,454756,2022-2023,West Bengal,19,Alipurduar,664,Wheat,106.0,Cereals,Rabi,1702.0,Hectare,5161.0,Tonnes,3.032,Tonnes/Hectare
+454758,454757,2022-2023,West Bengal,19,Bankura,305,Arhar/Tur,202.0,Pulses,Rabi,28.0,Hectare,36.0,Tonnes,1.286,Tonnes/Hectare
+454759,454758,2022-2023,West Bengal,19,Bankura,305,Gram,201.0,Pulses,Rabi,1134.0,Hectare,1574.0,Tonnes,1.388,Tonnes/Hectare
+454760,454759,2022-2023,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Autumn,662.0,Hectare,677.0,Tonnes,1.023,Tonnes/Hectare
+454761,454760,2022-2023,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Rabi,15.0,Hectare,23.0,Tonnes,1.533,Tonnes/Hectare
+454762,454761,2022-2023,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Summer,2039.0,Hectare,4826.0,Tonnes,2.367,Tonnes/Hectare
+454763,454762,2022-2023,West Bengal,19,Bankura,305,Groundnut,1001.0,Oilseeds,Total,2716.0,Hectare,5526.0,Tonnes,2.035,Tonnes/Hectare
+454764,454763,2022-2023,West Bengal,19,Bankura,305,Jute,1102.0,Fiber Crops,Kharif,25.0,Hectare,444.0,Tonnes,17.76,Tonnes/Hectare
+454765,454764,2022-2023,West Bengal,19,Bankura,305,Khesari,521.0,Spices,Rabi,2338.0,Hectare,4646.0,Tonnes,1.987,Tonnes/Hectare
+454766,454765,2022-2023,West Bengal,19,Bankura,305,Linseed,1005.0,Oilseeds,Rabi,16.0,Hectare,7.0,Tonnes,0.438,Tonnes/Hectare
+454767,454766,2022-2023,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Autumn,218.0,Hectare,581.0,Tonnes,2.665,Tonnes/Hectare
+454768,454767,2022-2023,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Rabi,183.0,Hectare,344.0,Tonnes,1.88,Tonnes/Hectare
+454769,454768,2022-2023,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Summer,378.0,Hectare,1792.0,Tonnes,4.741,Tonnes/Hectare
+454770,454769,2022-2023,West Bengal,19,Bankura,305,Maize,104.0,Cereals,Total,779.0,Hectare,2717.0,Tonnes,3.488,Tonnes/Hectare
+454771,454770,2022-2023,West Bengal,19,Bankura,305,Masoor,205.0,Pulses,Rabi,4665.0,Hectare,4433.0,Tonnes,0.95,Tonnes/Hectare
+454772,454771,2022-2023,West Bengal,19,Bankura,305,Mesta,1103.0,Fiber Crops,Kharif,13.0,Hectare,56.0,Tonnes,4.308,Tonnes/Hectare
+454773,454772,2022-2023,West Bengal,19,Bankura,305,Moong(Green Gram),204.0,Pulses,Rabi,42.0,Hectare,21.0,Tonnes,0.5,Tonnes/Hectare
+454774,454773,2022-2023,West Bengal,19,Bankura,305,Moong(Green Gram),204.0,Pulses,Summer,451.0,Hectare,675.0,Tonnes,1.497,Tonnes/Hectare
+454775,454774,2022-2023,West Bengal,19,Bankura,305,Moong(Green Gram),204.0,Pulses,Total,493.0,Hectare,696.0,Tonnes,1.412,Tonnes/Hectare
+454776,454775,2022-2023,West Bengal,19,Bankura,305,Peas & Beans (Pulses),213.0,Pulses,Rabi,485.0,Hectare,982.0,Tonnes,2.025,Tonnes/Hectare
+454777,454776,2022-2023,West Bengal,19,Bankura,305,Potato,701.0,Vegetable,Rabi,49690.0,Hectare,1762023.0,Tonnes,35.46,Tonnes/Hectare
+454778,454777,2022-2023,West Bengal,19,Bankura,305,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,23521.0,Hectare,21923.0,Tonnes,0.932,Tonnes/Hectare
+454779,454778,2022-2023,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Autumn,18579.0,Hectare,58432.0,Tonnes,3.145,Tonnes/Hectare
+454780,454779,2022-2023,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Summer,60158.0,Hectare,218290.0,Tonnes,3.629,Tonnes/Hectare
+454781,454780,2022-2023,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Total,355532.0,Hectare,1050757.0,Tonnes,2.955,Tonnes/Hectare
+454782,454781,2022-2023,West Bengal,19,Bankura,305,Rice,101.0,Cereals,Winter,276795.0,Hectare,774035.0,Tonnes,2.796,Tonnes/Hectare
+454783,454782,2022-2023,West Bengal,19,Bankura,305,Sannhamp,1104.0,Fiber Crops,Kharif,38.0,Hectare,179.0,Tonnes,4.711,Tonnes/Hectare
+454784,454783,2022-2023,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Autumn,2.0,Hectare,1.0,Tonnes,0.5,Tonnes/Hectare
+454785,454784,2022-2023,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Summer,33427.0,Hectare,30834.0,Tonnes,0.922,Tonnes/Hectare
+454786,454785,2022-2023,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Total,33431.0,Hectare,30836.0,Tonnes,0.922,Tonnes/Hectare
+454787,454786,2022-2023,West Bengal,19,Bankura,305,Sesamum,1003.0,Oilseeds,Winter,2.0,Hectare,1.0,Tonnes,0.5,Tonnes/Hectare
+454788,454787,2022-2023,West Bengal,19,Bankura,305,Small Millets,108.0,Cereals,Autumn,29.0,Hectare,16.0,Tonnes,0.552,Tonnes/Hectare
+454789,454788,2022-2023,West Bengal,19,Bankura,305,Sugarcane,401.0,Sugar,Whole Year,37.0,Hectare,2655.0,Tonnes,71.757,Tonnes/Hectare
+454790,454789,2022-2023,West Bengal,19,Bankura,305,Sunflower,1007.0,Oilseeds,Kharif,68.0,Hectare,64.0,Tonnes,0.941,Tonnes/Hectare
+454791,454790,2022-2023,West Bengal,19,Bankura,305,Urad,203.0,Pulses,Kharif,39.0,Hectare,19.0,Tonnes,0.487,Tonnes/Hectare
+454792,454791,2022-2023,West Bengal,19,Bankura,305,Urad,203.0,Pulses,Rabi,830.0,Hectare,436.0,Tonnes,0.525,Tonnes/Hectare
+454793,454792,2022-2023,West Bengal,19,Bankura,305,Urad,203.0,Pulses,Total,869.0,Hectare,455.0,Tonnes,0.524,Tonnes/Hectare
+454794,454793,2022-2023,West Bengal,19,Bankura,305,Wheat,106.0,Cereals,Rabi,786.0,Hectare,1768.0,Tonnes,2.249,Tonnes/Hectare
+454795,454794,2022-2023,West Bengal,19,Birbhum,307,Arhar/Tur,202.0,Pulses,Rabi,446.0,Hectare,703.0,Tonnes,1.576,Tonnes/Hectare
+454796,454795,2022-2023,West Bengal,19,Birbhum,307,Gram,201.0,Pulses,Rabi,11492.0,Hectare,16844.0,Tonnes,1.466,Tonnes/Hectare
+454797,454796,2022-2023,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Autumn,825.0,Hectare,1510.0,Tonnes,1.83,Tonnes/Hectare
+454798,454797,2022-2023,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Rabi,57.0,Hectare,68.0,Tonnes,1.193,Tonnes/Hectare
+454799,454798,2022-2023,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Summer,97.0,Hectare,234.0,Tonnes,2.412,Tonnes/Hectare
+454800,454799,2022-2023,West Bengal,19,Birbhum,307,Groundnut,1001.0,Oilseeds,Total,979.0,Hectare,1812.0,Tonnes,1.851,Tonnes/Hectare
+454801,454800,2022-2023,West Bengal,19,Birbhum,307,Horse-Gram,206.0,Pulses,Rabi,45.0,Hectare,27.0,Tonnes,0.6,Tonnes/Hectare
+454802,454801,2022-2023,West Bengal,19,Birbhum,307,Jute,1102.0,Fiber Crops,Kharif,148.0,Hectare,3121.0,Tonnes,21.088,Tonnes/Hectare
+454803,454802,2022-2023,West Bengal,19,Birbhum,307,Khesari,521.0,Spices,Rabi,5136.0,Hectare,5186.0,Tonnes,1.01,Tonnes/Hectare
+454804,454803,2022-2023,West Bengal,19,Birbhum,307,Linseed,1005.0,Oilseeds,Rabi,411.0,Hectare,137.0,Tonnes,0.333,Tonnes/Hectare
+454805,454804,2022-2023,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Autumn,309.0,Hectare,1150.0,Tonnes,3.722,Tonnes/Hectare
+454806,454805,2022-2023,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Rabi,806.0,Hectare,6013.0,Tonnes,7.46,Tonnes/Hectare
+454807,454806,2022-2023,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Summer,961.0,Hectare,6576.0,Tonnes,6.843,Tonnes/Hectare
+454808,454807,2022-2023,West Bengal,19,Birbhum,307,Maize,104.0,Cereals,Total,2076.0,Hectare,13739.0,Tonnes,6.618,Tonnes/Hectare
+454809,454808,2022-2023,West Bengal,19,Birbhum,307,Masoor,205.0,Pulses,Rabi,20971.0,Hectare,20388.0,Tonnes,0.972,Tonnes/Hectare
+454810,454809,2022-2023,West Bengal,19,Birbhum,307,Mesta,1103.0,Fiber Crops,Kharif,15.0,Hectare,213.0,Tonnes,14.2,Tonnes/Hectare
+454811,454810,2022-2023,West Bengal,19,Birbhum,307,Moong(Green Gram),204.0,Pulses,Summer,2028.0,Hectare,2325.0,Tonnes,1.146,Tonnes/Hectare
+454812,454811,2022-2023,West Bengal,19,Birbhum,307,Other Kharif Pulses,288.0,Pulses,Kharif,280.0,Hectare,216.0,Tonnes,0.771,Tonnes/Hectare
+454813,454812,2022-2023,West Bengal,19,Birbhum,307,Peas & Beans (Pulses),213.0,Pulses,Rabi,364.0,Hectare,385.0,Tonnes,1.058,Tonnes/Hectare
+454814,454813,2022-2023,West Bengal,19,Birbhum,307,Potato,701.0,Vegetable,Rabi,20593.0,Hectare,552479.0,Tonnes,26.828,Tonnes/Hectare
+454815,454814,2022-2023,West Bengal,19,Birbhum,307,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,45319.0,Hectare,47624.0,Tonnes,1.051,Tonnes/Hectare
+454816,454815,2022-2023,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Autumn,3110.0,Hectare,9116.0,Tonnes,2.931,Tonnes/Hectare
+454817,454816,2022-2023,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Summer,87169.0,Hectare,315375.0,Tonnes,3.618,Tonnes/Hectare
+454818,454817,2022-2023,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Total,269209.0,Hectare,868762.0,Tonnes,3.227,Tonnes/Hectare
+454819,454818,2022-2023,West Bengal,19,Birbhum,307,Rice,101.0,Cereals,Winter,178930.0,Hectare,544271.0,Tonnes,3.042,Tonnes/Hectare
+454820,454819,2022-2023,West Bengal,19,Birbhum,307,Safflower,1008.0,Oilseeds,Rabi,10.0,Hectare,6.0,Tonnes,0.6,Tonnes/Hectare
+454821,454820,2022-2023,West Bengal,19,Birbhum,307,Sannhamp,1104.0,Fiber Crops,Kharif,30.0,Hectare,105.0,Tonnes,3.5,Tonnes/Hectare
+454822,454821,2022-2023,West Bengal,19,Birbhum,307,Sesamum,1003.0,Oilseeds,Summer,5837.0,Hectare,5468.0,Tonnes,0.937,Tonnes/Hectare
+454823,454822,2022-2023,West Bengal,19,Birbhum,307,Soyabean,1009.0,Oilseeds,Kharif,20.0,Hectare,39.0,Tonnes,1.95,Tonnes/Hectare
+454824,454823,2022-2023,West Bengal,19,Birbhum,307,Sugarcane,401.0,Sugar,Whole Year,896.0,Hectare,75410.0,Tonnes,84.163,Tonnes/Hectare
+454825,454824,2022-2023,West Bengal,19,Birbhum,307,Sunflower,1007.0,Oilseeds,Kharif,14.0,Hectare,8.0,Tonnes,0.571,Tonnes/Hectare
+454826,454825,2022-2023,West Bengal,19,Birbhum,307,Urad,203.0,Pulses,Kharif,214.0,Hectare,156.0,Tonnes,0.729,Tonnes/Hectare
+454827,454826,2022-2023,West Bengal,19,Birbhum,307,Urad,203.0,Pulses,Rabi,1320.0,Hectare,1203.0,Tonnes,0.911,Tonnes/Hectare
+454828,454827,2022-2023,West Bengal,19,Birbhum,307,Urad,203.0,Pulses,Total,1534.0,Hectare,1359.0,Tonnes,0.886,Tonnes/Hectare
+454829,454828,2022-2023,West Bengal,19,Birbhum,307,Wheat,106.0,Cereals,Rabi,20557.0,Hectare,62583.0,Tonnes,3.044,Tonnes/Hectare
+454830,454829,2022-2023,West Bengal,19,Cooch Behar,308,Gram,201.0,Pulses,Rabi,81.0,Hectare,102.0,Tonnes,1.259,Tonnes/Hectare
+454831,454830,2022-2023,West Bengal,19,Cooch Behar,308,Groundnut,1001.0,Oilseeds,Rabi,710.0,Hectare,1072.0,Tonnes,1.51,Tonnes/Hectare
+454832,454831,2022-2023,West Bengal,19,Cooch Behar,308,Groundnut,1001.0,Oilseeds,Summer,235.0,Hectare,641.0,Tonnes,2.728,Tonnes/Hectare
+454833,454832,2022-2023,West Bengal,19,Cooch Behar,308,Groundnut,1001.0,Oilseeds,Total,945.0,Hectare,1713.0,Tonnes,1.813,Tonnes/Hectare
+454834,454833,2022-2023,West Bengal,19,Cooch Behar,308,Horse-Gram,206.0,Pulses,Rabi,80.0,Hectare,48.0,Tonnes,0.6,Tonnes/Hectare
+454835,454834,2022-2023,West Bengal,19,Cooch Behar,308,Jute,1102.0,Fiber Crops,Kharif,55022.0,Hectare,616732.0,Tonnes,11.209,Tonnes/Hectare
+454836,454835,2022-2023,West Bengal,19,Cooch Behar,308,Khesari,521.0,Spices,Rabi,2718.0,Hectare,3439.0,Tonnes,1.265,Tonnes/Hectare
+454837,454836,2022-2023,West Bengal,19,Cooch Behar,308,Linseed,1005.0,Oilseeds,Rabi,381.0,Hectare,155.0,Tonnes,0.407,Tonnes/Hectare
+454838,454837,2022-2023,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Autumn,2976.0,Hectare,9486.0,Tonnes,3.188,Tonnes/Hectare
+454839,454838,2022-2023,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Rabi,38357.0,Hectare,98272.0,Tonnes,2.562,Tonnes/Hectare
+454840,454839,2022-2023,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Summer,7592.0,Hectare,70504.0,Tonnes,9.287,Tonnes/Hectare
+454841,454840,2022-2023,West Bengal,19,Cooch Behar,308,Maize,104.0,Cereals,Total,48925.0,Hectare,178262.0,Tonnes,3.644,Tonnes/Hectare
+454842,454841,2022-2023,West Bengal,19,Cooch Behar,308,Masoor,205.0,Pulses,Rabi,3332.0,Hectare,1246.0,Tonnes,0.374,Tonnes/Hectare
+454843,454842,2022-2023,West Bengal,19,Cooch Behar,308,Mesta,1103.0,Fiber Crops,Kharif,141.0,Hectare,1998.0,Tonnes,14.17,Tonnes/Hectare
+454844,454843,2022-2023,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Kharif,25.0,Hectare,15.0,Tonnes,0.6,Tonnes/Hectare
+454845,454844,2022-2023,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Rabi,100.0,Hectare,78.0,Tonnes,0.78,Tonnes/Hectare
+454846,454845,2022-2023,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Summer,488.0,Hectare,505.0,Tonnes,1.035,Tonnes/Hectare
+454847,454846,2022-2023,West Bengal,19,Cooch Behar,308,Moong(Green Gram),204.0,Pulses,Total,613.0,Hectare,598.0,Tonnes,0.976,Tonnes/Hectare
+454848,454847,2022-2023,West Bengal,19,Cooch Behar,308,Niger Seed,1010.0,Oilseeds,Kharif,110.0,Hectare,65.0,Tonnes,0.591,Tonnes/Hectare
+454849,454848,2022-2023,West Bengal,19,Cooch Behar,308,Other Kharif Pulses,288.0,Pulses,Kharif,410.0,Hectare,258.0,Tonnes,0.629,Tonnes/Hectare
+454850,454849,2022-2023,West Bengal,19,Cooch Behar,308,Peas & Beans (Pulses),213.0,Pulses,Rabi,1301.0,Hectare,1479.0,Tonnes,1.137,Tonnes/Hectare
+454851,454850,2022-2023,West Bengal,19,Cooch Behar,308,Potato,701.0,Vegetable,Rabi,35328.0,Hectare,1126090.0,Tonnes,31.875,Tonnes/Hectare
+454852,454851,2022-2023,West Bengal,19,Cooch Behar,308,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,39646.0,Hectare,28993.0,Tonnes,0.731,Tonnes/Hectare
+454853,454852,2022-2023,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Autumn,11203.0,Hectare,30272.0,Tonnes,2.702,Tonnes/Hectare
+454854,454853,2022-2023,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Summer,38831.0,Hectare,136335.0,Tonnes,3.511,Tonnes/Hectare
+454855,454854,2022-2023,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Total,265678.0,Hectare,824634.0,Tonnes,3.104,Tonnes/Hectare
+454856,454855,2022-2023,West Bengal,19,Cooch Behar,308,Rice,101.0,Cereals,Winter,215644.0,Hectare,658027.0,Tonnes,3.051,Tonnes/Hectare
+454857,454856,2022-2023,West Bengal,19,Cooch Behar,308,Sannhamp,1104.0,Fiber Crops,Kharif,12.0,Hectare,96.0,Tonnes,8.0,Tonnes/Hectare
+454858,454857,2022-2023,West Bengal,19,Cooch Behar,308,Sesamum,1003.0,Oilseeds,Summer,593.0,Hectare,596.0,Tonnes,1.005,Tonnes/Hectare
+454859,454858,2022-2023,West Bengal,19,Cooch Behar,308,Sesamum,1003.0,Oilseeds,Total,773.0,Hectare,710.0,Tonnes,0.918,Tonnes/Hectare
+454860,454859,2022-2023,West Bengal,19,Cooch Behar,308,Sesamum,1003.0,Oilseeds,Winter,180.0,Hectare,114.0,Tonnes,0.633,Tonnes/Hectare
+454861,454860,2022-2023,West Bengal,19,Cooch Behar,308,Small Millets,108.0,Cereals,Autumn,68.0,Hectare,75.0,Tonnes,1.103,Tonnes/Hectare
+454862,454861,2022-2023,West Bengal,19,Cooch Behar,308,Sugarcane,401.0,Sugar,Whole Year,113.0,Hectare,8819.0,Tonnes,78.044,Tonnes/Hectare
+454863,454862,2022-2023,West Bengal,19,Cooch Behar,308,Sunflower,1007.0,Oilseeds,Kharif,60.0,Hectare,72.0,Tonnes,1.2,Tonnes/Hectare
+454864,454863,2022-2023,West Bengal,19,Cooch Behar,308,Urad,203.0,Pulses,Kharif,1532.0,Hectare,1044.0,Tonnes,0.681,Tonnes/Hectare
+454865,454864,2022-2023,West Bengal,19,Cooch Behar,308,Urad,203.0,Pulses,Rabi,910.0,Hectare,746.0,Tonnes,0.82,Tonnes/Hectare
+454866,454865,2022-2023,West Bengal,19,Cooch Behar,308,Urad,203.0,Pulses,Total,2442.0,Hectare,1790.0,Tonnes,0.733,Tonnes/Hectare
+454867,454866,2022-2023,West Bengal,19,Cooch Behar,308,Wheat,106.0,Cereals,Rabi,5404.0,Hectare,16387.0,Tonnes,3.032,Tonnes/Hectare
+454868,454867,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Arhar/Tur,202.0,Pulses,Rabi,47.0,Hectare,99.0,Tonnes,2.106,Tonnes/Hectare
+454869,454868,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Gram,201.0,Pulses,Rabi,267.0,Hectare,308.0,Tonnes,1.154,Tonnes/Hectare
+454870,454869,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Groundnut,1001.0,Oilseeds,Summer,113.0,Hectare,157.0,Tonnes,1.389,Tonnes/Hectare
+454871,454870,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Jute,1102.0,Fiber Crops,Kharif,18608.0,Hectare,279239.0,Tonnes,15.006,Tonnes/Hectare
+454872,454871,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Khesari,521.0,Spices,Rabi,2116.0,Hectare,2170.0,Tonnes,1.026,Tonnes/Hectare
+454873,454872,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Linseed,1005.0,Oilseeds,Rabi,56.0,Hectare,23.0,Tonnes,0.411,Tonnes/Hectare
+454874,454873,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Maize,104.0,Cereals,Autumn,23.0,Hectare,100.0,Tonnes,4.348,Tonnes/Hectare
+454875,454874,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Maize,104.0,Cereals,Summer,4598.0,Hectare,57592.0,Tonnes,12.525,Tonnes/Hectare
+454876,454875,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Maize,104.0,Cereals,Total,4621.0,Hectare,57692.0,Tonnes,12.485,Tonnes/Hectare
+454877,454876,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Masoor,205.0,Pulses,Rabi,6288.0,Hectare,5310.0,Tonnes,0.844,Tonnes/Hectare
+454878,454877,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Mesta,1103.0,Fiber Crops,Kharif,6623.0,Hectare,86848.0,Tonnes,13.113,Tonnes/Hectare
+454879,454878,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Moong(Green Gram),204.0,Pulses,Summer,235.0,Hectare,389.0,Tonnes,1.655,Tonnes/Hectare
+454880,454879,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Peas & Beans (Pulses),213.0,Pulses,Rabi,446.0,Hectare,453.0,Tonnes,1.016,Tonnes/Hectare
+454881,454880,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Potato,701.0,Vegetable,Rabi,21153.0,Hectare,555112.0,Tonnes,26.243,Tonnes/Hectare
+454882,454881,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,71877.0,Hectare,107181.0,Tonnes,1.491,Tonnes/Hectare
+454883,454882,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Autumn,552.0,Hectare,1100.0,Tonnes,1.993,Tonnes/Hectare
+454884,454883,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Summer,47916.0,Hectare,181065.0,Tonnes,3.779,Tonnes/Hectare
+454885,454884,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Total,216057.0,Hectare,686046.0,Tonnes,3.175,Tonnes/Hectare
+454886,454885,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Rice,101.0,Cereals,Winter,167589.0,Hectare,503881.0,Tonnes,3.007,Tonnes/Hectare
+454887,454886,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Sesamum,1003.0,Oilseeds,Summer,84.0,Hectare,72.0,Tonnes,0.857,Tonnes/Hectare
+454888,454887,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Sesamum,1003.0,Oilseeds,Total,119.0,Hectare,94.0,Tonnes,0.79,Tonnes/Hectare
+454889,454888,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Sesamum,1003.0,Oilseeds,Winter,35.0,Hectare,22.0,Tonnes,0.629,Tonnes/Hectare
+454890,454889,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Sugarcane,401.0,Sugar,Whole Year,18.0,Hectare,1494.0,Tonnes,83.0,Tonnes/Hectare
+454891,454890,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Urad,203.0,Pulses,Kharif,901.0,Hectare,441.0,Tonnes,0.489,Tonnes/Hectare
+454892,454891,2022-2023,West Bengal,19,Dakshin Dinajpur,310,Wheat,106.0,Cereals,Rabi,48347.0,Hectare,169893.0,Tonnes,3.514,Tonnes/Hectare
+454893,454892,2022-2023,West Bengal,19,Darjeeling,309,Arhar/Tur,202.0,Pulses,Rabi,26.0,Hectare,41.0,Tonnes,1.577,Tonnes/Hectare
+454894,454893,2022-2023,West Bengal,19,Darjeeling,309,Groundnut,1001.0,Oilseeds,Summer,44.0,Hectare,120.0,Tonnes,2.727,Tonnes/Hectare
+454895,454894,2022-2023,West Bengal,19,Darjeeling,309,Jute,1102.0,Fiber Crops,Kharif,2543.0,Hectare,30539.0,Tonnes,12.009,Tonnes/Hectare
+454896,454895,2022-2023,West Bengal,19,Darjeeling,309,Khesari,521.0,Spices,Rabi,101.0,Hectare,128.0,Tonnes,1.267,Tonnes/Hectare
+454897,454896,2022-2023,West Bengal,19,Darjeeling,309,Linseed,1005.0,Oilseeds,Rabi,84.0,Hectare,34.0,Tonnes,0.405,Tonnes/Hectare
+454898,454897,2022-2023,West Bengal,19,Darjeeling,309,Maize,104.0,Cereals,Autumn,4217.0,Hectare,10731.0,Tonnes,2.545,Tonnes/Hectare
+454899,454898,2022-2023,West Bengal,19,Darjeeling,309,Masoor,205.0,Pulses,Rabi,86.0,Hectare,64.0,Tonnes,0.744,Tonnes/Hectare
+454900,454899,2022-2023,West Bengal,19,Darjeeling,309,Mesta,1103.0,Fiber Crops,Kharif,23.0,Hectare,326.0,Tonnes,14.174,Tonnes/Hectare
+454901,454900,2022-2023,West Bengal,19,Darjeeling,309,Moong(Green Gram),204.0,Pulses,Summer,78.0,Hectare,81.0,Tonnes,1.038,Tonnes/Hectare
+454902,454901,2022-2023,West Bengal,19,Darjeeling,309,Peas & Beans (Pulses),213.0,Pulses,Rabi,137.0,Hectare,156.0,Tonnes,1.139,Tonnes/Hectare
+454903,454902,2022-2023,West Bengal,19,Darjeeling,309,Potato,701.0,Vegetable,Rabi,1321.0,Hectare,33272.0,Tonnes,25.187,Tonnes/Hectare
+454904,454903,2022-2023,West Bengal,19,Darjeeling,309,Potato,701.0,Vegetable,Summer,2820.0,Hectare,30668.0,Tonnes,10.875,Tonnes/Hectare
+454905,454904,2022-2023,West Bengal,19,Darjeeling,309,Potato,701.0,Vegetable,Total,4141.0,Hectare,63940.0,Tonnes,15.441,Tonnes/Hectare
+454906,454905,2022-2023,West Bengal,19,Darjeeling,309,Ragi,105.0,Cereals,Autumn,3012.0,Hectare,3163.0,Tonnes,1.05,Tonnes/Hectare
+454907,454906,2022-2023,West Bengal,19,Darjeeling,309,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,435.0,Hectare,254.0,Tonnes,0.584,Tonnes/Hectare
+454908,454907,2022-2023,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Autumn,3353.0,Hectare,7630.0,Tonnes,2.276,Tonnes/Hectare
+454909,454908,2022-2023,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Summer,1773.0,Hectare,4563.0,Tonnes,2.574,Tonnes/Hectare
+454910,454909,2022-2023,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Total,26971.0,Hectare,65136.0,Tonnes,2.415,Tonnes/Hectare
+454911,454910,2022-2023,West Bengal,19,Darjeeling,309,Rice,101.0,Cereals,Winter,21845.0,Hectare,52943.0,Tonnes,2.424,Tonnes/Hectare
+454912,454911,2022-2023,West Bengal,19,Darjeeling,309,Sesamum,1003.0,Oilseeds,Summer,102.0,Hectare,86.0,Tonnes,0.843,Tonnes/Hectare
+454913,454912,2022-2023,West Bengal,19,Darjeeling,309,Soyabean,1009.0,Oilseeds,Kharif,215.0,Hectare,153.0,Tonnes,0.712,Tonnes/Hectare
+454914,454913,2022-2023,West Bengal,19,Darjeeling,309,Sugarcane,401.0,Sugar,Whole Year,10.0,Hectare,780.0,Tonnes,78.0,Tonnes/Hectare
+454915,454914,2022-2023,West Bengal,19,Darjeeling,309,Urad,203.0,Pulses,Kharif,331.0,Hectare,225.0,Tonnes,0.68,Tonnes/Hectare
+454916,454915,2022-2023,West Bengal,19,Darjeeling,309,Wheat,106.0,Cereals,Rabi,210.0,Hectare,637.0,Tonnes,3.033,Tonnes/Hectare
+454917,454916,2022-2023,West Bengal,19,Hooghly,312,Arhar/Tur,202.0,Pulses,Rabi,39.0,Hectare,62.0,Tonnes,1.59,Tonnes/Hectare
+454918,454917,2022-2023,West Bengal,19,Hooghly,312,Gram,201.0,Pulses,Rabi,49.0,Hectare,69.0,Tonnes,1.408,Tonnes/Hectare
+454919,454918,2022-2023,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Autumn,150.0,Hectare,349.0,Tonnes,2.327,Tonnes/Hectare
+454920,454919,2022-2023,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Rabi,250.0,Hectare,272.0,Tonnes,1.088,Tonnes/Hectare
+454921,454920,2022-2023,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Summer,20113.0,Hectare,60309.0,Tonnes,2.999,Tonnes/Hectare
+454922,454921,2022-2023,West Bengal,19,Hooghly,312,Groundnut,1001.0,Oilseeds,Total,20513.0,Hectare,60930.0,Tonnes,2.97,Tonnes/Hectare
+454923,454922,2022-2023,West Bengal,19,Hooghly,312,Horse-Gram,206.0,Pulses,Rabi,6.0,Hectare,3.0,Tonnes,0.5,Tonnes/Hectare
+454924,454923,2022-2023,West Bengal,19,Hooghly,312,Jute,1102.0,Fiber Crops,Kharif,11643.0,Hectare,256229.0,Tonnes,22.007,Tonnes/Hectare
+454925,454924,2022-2023,West Bengal,19,Hooghly,312,Khesari,521.0,Spices,Rabi,378.0,Hectare,404.0,Tonnes,1.069,Tonnes/Hectare
+454926,454925,2022-2023,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Autumn,57.0,Hectare,212.0,Tonnes,3.719,Tonnes/Hectare
+454927,454926,2022-2023,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Rabi,93.0,Hectare,694.0,Tonnes,7.462,Tonnes/Hectare
+454928,454927,2022-2023,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Summer,189.0,Hectare,1247.0,Tonnes,6.598,Tonnes/Hectare
+454929,454928,2022-2023,West Bengal,19,Hooghly,312,Maize,104.0,Cereals,Total,339.0,Hectare,2153.0,Tonnes,6.351,Tonnes/Hectare
+454930,454929,2022-2023,West Bengal,19,Hooghly,312,Masoor,205.0,Pulses,Rabi,2619.0,Hectare,1042.0,Tonnes,0.398,Tonnes/Hectare
+454931,454930,2022-2023,West Bengal,19,Hooghly,312,Mesta,1103.0,Fiber Crops,Kharif,53.0,Hectare,751.0,Tonnes,14.17,Tonnes/Hectare
+454932,454931,2022-2023,West Bengal,19,Hooghly,312,Moong(Green Gram),204.0,Pulses,Summer,882.0,Hectare,1011.0,Tonnes,1.146,Tonnes/Hectare
+454933,454932,2022-2023,West Bengal,19,Hooghly,312,Peas & Beans (Pulses),213.0,Pulses,Rabi,782.0,Hectare,832.0,Tonnes,1.064,Tonnes/Hectare
+454934,454933,2022-2023,West Bengal,19,Hooghly,312,Potato,701.0,Vegetable,Rabi,91981.0,Hectare,2699031.0,Tonnes,29.343,Tonnes/Hectare
+454935,454934,2022-2023,West Bengal,19,Hooghly,312,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,9458.0,Hectare,8947.0,Tonnes,0.946,Tonnes/Hectare
+454936,454935,2022-2023,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Autumn,4515.0,Hectare,14374.0,Tonnes,3.184,Tonnes/Hectare
+454937,454936,2022-2023,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Summer,59314.0,Hectare,199143.0,Tonnes,3.357,Tonnes/Hectare
+454938,454937,2022-2023,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Total,246793.0,Hectare,816833.0,Tonnes,3.31,Tonnes/Hectare
+454939,454938,2022-2023,West Bengal,19,Hooghly,312,Rice,101.0,Cereals,Winter,182964.0,Hectare,603316.0,Tonnes,3.297,Tonnes/Hectare
+454940,454939,2022-2023,West Bengal,19,Hooghly,312,Sesamum,1003.0,Oilseeds,Summer,38106.0,Hectare,39715.0,Tonnes,1.042,Tonnes/Hectare
+454941,454940,2022-2023,West Bengal,19,Hooghly,312,Sugarcane,401.0,Sugar,Whole Year,416.0,Hectare,32866.0,Tonnes,79.005,Tonnes/Hectare
+454942,454941,2022-2023,West Bengal,19,Hooghly,312,Urad,203.0,Pulses,Kharif,3.0,Hectare,2.0,Tonnes,0.667,Tonnes/Hectare
+454943,454942,2022-2023,West Bengal,19,Hooghly,312,Urad,203.0,Pulses,Rabi,90.0,Hectare,65.0,Tonnes,0.722,Tonnes/Hectare
+454944,454943,2022-2023,West Bengal,19,Hooghly,312,Urad,203.0,Pulses,Total,93.0,Hectare,67.0,Tonnes,0.72,Tonnes/Hectare
+454945,454944,2022-2023,West Bengal,19,Hooghly,312,Wheat,106.0,Cereals,Rabi,7.0,Hectare,21.0,Tonnes,3.0,Tonnes/Hectare
+454946,454945,2022-2023,West Bengal,19,Howrah,313,Gram,201.0,Pulses,Rabi,9.0,Hectare,9.0,Tonnes,1.0,Tonnes/Hectare
+454947,454946,2022-2023,West Bengal,19,Howrah,313,Groundnut,1001.0,Oilseeds,Rabi,2.0,Hectare,4.0,Tonnes,2.0,Tonnes/Hectare
+454948,454947,2022-2023,West Bengal,19,Howrah,313,Groundnut,1001.0,Oilseeds,Summer,5091.0,Hectare,15552.0,Tonnes,3.055,Tonnes/Hectare
+454949,454948,2022-2023,West Bengal,19,Howrah,313,Groundnut,1001.0,Oilseeds,Total,5093.0,Hectare,15556.0,Tonnes,3.054,Tonnes/Hectare
+454950,454949,2022-2023,West Bengal,19,Howrah,313,Jute,1102.0,Fiber Crops,Kharif,3449.0,Hectare,88493.0,Tonnes,25.658,Tonnes/Hectare
+454951,454950,2022-2023,West Bengal,19,Howrah,313,Khesari,521.0,Spices,Rabi,1807.0,Hectare,2231.0,Tonnes,1.235,Tonnes/Hectare
+454952,454951,2022-2023,West Bengal,19,Howrah,313,Linseed,1005.0,Oilseeds,Rabi,22.0,Hectare,9.0,Tonnes,0.409,Tonnes/Hectare
+454953,454952,2022-2023,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Autumn,14.0,Hectare,88.0,Tonnes,6.286,Tonnes/Hectare
+454954,454953,2022-2023,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Rabi,39.0,Hectare,368.0,Tonnes,9.436,Tonnes/Hectare
+454955,454954,2022-2023,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Summer,57.0,Hectare,448.0,Tonnes,7.86,Tonnes/Hectare
+454956,454955,2022-2023,West Bengal,19,Howrah,313,Maize,104.0,Cereals,Total,110.0,Hectare,904.0,Tonnes,8.218,Tonnes/Hectare
+454957,454956,2022-2023,West Bengal,19,Howrah,313,Masoor,205.0,Pulses,Rabi,85.0,Hectare,70.0,Tonnes,0.824,Tonnes/Hectare
+454958,454957,2022-2023,West Bengal,19,Howrah,313,Moong(Green Gram),204.0,Pulses,Summer,1647.0,Hectare,1405.0,Tonnes,0.853,Tonnes/Hectare
+454959,454958,2022-2023,West Bengal,19,Howrah,313,Peas & Beans (Pulses),213.0,Pulses,Rabi,94.0,Hectare,109.0,Tonnes,1.16,Tonnes/Hectare
+454960,454959,2022-2023,West Bengal,19,Howrah,313,Potato,701.0,Vegetable,Rabi,5753.0,Hectare,181730.0,Tonnes,31.589,Tonnes/Hectare
+454961,454960,2022-2023,West Bengal,19,Howrah,313,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,2264.0,Hectare,2022.0,Tonnes,0.893,Tonnes/Hectare
+454962,454961,2022-2023,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Autumn,1076.0,Hectare,3473.0,Tonnes,3.228,Tonnes/Hectare
+454963,454962,2022-2023,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Summer,30822.0,Hectare,93275.0,Tonnes,3.026,Tonnes/Hectare
+454964,454963,2022-2023,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Total,91854.0,Hectare,260740.0,Tonnes,2.839,Tonnes/Hectare
+454965,454964,2022-2023,West Bengal,19,Howrah,313,Rice,101.0,Cereals,Winter,59956.0,Hectare,163992.0,Tonnes,2.735,Tonnes/Hectare
+454966,454965,2022-2023,West Bengal,19,Howrah,313,Sesamum,1003.0,Oilseeds,Summer,2901.0,Hectare,3134.0,Tonnes,1.08,Tonnes/Hectare
+454967,454966,2022-2023,West Bengal,19,Howrah,313,Sugarcane,401.0,Sugar,Whole Year,107.0,Hectare,8351.0,Tonnes,78.047,Tonnes/Hectare
+454968,454967,2022-2023,West Bengal,19,Howrah,313,Sunflower,1007.0,Oilseeds,Kharif,5.0,Hectare,5.0,Tonnes,1.0,Tonnes/Hectare
+454969,454968,2022-2023,West Bengal,19,Howrah,313,Urad,203.0,Pulses,Kharif,6.0,Hectare,4.0,Tonnes,0.667,Tonnes/Hectare
+454970,454969,2022-2023,West Bengal,19,Howrah,313,Urad,203.0,Pulses,Rabi,1.0,Hectare,1.0,Tonnes,1.0,Tonnes/Hectare
+454971,454970,2022-2023,West Bengal,19,Howrah,313,Urad,203.0,Pulses,Total,7.0,Hectare,5.0,Tonnes,0.714,Tonnes/Hectare
+454972,454971,2022-2023,West Bengal,19,Howrah,313,Wheat,106.0,Cereals,Rabi,123.0,Hectare,308.0,Tonnes,2.504,Tonnes/Hectare
+454973,454972,2022-2023,West Bengal,19,Jalpaiguri,314,Arhar/Tur,202.0,Pulses,Rabi,64.0,Hectare,101.0,Tonnes,1.578,Tonnes/Hectare
+454974,454973,2022-2023,West Bengal,19,Jalpaiguri,314,Barley,107.0,Cereals,Rabi,120.0,Hectare,223.0,Tonnes,1.858,Tonnes/Hectare
+454975,454974,2022-2023,West Bengal,19,Jalpaiguri,314,Gram,201.0,Pulses,Rabi,38.0,Hectare,48.0,Tonnes,1.263,Tonnes/Hectare
+454976,454975,2022-2023,West Bengal,19,Jalpaiguri,314,Groundnut,1001.0,Oilseeds,Rabi,1350.0,Hectare,2707.0,Tonnes,2.005,Tonnes/Hectare
+454977,454976,2022-2023,West Bengal,19,Jalpaiguri,314,Groundnut,1001.0,Oilseeds,Summer,3496.0,Hectare,9691.0,Tonnes,2.772,Tonnes/Hectare
+454978,454977,2022-2023,West Bengal,19,Jalpaiguri,314,Groundnut,1001.0,Oilseeds,Total,4846.0,Hectare,12398.0,Tonnes,2.558,Tonnes/Hectare
+454979,454978,2022-2023,West Bengal,19,Jalpaiguri,314,Horse-Gram,206.0,Pulses,Rabi,32.0,Hectare,20.0,Tonnes,0.625,Tonnes/Hectare
+454980,454979,2022-2023,West Bengal,19,Jalpaiguri,314,Jute,1102.0,Fiber Crops,Kharif,24398.0,Hectare,302884.0,Tonnes,12.414,Tonnes/Hectare
+454981,454980,2022-2023,West Bengal,19,Jalpaiguri,314,Khesari,521.0,Spices,Rabi,1297.0,Hectare,1641.0,Tonnes,1.265,Tonnes/Hectare
+454982,454981,2022-2023,West Bengal,19,Jalpaiguri,314,Linseed,1005.0,Oilseeds,Rabi,268.0,Hectare,109.0,Tonnes,0.407,Tonnes/Hectare
+454983,454982,2022-2023,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Autumn,1398.0,Hectare,4456.0,Tonnes,3.187,Tonnes/Hectare
+454984,454983,2022-2023,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Rabi,2562.0,Hectare,6564.0,Tonnes,2.562,Tonnes/Hectare
+454985,454984,2022-2023,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Summer,11473.0,Hectare,67018.0,Tonnes,5.841,Tonnes/Hectare
+454986,454985,2022-2023,West Bengal,19,Jalpaiguri,314,Maize,104.0,Cereals,Total,15433.0,Hectare,78038.0,Tonnes,5.057,Tonnes/Hectare
+454987,454986,2022-2023,West Bengal,19,Jalpaiguri,314,Masoor,205.0,Pulses,Rabi,1561.0,Hectare,880.0,Tonnes,0.564,Tonnes/Hectare
+454988,454987,2022-2023,West Bengal,19,Jalpaiguri,314,Mesta,1103.0,Fiber Crops,Kharif,44.0,Hectare,623.0,Tonnes,14.159,Tonnes/Hectare
+454989,454988,2022-2023,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Kharif,380.0,Hectare,171.0,Tonnes,0.45,Tonnes/Hectare
+454990,454989,2022-2023,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Rabi,70.0,Hectare,58.0,Tonnes,0.829,Tonnes/Hectare
+454991,454990,2022-2023,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Summer,106.0,Hectare,110.0,Tonnes,1.038,Tonnes/Hectare
+454992,454991,2022-2023,West Bengal,19,Jalpaiguri,314,Moong(Green Gram),204.0,Pulses,Total,556.0,Hectare,339.0,Tonnes,0.61,Tonnes/Hectare
+454993,454992,2022-2023,West Bengal,19,Jalpaiguri,314,Niger Seed,1010.0,Oilseeds,Kharif,300.0,Hectare,177.0,Tonnes,0.59,Tonnes/Hectare
+454994,454993,2022-2023,West Bengal,19,Jalpaiguri,314,Peas & Beans (Pulses),213.0,Pulses,Rabi,1421.0,Hectare,1616.0,Tonnes,1.137,Tonnes/Hectare
+454995,454994,2022-2023,West Bengal,19,Jalpaiguri,314,Potato,701.0,Vegetable,Rabi,33692.0,Hectare,1063560.0,Tonnes,31.567,Tonnes/Hectare
+454996,454995,2022-2023,West Bengal,19,Jalpaiguri,314,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,5959.0,Hectare,5483.0,Tonnes,0.92,Tonnes/Hectare
+454997,454996,2022-2023,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Autumn,8995.0,Hectare,21713.0,Tonnes,2.414,Tonnes/Hectare
+454998,454997,2022-2023,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Summer,14132.0,Hectare,41952.0,Tonnes,2.969,Tonnes/Hectare
+454999,454998,2022-2023,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Total,134471.0,Hectare,362896.0,Tonnes,2.699,Tonnes/Hectare
+455000,454999,2022-2023,West Bengal,19,Jalpaiguri,314,Rice,101.0,Cereals,Winter,111344.0,Hectare,299231.0,Tonnes,2.687,Tonnes/Hectare
+455001,455000,2022-2023,West Bengal,19,Jalpaiguri,314,Sesamum,1003.0,Oilseeds,Summer,653.0,Hectare,651.0,Tonnes,0.997,Tonnes/Hectare
+455002,455001,2022-2023,West Bengal,19,Jalpaiguri,314,Sesamum,1003.0,Oilseeds,Total,723.0,Hectare,701.0,Tonnes,0.97,Tonnes/Hectare
+455003,455002,2022-2023,West Bengal,19,Jalpaiguri,314,Sesamum,1003.0,Oilseeds,Winter,70.0,Hectare,50.0,Tonnes,0.714,Tonnes/Hectare
+455004,455003,2022-2023,West Bengal,19,Jalpaiguri,314,Sugarcane,401.0,Sugar,Whole Year,144.0,Hectare,11239.0,Tonnes,78.049,Tonnes/Hectare
+455005,455004,2022-2023,West Bengal,19,Jalpaiguri,314,Sunflower,1007.0,Oilseeds,Kharif,10.0,Hectare,10.0,Tonnes,1.0,Tonnes/Hectare
+455006,455005,2022-2023,West Bengal,19,Jalpaiguri,314,Urad,203.0,Pulses,Kharif,823.0,Hectare,459.0,Tonnes,0.558,Tonnes/Hectare
+455007,455006,2022-2023,West Bengal,19,Jalpaiguri,314,Urad,203.0,Pulses,Rabi,105.0,Hectare,87.0,Tonnes,0.829,Tonnes/Hectare
+455008,455007,2022-2023,West Bengal,19,Jalpaiguri,314,Urad,203.0,Pulses,Total,928.0,Hectare,546.0,Tonnes,0.588,Tonnes/Hectare
+455009,455008,2022-2023,West Bengal,19,Jalpaiguri,314,Wheat,106.0,Cereals,Rabi,1135.0,Hectare,3442.0,Tonnes,3.033,Tonnes/Hectare
+455010,455009,2022-2023,West Bengal,19,Jhargram,703,Arhar/Tur,202.0,Pulses,Rabi,103.0,Hectare,131.0,Tonnes,1.272,Tonnes/Hectare
+455011,455010,2022-2023,West Bengal,19,Jhargram,703,Gram,201.0,Pulses,Rabi,376.0,Hectare,552.0,Tonnes,1.468,Tonnes/Hectare
+455012,455011,2022-2023,West Bengal,19,Jhargram,703,Groundnut,1001.0,Oilseeds,Rabi,1390.0,Hectare,3072.0,Tonnes,2.21,Tonnes/Hectare
+455013,455012,2022-2023,West Bengal,19,Jhargram,703,Groundnut,1001.0,Oilseeds,Summer,3115.0,Hectare,5138.0,Tonnes,1.649,Tonnes/Hectare
+455014,455013,2022-2023,West Bengal,19,Jhargram,703,Groundnut,1001.0,Oilseeds,Total,4505.0,Hectare,8210.0,Tonnes,1.822,Tonnes/Hectare
+455015,455014,2022-2023,West Bengal,19,Jhargram,703,Horse-Gram,206.0,Pulses,Rabi,102.0,Hectare,66.0,Tonnes,0.647,Tonnes/Hectare
+455016,455015,2022-2023,West Bengal,19,Jhargram,703,Khesari,521.0,Spices,Rabi,1855.0,Hectare,2340.0,Tonnes,1.261,Tonnes/Hectare
+455017,455016,2022-2023,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Autumn,649.0,Hectare,1730.0,Tonnes,2.666,Tonnes/Hectare
+455018,455017,2022-2023,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Rabi,816.0,Hectare,1533.0,Tonnes,1.879,Tonnes/Hectare
+455019,455018,2022-2023,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Summer,857.0,Hectare,3631.0,Tonnes,4.237,Tonnes/Hectare
+455020,455019,2022-2023,West Bengal,19,Jhargram,703,Maize,104.0,Cereals,Total,2322.0,Hectare,6894.0,Tonnes,2.969,Tonnes/Hectare
+455021,455020,2022-2023,West Bengal,19,Jhargram,703,Masoor,205.0,Pulses,Rabi,2159.0,Hectare,3959.0,Tonnes,1.834,Tonnes/Hectare
+455022,455021,2022-2023,West Bengal,19,Jhargram,703,Mesta,1103.0,Fiber Crops,Kharif,11.0,Hectare,48.0,Tonnes,4.364,Tonnes/Hectare
+455023,455022,2022-2023,West Bengal,19,Jhargram,703,Moong(Green Gram),204.0,Pulses,Rabi,520.0,Hectare,442.0,Tonnes,0.85,Tonnes/Hectare
+455024,455023,2022-2023,West Bengal,19,Jhargram,703,Moong(Green Gram),204.0,Pulses,Summer,1656.0,Hectare,861.0,Tonnes,0.52,Tonnes/Hectare
+455025,455024,2022-2023,West Bengal,19,Jhargram,703,Moong(Green Gram),204.0,Pulses,Total,2176.0,Hectare,1303.0,Tonnes,0.599,Tonnes/Hectare
+455026,455025,2022-2023,West Bengal,19,Jhargram,703,Peas & Beans (Pulses),213.0,Pulses,Rabi,263.0,Hectare,533.0,Tonnes,2.027,Tonnes/Hectare
+455027,455026,2022-2023,West Bengal,19,Jhargram,703,Potato,701.0,Vegetable,Rabi,5174.0,Hectare,148164.0,Tonnes,28.636,Tonnes/Hectare
+455028,455027,2022-2023,West Bengal,19,Jhargram,703,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,6135.0,Hectare,5829.0,Tonnes,0.95,Tonnes/Hectare
+455029,455028,2022-2023,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Autumn,11778.0,Hectare,29331.0,Tonnes,2.49,Tonnes/Hectare
+455030,455029,2022-2023,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Summer,26876.0,Hectare,85248.0,Tonnes,3.172,Tonnes/Hectare
+455031,455030,2022-2023,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Total,177645.0,Hectare,503728.0,Tonnes,2.836,Tonnes/Hectare
+455032,455031,2022-2023,West Bengal,19,Jhargram,703,Rice,101.0,Cereals,Winter,138991.0,Hectare,389149.0,Tonnes,2.8,Tonnes/Hectare
+455033,455032,2022-2023,West Bengal,19,Jhargram,703,Sannhamp,1104.0,Fiber Crops,Kharif,35.0,Hectare,67.0,Tonnes,1.914,Tonnes/Hectare
+455034,455033,2022-2023,West Bengal,19,Jhargram,703,Sesamum,1003.0,Oilseeds,Summer,7235.0,Hectare,6722.0,Tonnes,0.929,Tonnes/Hectare
+455035,455034,2022-2023,West Bengal,19,Jhargram,703,Sugarcane,401.0,Sugar,Whole Year,1477.0,Hectare,128639.0,Tonnes,87.095,Tonnes/Hectare
+455036,455035,2022-2023,West Bengal,19,Jhargram,703,Sunflower,1007.0,Oilseeds,Kharif,318.0,Hectare,507.0,Tonnes,1.594,Tonnes/Hectare
+455037,455036,2022-2023,West Bengal,19,Jhargram,703,Urad,203.0,Pulses,Kharif,292.0,Hectare,140.0,Tonnes,0.479,Tonnes/Hectare
+455038,455037,2022-2023,West Bengal,19,Jhargram,703,Urad,203.0,Pulses,Rabi,585.0,Hectare,445.0,Tonnes,0.761,Tonnes/Hectare
+455039,455038,2022-2023,West Bengal,19,Jhargram,703,Urad,203.0,Pulses,Total,877.0,Hectare,585.0,Tonnes,0.667,Tonnes/Hectare
+455040,455039,2022-2023,West Bengal,19,Jhargram,703,Wheat,106.0,Cereals,Rabi,421.0,Hectare,1022.0,Tonnes,2.428,Tonnes/Hectare
+455041,455040,2022-2023,West Bengal,19,Kalimpong,702,Maize,104.0,Cereals,Autumn,7056.0,Hectare,27479.0,Tonnes,3.894,Tonnes/Hectare
+455042,455041,2022-2023,West Bengal,19,Kalimpong,702,Maize,104.0,Cereals,Summer,7662.0,Hectare,59323.0,Tonnes,7.742,Tonnes/Hectare
+455043,455042,2022-2023,West Bengal,19,Kalimpong,702,Maize,104.0,Cereals,Total,14718.0,Hectare,86802.0,Tonnes,5.898,Tonnes/Hectare
+455044,455043,2022-2023,West Bengal,19,Kalimpong,702,Peas & Beans (Pulses),213.0,Pulses,Rabi,59.0,Hectare,67.0,Tonnes,1.136,Tonnes/Hectare
+455045,455044,2022-2023,West Bengal,19,Kalimpong,702,Potato,701.0,Vegetable,Rabi,913.0,Hectare,16237.0,Tonnes,17.784,Tonnes/Hectare
+455046,455045,2022-2023,West Bengal,19,Kalimpong,702,Potato,701.0,Vegetable,Summer,20.0,Hectare,110.0,Tonnes,5.5,Tonnes/Hectare
+455047,455046,2022-2023,West Bengal,19,Kalimpong,702,Potato,701.0,Vegetable,Total,933.0,Hectare,16347.0,Tonnes,17.521,Tonnes/Hectare
+455048,455047,2022-2023,West Bengal,19,Kalimpong,702,Ragi,105.0,Cereals,Autumn,1640.0,Hectare,2575.0,Tonnes,1.57,Tonnes/Hectare
+455049,455048,2022-2023,West Bengal,19,Kalimpong,702,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,207.0,Hectare,289.0,Tonnes,1.396,Tonnes/Hectare
+455050,455049,2022-2023,West Bengal,19,Kalimpong,702,Rice,101.0,Cereals,Winter,4754.0,Hectare,7917.0,Tonnes,1.665,Tonnes/Hectare
+455051,455050,2022-2023,West Bengal,19,Kalimpong,702,Urad,203.0,Pulses,Kharif,11.0,Hectare,7.0,Tonnes,0.636,Tonnes/Hectare
+455052,455051,2022-2023,West Bengal,19,Malda,316,Arhar/Tur,202.0,Pulses,Rabi,72.0,Hectare,152.0,Tonnes,2.111,Tonnes/Hectare
+455053,455052,2022-2023,West Bengal,19,Malda,316,Gram,201.0,Pulses,Rabi,1953.0,Hectare,2565.0,Tonnes,1.313,Tonnes/Hectare
+455054,455053,2022-2023,West Bengal,19,Malda,316,Groundnut,1001.0,Oilseeds,Summer,392.0,Hectare,544.0,Tonnes,1.388,Tonnes/Hectare
+455055,455054,2022-2023,West Bengal,19,Malda,316,Horse-Gram,206.0,Pulses,Rabi,1271.0,Hectare,925.0,Tonnes,0.728,Tonnes/Hectare
+455056,455055,2022-2023,West Bengal,19,Malda,316,Jute,1102.0,Fiber Crops,Kharif,27330.0,Hectare,425497.0,Tonnes,15.569,Tonnes/Hectare
+455057,455056,2022-2023,West Bengal,19,Malda,316,Khesari,521.0,Spices,Rabi,3592.0,Hectare,4742.0,Tonnes,1.32,Tonnes/Hectare
+455058,455057,2022-2023,West Bengal,19,Malda,316,Linseed,1005.0,Oilseeds,Rabi,23.0,Hectare,10.0,Tonnes,0.435,Tonnes/Hectare
+455059,455058,2022-2023,West Bengal,19,Malda,316,Maize,104.0,Cereals,Autumn,7657.0,Hectare,24948.0,Tonnes,3.258,Tonnes/Hectare
+455060,455059,2022-2023,West Bengal,19,Malda,316,Maize,104.0,Cereals,Rabi,32247.0,Hectare,255401.0,Tonnes,7.92,Tonnes/Hectare
+455061,455060,2022-2023,West Bengal,19,Malda,316,Maize,104.0,Cereals,Summer,11417.0,Hectare,95580.0,Tonnes,8.372,Tonnes/Hectare
+455062,455061,2022-2023,West Bengal,19,Malda,316,Maize,104.0,Cereals,Total,51321.0,Hectare,375929.0,Tonnes,7.325,Tonnes/Hectare
+455063,455062,2022-2023,West Bengal,19,Malda,316,Masoor,205.0,Pulses,Rabi,13127.0,Hectare,16094.0,Tonnes,1.226,Tonnes/Hectare
+455064,455063,2022-2023,West Bengal,19,Malda,316,Mesta,1103.0,Fiber Crops,Kharif,641.0,Hectare,8948.0,Tonnes,13.959,Tonnes/Hectare
+455065,455064,2022-2023,West Bengal,19,Malda,316,Moong(Green Gram),204.0,Pulses,Summer,2203.0,Hectare,3648.0,Tonnes,1.656,Tonnes/Hectare
+455066,455065,2022-2023,West Bengal,19,Malda,316,Peas & Beans (Pulses),213.0,Pulses,Rabi,885.0,Hectare,951.0,Tonnes,1.075,Tonnes/Hectare
+455067,455066,2022-2023,West Bengal,19,Malda,316,Potato,701.0,Vegetable,Rabi,10027.0,Hectare,338281.0,Tonnes,33.737,Tonnes/Hectare
+455068,455067,2022-2023,West Bengal,19,Malda,316,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,40978.0,Hectare,75843.0,Tonnes,1.851,Tonnes/Hectare
+455069,455068,2022-2023,West Bengal,19,Malda,316,Rice,101.0,Cereals,Autumn,3208.0,Hectare,6392.0,Tonnes,1.993,Tonnes/Hectare
+455070,455069,2022-2023,West Bengal,19,Malda,316,Rice,101.0,Cereals,Summer,64015.0,Hectare,251487.0,Tonnes,3.929,Tonnes/Hectare
+455071,455070,2022-2023,West Bengal,19,Malda,316,Rice,101.0,Cereals,Total,195088.0,Hectare,633851.0,Tonnes,3.249,Tonnes/Hectare
+455072,455071,2022-2023,West Bengal,19,Malda,316,Rice,101.0,Cereals,Winter,127865.0,Hectare,375972.0,Tonnes,2.94,Tonnes/Hectare
+455073,455072,2022-2023,West Bengal,19,Malda,316,Sesamum,1003.0,Oilseeds,Summer,397.0,Hectare,339.0,Tonnes,0.854,Tonnes/Hectare
+455074,455073,2022-2023,West Bengal,19,Malda,316,Sugarcane,401.0,Sugar,Whole Year,2271.0,Hectare,235088.0,Tonnes,103.517,Tonnes/Hectare
+455075,455074,2022-2023,West Bengal,19,Malda,316,Urad,203.0,Pulses,Kharif,11284.0,Hectare,10855.0,Tonnes,0.962,Tonnes/Hectare
+455076,455075,2022-2023,West Bengal,19,Malda,316,Wheat,106.0,Cereals,Rabi,19021.0,Hectare,62474.0,Tonnes,3.284,Tonnes/Hectare
+455077,455076,2022-2023,West Bengal,19,Murshidabad,319,Arhar/Tur,202.0,Pulses,Rabi,261.0,Hectare,540.0,Tonnes,2.069,Tonnes/Hectare
+455078,455077,2022-2023,West Bengal,19,Murshidabad,319,Gram,201.0,Pulses,Rabi,11709.0,Hectare,13537.0,Tonnes,1.156,Tonnes/Hectare
+455079,455078,2022-2023,West Bengal,19,Murshidabad,319,Groundnut,1001.0,Oilseeds,Rabi,50.0,Hectare,49.0,Tonnes,0.98,Tonnes/Hectare
+455080,455079,2022-2023,West Bengal,19,Murshidabad,319,Groundnut,1001.0,Oilseeds,Summer,486.0,Hectare,675.0,Tonnes,1.389,Tonnes/Hectare
+455081,455080,2022-2023,West Bengal,19,Murshidabad,319,Groundnut,1001.0,Oilseeds,Total,536.0,Hectare,724.0,Tonnes,1.351,Tonnes/Hectare
+455082,455081,2022-2023,West Bengal,19,Murshidabad,319,Horse-Gram,206.0,Pulses,Rabi,40.0,Hectare,39.0,Tonnes,0.975,Tonnes/Hectare
+455083,455082,2022-2023,West Bengal,19,Murshidabad,319,Jowar,102.0,Cereals,Autumn,105.0,Hectare,62.0,Tonnes,0.59,Tonnes/Hectare
+455084,455083,2022-2023,West Bengal,19,Murshidabad,319,Jute,1102.0,Fiber Crops,Kharif,142164.0,Hectare,1978655.0,Tonnes,13.918,Tonnes/Hectare
+455085,455084,2022-2023,West Bengal,19,Murshidabad,319,Khesari,521.0,Spices,Rabi,11684.0,Hectare,11544.0,Tonnes,0.988,Tonnes/Hectare
+455086,455085,2022-2023,West Bengal,19,Murshidabad,319,Linseed,1005.0,Oilseeds,Rabi,487.0,Hectare,145.0,Tonnes,0.298,Tonnes/Hectare
+455087,455086,2022-2023,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Autumn,4922.0,Hectare,24885.0,Tonnes,5.056,Tonnes/Hectare
+455088,455087,2022-2023,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Rabi,27291.0,Hectare,237082.0,Tonnes,8.687,Tonnes/Hectare
+455089,455088,2022-2023,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Summer,20871.0,Hectare,119049.0,Tonnes,5.704,Tonnes/Hectare
+455090,455089,2022-2023,West Bengal,19,Murshidabad,319,Maize,104.0,Cereals,Total,53084.0,Hectare,381016.0,Tonnes,7.178,Tonnes/Hectare
+455091,455090,2022-2023,West Bengal,19,Murshidabad,319,Masoor,205.0,Pulses,Rabi,33410.0,Hectare,27544.0,Tonnes,0.824,Tonnes/Hectare
+455092,455091,2022-2023,West Bengal,19,Murshidabad,319,Mesta,1103.0,Fiber Crops,Kharif,1646.0,Hectare,22978.0,Tonnes,13.96,Tonnes/Hectare
+455093,455092,2022-2023,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Kharif,480.0,Hectare,456.0,Tonnes,0.95,Tonnes/Hectare
+455094,455093,2022-2023,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Summer,2260.0,Hectare,3203.0,Tonnes,1.417,Tonnes/Hectare
+455095,455094,2022-2023,West Bengal,19,Murshidabad,319,Moong(Green Gram),204.0,Pulses,Total,2740.0,Hectare,3659.0,Tonnes,1.335,Tonnes/Hectare
+455096,455095,2022-2023,West Bengal,19,Murshidabad,319,Peas & Beans (Pulses),213.0,Pulses,Rabi,2623.0,Hectare,2828.0,Tonnes,1.078,Tonnes/Hectare
+455097,455096,2022-2023,West Bengal,19,Murshidabad,319,Potato,701.0,Vegetable,Rabi,14169.0,Hectare,432640.0,Tonnes,30.534,Tonnes/Hectare
+455098,455097,2022-2023,West Bengal,19,Murshidabad,319,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,140735.0,Hectare,166871.0,Tonnes,1.186,Tonnes/Hectare
+455099,455098,2022-2023,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Autumn,9647.0,Hectare,18977.0,Tonnes,1.967,Tonnes/Hectare
+455100,455099,2022-2023,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Summer,82059.0,Hectare,287500.0,Tonnes,3.504,Tonnes/Hectare
+455101,455100,2022-2023,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Total,218082.0,Hectare,682619.0,Tonnes,3.13,Tonnes/Hectare
+455102,455101,2022-2023,West Bengal,19,Murshidabad,319,Rice,101.0,Cereals,Winter,126376.0,Hectare,376142.0,Tonnes,2.976,Tonnes/Hectare
+455103,455102,2022-2023,West Bengal,19,Murshidabad,319,Sesamum,1003.0,Oilseeds,Autumn,85.0,Hectare,50.0,Tonnes,0.588,Tonnes/Hectare
+455104,455103,2022-2023,West Bengal,19,Murshidabad,319,Sesamum,1003.0,Oilseeds,Summer,24601.0,Hectare,21942.0,Tonnes,0.892,Tonnes/Hectare
+455105,455104,2022-2023,West Bengal,19,Murshidabad,319,Sesamum,1003.0,Oilseeds,Total,24686.0,Hectare,21992.0,Tonnes,0.891,Tonnes/Hectare
+455106,455105,2022-2023,West Bengal,19,Murshidabad,319,Sugarcane,401.0,Sugar,Whole Year,3372.0,Hectare,233283.0,Tonnes,69.182,Tonnes/Hectare
+455107,455106,2022-2023,West Bengal,19,Murshidabad,319,Urad,203.0,Pulses,Kharif,17657.0,Hectare,11240.0,Tonnes,0.637,Tonnes/Hectare
+455108,455107,2022-2023,West Bengal,19,Murshidabad,319,Urad,203.0,Pulses,Rabi,2270.0,Hectare,2275.0,Tonnes,1.002,Tonnes/Hectare
+455109,455108,2022-2023,West Bengal,19,Murshidabad,319,Urad,203.0,Pulses,Total,19927.0,Hectare,13515.0,Tonnes,0.678,Tonnes/Hectare
+455110,455109,2022-2023,West Bengal,19,Murshidabad,319,Wheat,106.0,Cereals,Rabi,50147.0,Hectare,139722.0,Tonnes,2.786,Tonnes/Hectare
+455111,455110,2022-2023,West Bengal,19,Nadia,320,Arhar/Tur,202.0,Pulses,Rabi,36.0,Hectare,57.0,Tonnes,1.583,Tonnes/Hectare
+455112,455111,2022-2023,West Bengal,19,Nadia,320,Gram,201.0,Pulses,Rabi,5680.0,Hectare,5471.0,Tonnes,0.963,Tonnes/Hectare
+455113,455112,2022-2023,West Bengal,19,Nadia,320,Groundnut,1001.0,Oilseeds,Rabi,711.0,Hectare,1684.0,Tonnes,2.368,Tonnes/Hectare
+455114,455113,2022-2023,West Bengal,19,Nadia,320,Groundnut,1001.0,Oilseeds,Summer,2224.0,Hectare,3403.0,Tonnes,1.53,Tonnes/Hectare
+455115,455114,2022-2023,West Bengal,19,Nadia,320,Groundnut,1001.0,Oilseeds,Total,2935.0,Hectare,5087.0,Tonnes,1.733,Tonnes/Hectare
+455116,455115,2022-2023,West Bengal,19,Nadia,320,Jute,1102.0,Fiber Crops,Kharif,95565.0,Hectare,1425077.0,Tonnes,14.912,Tonnes/Hectare
+455117,455116,2022-2023,West Bengal,19,Nadia,320,Khesari,521.0,Spices,Rabi,1693.0,Hectare,1638.0,Tonnes,0.968,Tonnes/Hectare
+455118,455117,2022-2023,West Bengal,19,Nadia,320,Linseed,1005.0,Oilseeds,Rabi,91.0,Hectare,37.0,Tonnes,0.407,Tonnes/Hectare
+455119,455118,2022-2023,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Autumn,2325.0,Hectare,14051.0,Tonnes,6.043,Tonnes/Hectare
+455120,455119,2022-2023,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Rabi,7907.0,Hectare,70094.0,Tonnes,8.865,Tonnes/Hectare
+455121,455120,2022-2023,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Summer,8264.0,Hectare,62851.0,Tonnes,7.605,Tonnes/Hectare
+455122,455121,2022-2023,West Bengal,19,Nadia,320,Maize,104.0,Cereals,Total,18496.0,Hectare,146996.0,Tonnes,7.947,Tonnes/Hectare
+455123,455122,2022-2023,West Bengal,19,Nadia,320,Masoor,205.0,Pulses,Rabi,32729.0,Hectare,38743.0,Tonnes,1.184,Tonnes/Hectare
+455124,455123,2022-2023,West Bengal,19,Nadia,320,Mesta,1103.0,Fiber Crops,Kharif,328.0,Hectare,5891.0,Tonnes,17.96,Tonnes/Hectare
+455125,455124,2022-2023,West Bengal,19,Nadia,320,Moong(Green Gram),204.0,Pulses,Summer,2963.0,Hectare,5213.0,Tonnes,1.759,Tonnes/Hectare
+455126,455125,2022-2023,West Bengal,19,Nadia,320,Other Rabi Pulses,288.0,Pulses,Rabi,900.0,Hectare,818.0,Tonnes,0.909,Tonnes/Hectare
+455127,455126,2022-2023,West Bengal,19,Nadia,320,Peas & Beans (Pulses),213.0,Pulses,Rabi,3687.0,Hectare,3071.0,Tonnes,0.833,Tonnes/Hectare
+455128,455127,2022-2023,West Bengal,19,Nadia,320,Potato,701.0,Vegetable,Rabi,5228.0,Hectare,169688.0,Tonnes,32.458,Tonnes/Hectare
+455129,455128,2022-2023,West Bengal,19,Nadia,320,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,86776.0,Hectare,107239.0,Tonnes,1.236,Tonnes/Hectare
+455130,455129,2022-2023,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Autumn,36421.0,Hectare,100861.0,Tonnes,2.769,Tonnes/Hectare
+455131,455130,2022-2023,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Summer,72296.0,Hectare,260866.0,Tonnes,3.608,Tonnes/Hectare
+455132,455131,2022-2023,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Total,196045.0,Hectare,634213.0,Tonnes,3.235,Tonnes/Hectare
+455133,455132,2022-2023,West Bengal,19,Nadia,320,Rice,101.0,Cereals,Winter,87328.0,Hectare,272486.0,Tonnes,3.12,Tonnes/Hectare
+455134,455133,2022-2023,West Bengal,19,Nadia,320,Sesamum,1003.0,Oilseeds,Summer,31644.0,Hectare,31969.0,Tonnes,1.01,Tonnes/Hectare
+455135,455134,2022-2023,West Bengal,19,Nadia,320,Sugarcane,401.0,Sugar,Whole Year,2025.0,Hectare,158045.0,Tonnes,78.047,Tonnes/Hectare
+455136,455135,2022-2023,West Bengal,19,Nadia,320,Sunflower,1007.0,Oilseeds,Kharif,30.0,Hectare,54.0,Tonnes,1.8,Tonnes/Hectare
+455137,455136,2022-2023,West Bengal,19,Nadia,320,Urad,203.0,Pulses,Kharif,14729.0,Hectare,11463.0,Tonnes,0.778,Tonnes/Hectare
+455138,455137,2022-2023,West Bengal,19,Nadia,320,Wheat,106.0,Cereals,Rabi,9643.0,Hectare,30939.0,Tonnes,3.208,Tonnes/Hectare
+455139,455138,2022-2023,West Bengal,19,North 24 Parganas,303,Arhar/Tur,202.0,Pulses,Rabi,58.0,Hectare,91.0,Tonnes,1.569,Tonnes/Hectare
+455140,455139,2022-2023,West Bengal,19,North 24 Parganas,303,Gram,201.0,Pulses,Rabi,211.0,Hectare,219.0,Tonnes,1.038,Tonnes/Hectare
+455141,455140,2022-2023,West Bengal,19,North 24 Parganas,303,Groundnut,1001.0,Oilseeds,Rabi,43.0,Hectare,65.0,Tonnes,1.512,Tonnes/Hectare
+455142,455141,2022-2023,West Bengal,19,North 24 Parganas,303,Groundnut,1001.0,Oilseeds,Summer,1071.0,Hectare,2813.0,Tonnes,2.627,Tonnes/Hectare
+455143,455142,2022-2023,West Bengal,19,North 24 Parganas,303,Groundnut,1001.0,Oilseeds,Total,1114.0,Hectare,2878.0,Tonnes,2.583,Tonnes/Hectare
+455144,455143,2022-2023,West Bengal,19,North 24 Parganas,303,Jute,1102.0,Fiber Crops,Kharif,57209.0,Hectare,1152953.0,Tonnes,20.153,Tonnes/Hectare
+455145,455144,2022-2023,West Bengal,19,North 24 Parganas,303,Khesari,521.0,Spices,Rabi,2393.0,Hectare,3494.0,Tonnes,1.46,Tonnes/Hectare
+455146,455145,2022-2023,West Bengal,19,North 24 Parganas,303,Linseed,1005.0,Oilseeds,Rabi,55.0,Hectare,22.0,Tonnes,0.4,Tonnes/Hectare
+455147,455146,2022-2023,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Autumn,263.0,Hectare,1659.0,Tonnes,6.308,Tonnes/Hectare
+455148,455147,2022-2023,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Rabi,101.0,Hectare,346.0,Tonnes,3.426,Tonnes/Hectare
+455149,455148,2022-2023,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Summer,202.0,Hectare,1586.0,Tonnes,7.851,Tonnes/Hectare
+455150,455149,2022-2023,West Bengal,19,North 24 Parganas,303,Maize,104.0,Cereals,Total,566.0,Hectare,3591.0,Tonnes,6.345,Tonnes/Hectare
+455151,455150,2022-2023,West Bengal,19,North 24 Parganas,303,Masoor,205.0,Pulses,Rabi,10873.0,Hectare,9295.0,Tonnes,0.855,Tonnes/Hectare
+455152,455151,2022-2023,West Bengal,19,North 24 Parganas,303,Mesta,1103.0,Fiber Crops,Kharif,1526.0,Hectare,29257.0,Tonnes,19.172,Tonnes/Hectare
+455153,455152,2022-2023,West Bengal,19,North 24 Parganas,303,Moong(Green Gram),204.0,Pulses,Rabi,90.0,Hectare,89.0,Tonnes,0.989,Tonnes/Hectare
+455154,455153,2022-2023,West Bengal,19,North 24 Parganas,303,Moong(Green Gram),204.0,Pulses,Summer,1125.0,Hectare,836.0,Tonnes,0.743,Tonnes/Hectare
+455155,455154,2022-2023,West Bengal,19,North 24 Parganas,303,Moong(Green Gram),204.0,Pulses,Total,1215.0,Hectare,925.0,Tonnes,0.761,Tonnes/Hectare
+455156,455155,2022-2023,West Bengal,19,North 24 Parganas,303,Peas & Beans (Pulses),213.0,Pulses,Rabi,1188.0,Hectare,1376.0,Tonnes,1.158,Tonnes/Hectare
+455157,455156,2022-2023,West Bengal,19,North 24 Parganas,303,Potato,701.0,Vegetable,Rabi,8188.0,Hectare,257852.0,Tonnes,31.491,Tonnes/Hectare
+455158,455157,2022-2023,West Bengal,19,North 24 Parganas,303,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,37807.0,Hectare,56272.0,Tonnes,1.488,Tonnes/Hectare
+455159,455158,2022-2023,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Autumn,17567.0,Hectare,54229.0,Tonnes,3.087,Tonnes/Hectare
+455160,455159,2022-2023,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Summer,62255.0,Hectare,224946.0,Tonnes,3.613,Tonnes/Hectare
+455161,455160,2022-2023,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Total,222381.0,Hectare,723468.0,Tonnes,3.253,Tonnes/Hectare
+455162,455161,2022-2023,West Bengal,19,North 24 Parganas,303,Rice,101.0,Cereals,Winter,142559.0,Hectare,444293.0,Tonnes,3.117,Tonnes/Hectare
+455163,455162,2022-2023,West Bengal,19,North 24 Parganas,303,Sesamum,1003.0,Oilseeds,Summer,18247.0,Hectare,27275.0,Tonnes,1.495,Tonnes/Hectare
+455164,455163,2022-2023,West Bengal,19,North 24 Parganas,303,Sugarcane,401.0,Sugar,Whole Year,1711.0,Hectare,133538.0,Tonnes,78.047,Tonnes/Hectare
+455165,455164,2022-2023,West Bengal,19,North 24 Parganas,303,Sunflower,1007.0,Oilseeds,Kharif,113.0,Hectare,168.0,Tonnes,1.487,Tonnes/Hectare
+455166,455165,2022-2023,West Bengal,19,North 24 Parganas,303,Urad,203.0,Pulses,Kharif,4472.0,Hectare,3141.0,Tonnes,0.702,Tonnes/Hectare
+455167,455166,2022-2023,West Bengal,19,North 24 Parganas,303,Urad,203.0,Pulses,Rabi,82.0,Hectare,83.0,Tonnes,1.012,Tonnes/Hectare
+455168,455167,2022-2023,West Bengal,19,North 24 Parganas,303,Urad,203.0,Pulses,Total,4554.0,Hectare,3224.0,Tonnes,0.708,Tonnes/Hectare
+455169,455168,2022-2023,West Bengal,19,North 24 Parganas,303,Wheat,106.0,Cereals,Rabi,341.0,Hectare,1122.0,Tonnes,3.29,Tonnes/Hectare
+455170,455169,2022-2023,West Bengal,19,Paschim Bardhaman,704,Arhar/Tur,202.0,Pulses,Rabi,26.0,Hectare,41.0,Tonnes,1.577,Tonnes/Hectare
+455171,455170,2022-2023,West Bengal,19,Paschim Bardhaman,704,Gram,201.0,Pulses,Rabi,566.0,Hectare,795.0,Tonnes,1.405,Tonnes/Hectare
+455172,455171,2022-2023,West Bengal,19,Paschim Bardhaman,704,Groundnut,1001.0,Oilseeds,Autumn,230.0,Hectare,246.0,Tonnes,1.07,Tonnes/Hectare
+455173,455172,2022-2023,West Bengal,19,Paschim Bardhaman,704,Khesari,521.0,Spices,Rabi,722.0,Hectare,772.0,Tonnes,1.069,Tonnes/Hectare
+455174,455173,2022-2023,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Autumn,158.0,Hectare,588.0,Tonnes,3.722,Tonnes/Hectare
+455175,455174,2022-2023,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Rabi,412.0,Hectare,3074.0,Tonnes,7.461,Tonnes/Hectare
+455176,455175,2022-2023,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Summer,324.0,Hectare,2138.0,Tonnes,6.599,Tonnes/Hectare
+455177,455176,2022-2023,West Bengal,19,Paschim Bardhaman,704,Maize,104.0,Cereals,Total,894.0,Hectare,5800.0,Tonnes,6.488,Tonnes/Hectare
+455178,455177,2022-2023,West Bengal,19,Paschim Bardhaman,704,Masoor,205.0,Pulses,Rabi,1313.0,Hectare,1238.0,Tonnes,0.943,Tonnes/Hectare
+455179,455178,2022-2023,West Bengal,19,Paschim Bardhaman,704,Mesta,1103.0,Fiber Crops,Kharif,16.0,Hectare,227.0,Tonnes,14.188,Tonnes/Hectare
+455180,455179,2022-2023,West Bengal,19,Paschim Bardhaman,704,Moong(Green Gram),204.0,Pulses,Summer,138.0,Hectare,158.0,Tonnes,1.145,Tonnes/Hectare
+455181,455180,2022-2023,West Bengal,19,Paschim Bardhaman,704,Peas & Beans (Pulses),213.0,Pulses,Rabi,78.0,Hectare,83.0,Tonnes,1.064,Tonnes/Hectare
+455182,455181,2022-2023,West Bengal,19,Paschim Bardhaman,704,Potato,701.0,Vegetable,Rabi,272.0,Hectare,9731.0,Tonnes,35.776,Tonnes/Hectare
+455183,455182,2022-2023,West Bengal,19,Paschim Bardhaman,704,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,3135.0,Hectare,2852.0,Tonnes,0.91,Tonnes/Hectare
+455184,455183,2022-2023,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Autumn,22.0,Hectare,64.0,Tonnes,2.909,Tonnes/Hectare
+455185,455184,2022-2023,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Summer,936.0,Hectare,2889.0,Tonnes,3.087,Tonnes/Hectare
+455186,455185,2022-2023,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Total,18895.0,Hectare,55067.0,Tonnes,2.914,Tonnes/Hectare
+455187,455186,2022-2023,West Bengal,19,Paschim Bardhaman,704,Rice,101.0,Cereals,Winter,17937.0,Hectare,52114.0,Tonnes,2.905,Tonnes/Hectare
+455188,455187,2022-2023,West Bengal,19,Paschim Bardhaman,704,Sesamum,1003.0,Oilseeds,Summer,420.0,Hectare,375.0,Tonnes,0.893,Tonnes/Hectare
+455189,455188,2022-2023,West Bengal,19,Paschim Bardhaman,704,Sugarcane,401.0,Sugar,Whole Year,33.0,Hectare,2607.0,Tonnes,79.0,Tonnes/Hectare
+455190,455189,2022-2023,West Bengal,19,Paschim Bardhaman,704,Urad,203.0,Pulses,Kharif,33.0,Hectare,24.0,Tonnes,0.727,Tonnes/Hectare
+455191,455190,2022-2023,West Bengal,19,Paschim Bardhaman,704,Wheat,106.0,Cereals,Rabi,709.0,Hectare,1651.0,Tonnes,2.329,Tonnes/Hectare
+455192,455191,2022-2023,West Bengal,19,Paschim Medinipur,318,Arhar/Tur,202.0,Pulses,Rabi,36.0,Hectare,46.0,Tonnes,1.278,Tonnes/Hectare
+455193,455192,2022-2023,West Bengal,19,Paschim Medinipur,318,Gram,201.0,Pulses,Rabi,189.0,Hectare,277.0,Tonnes,1.466,Tonnes/Hectare
+455194,455193,2022-2023,West Bengal,19,Paschim Medinipur,318,Groundnut,1001.0,Oilseeds,Autumn,615.0,Hectare,1570.0,Tonnes,2.553,Tonnes/Hectare
+455195,455194,2022-2023,West Bengal,19,Paschim Medinipur,318,Groundnut,1001.0,Oilseeds,Summer,11907.0,Hectare,34155.0,Tonnes,2.868,Tonnes/Hectare
+455196,455195,2022-2023,West Bengal,19,Paschim Medinipur,318,Groundnut,1001.0,Oilseeds,Total,12522.0,Hectare,35725.0,Tonnes,2.853,Tonnes/Hectare
+455197,455196,2022-2023,West Bengal,19,Paschim Medinipur,318,Horse-Gram,206.0,Pulses,Rabi,3.0,Hectare,1.0,Tonnes,0.333,Tonnes/Hectare
+455198,455197,2022-2023,West Bengal,19,Paschim Medinipur,318,Jute,1102.0,Fiber Crops,Kharif,3194.0,Hectare,63014.0,Tonnes,19.729,Tonnes/Hectare
+455199,455198,2022-2023,West Bengal,19,Paschim Medinipur,318,Khesari,521.0,Spices,Rabi,1778.0,Hectare,1451.0,Tonnes,0.816,Tonnes/Hectare
+455200,455199,2022-2023,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Autumn,354.0,Hectare,944.0,Tonnes,2.667,Tonnes/Hectare
+455201,455200,2022-2023,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Rabi,575.0,Hectare,1080.0,Tonnes,1.878,Tonnes/Hectare
+455202,455201,2022-2023,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Summer,743.0,Hectare,3522.0,Tonnes,4.74,Tonnes/Hectare
+455203,455202,2022-2023,West Bengal,19,Paschim Medinipur,318,Maize,104.0,Cereals,Total,1672.0,Hectare,5546.0,Tonnes,3.317,Tonnes/Hectare
+455204,455203,2022-2023,West Bengal,19,Paschim Medinipur,318,Masoor,205.0,Pulses,Rabi,3112.0,Hectare,4496.0,Tonnes,1.445,Tonnes/Hectare
+455205,455204,2022-2023,West Bengal,19,Paschim Medinipur,318,Moong(Green Gram),204.0,Pulses,Rabi,188.0,Hectare,152.0,Tonnes,0.809,Tonnes/Hectare
+455206,455205,2022-2023,West Bengal,19,Paschim Medinipur,318,Moong(Green Gram),204.0,Pulses,Summer,3437.0,Hectare,3718.0,Tonnes,1.082,Tonnes/Hectare
+455207,455206,2022-2023,West Bengal,19,Paschim Medinipur,318,Moong(Green Gram),204.0,Pulses,Total,3625.0,Hectare,3870.0,Tonnes,1.068,Tonnes/Hectare
+455208,455207,2022-2023,West Bengal,19,Paschim Medinipur,318,Peas & Beans (Pulses),213.0,Pulses,Rabi,187.0,Hectare,379.0,Tonnes,2.027,Tonnes/Hectare
+455209,455208,2022-2023,West Bengal,19,Paschim Medinipur,318,Potato,701.0,Vegetable,Rabi,71974.0,Hectare,1927186.0,Tonnes,26.776,Tonnes/Hectare
+455210,455209,2022-2023,West Bengal,19,Paschim Medinipur,318,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,14751.0,Hectare,16550.0,Tonnes,1.122,Tonnes/Hectare
+455211,455210,2022-2023,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Autumn,22871.0,Hectare,61191.0,Tonnes,2.675,Tonnes/Hectare
+455212,455211,2022-2023,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Summer,198434.0,Hectare,705197.0,Tonnes,3.554,Tonnes/Hectare
+455213,455212,2022-2023,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Total,596968.0,Hectare,1970165.0,Tonnes,3.3,Tonnes/Hectare
+455214,455213,2022-2023,West Bengal,19,Paschim Medinipur,318,Rice,101.0,Cereals,Winter,375663.0,Hectare,1203777.0,Tonnes,3.204,Tonnes/Hectare
+455215,455214,2022-2023,West Bengal,19,Paschim Medinipur,318,Sesamum,1003.0,Oilseeds,Summer,65601.0,Hectare,67561.0,Tonnes,1.03,Tonnes/Hectare
+455216,455215,2022-2023,West Bengal,19,Paschim Medinipur,318,Sugarcane,401.0,Sugar,Whole Year,2507.0,Hectare,129669.0,Tonnes,51.723,Tonnes/Hectare
+455217,455216,2022-2023,West Bengal,19,Paschim Medinipur,318,Urad,203.0,Pulses,Kharif,186.0,Hectare,89.0,Tonnes,0.478,Tonnes/Hectare
+455218,455217,2022-2023,West Bengal,19,Paschim Medinipur,318,Urad,203.0,Pulses,Rabi,121.0,Hectare,100.0,Tonnes,0.826,Tonnes/Hectare
+455219,455218,2022-2023,West Bengal,19,Paschim Medinipur,318,Urad,203.0,Pulses,Total,307.0,Hectare,189.0,Tonnes,0.616,Tonnes/Hectare
+455220,455219,2022-2023,West Bengal,19,Paschim Medinipur,318,Wheat,106.0,Cereals,Rabi,605.0,Hectare,1468.0,Tonnes,2.426,Tonnes/Hectare
+455221,455220,2022-2023,West Bengal,19,Purba Bardhaman,306,Arhar/Tur,202.0,Pulses,Rabi,8.0,Hectare,13.0,Tonnes,1.625,Tonnes/Hectare
+455222,455221,2022-2023,West Bengal,19,Purba Bardhaman,306,Gram,201.0,Pulses,Rabi,1861.0,Hectare,2264.0,Tonnes,1.217,Tonnes/Hectare
+455223,455222,2022-2023,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Autumn,235.0,Hectare,377.0,Tonnes,1.604,Tonnes/Hectare
+455224,455223,2022-2023,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Rabi,19.0,Hectare,36.0,Tonnes,1.895,Tonnes/Hectare
+455225,455224,2022-2023,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Summer,739.0,Hectare,1560.0,Tonnes,2.111,Tonnes/Hectare
+455226,455225,2022-2023,West Bengal,19,Purba Bardhaman,306,Groundnut,1001.0,Oilseeds,Total,993.0,Hectare,1973.0,Tonnes,1.987,Tonnes/Hectare
+455227,455226,2022-2023,West Bengal,19,Purba Bardhaman,306,Jute,1102.0,Fiber Crops,Kharif,11018.0,Hectare,224388.0,Tonnes,20.366,Tonnes/Hectare
+455228,455227,2022-2023,West Bengal,19,Purba Bardhaman,306,Khesari,521.0,Spices,Rabi,1503.0,Hectare,2172.0,Tonnes,1.445,Tonnes/Hectare
+455229,455228,2022-2023,West Bengal,19,Purba Bardhaman,306,Linseed,1005.0,Oilseeds,Rabi,49.0,Hectare,16.0,Tonnes,0.327,Tonnes/Hectare
+455230,455229,2022-2023,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Autumn,32.0,Hectare,119.0,Tonnes,3.719,Tonnes/Hectare
+455231,455230,2022-2023,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Rabi,27.0,Hectare,201.0,Tonnes,7.444,Tonnes/Hectare
+455232,455231,2022-2023,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Summer,37.0,Hectare,244.0,Tonnes,6.595,Tonnes/Hectare
+455233,455232,2022-2023,West Bengal,19,Purba Bardhaman,306,Maize,104.0,Cereals,Total,96.0,Hectare,564.0,Tonnes,5.875,Tonnes/Hectare
+455234,455233,2022-2023,West Bengal,19,Purba Bardhaman,306,Masoor,205.0,Pulses,Rabi,7903.0,Hectare,7331.0,Tonnes,0.928,Tonnes/Hectare
+455235,455234,2022-2023,West Bengal,19,Purba Bardhaman,306,Mesta,1103.0,Fiber Crops,Kharif,95.0,Hectare,1346.0,Tonnes,14.168,Tonnes/Hectare
+455236,455235,2022-2023,West Bengal,19,Purba Bardhaman,306,Moong(Green Gram),204.0,Pulses,Kharif,31.0,Hectare,31.0,Tonnes,1.0,Tonnes/Hectare
+455237,455236,2022-2023,West Bengal,19,Purba Bardhaman,306,Moong(Green Gram),204.0,Pulses,Summer,917.0,Hectare,1051.0,Tonnes,1.146,Tonnes/Hectare
+455238,455237,2022-2023,West Bengal,19,Purba Bardhaman,306,Moong(Green Gram),204.0,Pulses,Total,948.0,Hectare,1082.0,Tonnes,1.141,Tonnes/Hectare
+455239,455238,2022-2023,West Bengal,19,Purba Bardhaman,306,Peas & Beans (Pulses),213.0,Pulses,Rabi,219.0,Hectare,270.0,Tonnes,1.233,Tonnes/Hectare
+455240,455239,2022-2023,West Bengal,19,Purba Bardhaman,306,Potato,701.0,Vegetable,Rabi,67692.0,Hectare,1926104.0,Tonnes,28.454,Tonnes/Hectare
+455241,455240,2022-2023,West Bengal,19,Purba Bardhaman,306,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,31279.0,Hectare,33160.0,Tonnes,1.06,Tonnes/Hectare
+455242,455241,2022-2023,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Autumn,9263.0,Hectare,26078.0,Tonnes,2.815,Tonnes/Hectare
+455243,455242,2022-2023,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Summer,161074.0,Hectare,600718.0,Tonnes,3.729,Tonnes/Hectare
+455244,455243,2022-2023,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Total,538441.0,Hectare,1698091.0,Tonnes,3.154,Tonnes/Hectare
+455245,455244,2022-2023,West Bengal,19,Purba Bardhaman,306,Rice,101.0,Cereals,Winter,368104.0,Hectare,1071295.0,Tonnes,2.91,Tonnes/Hectare
+455246,455245,2022-2023,West Bengal,19,Purba Bardhaman,306,Sesamum,1003.0,Oilseeds,Summer,23066.0,Hectare,20236.0,Tonnes,0.877,Tonnes/Hectare
+455247,455246,2022-2023,West Bengal,19,Purba Bardhaman,306,Sugarcane,401.0,Sugar,Whole Year,1615.0,Hectare,122971.0,Tonnes,76.143,Tonnes/Hectare
+455248,455247,2022-2023,West Bengal,19,Purba Bardhaman,306,Sunflower,1007.0,Oilseeds,Kharif,2.0,Hectare,2.0,Tonnes,1.0,Tonnes/Hectare
+455249,455248,2022-2023,West Bengal,19,Purba Bardhaman,306,Urad,203.0,Pulses,Kharif,231.0,Hectare,168.0,Tonnes,0.727,Tonnes/Hectare
+455250,455249,2022-2023,West Bengal,19,Purba Bardhaman,306,Wheat,106.0,Cereals,Rabi,1312.0,Hectare,3689.0,Tonnes,2.812,Tonnes/Hectare
+455251,455250,2022-2023,West Bengal,19,Purba Medinipur,317,Gram,201.0,Pulses,Rabi,519.0,Hectare,762.0,Tonnes,1.468,Tonnes/Hectare
+455252,455251,2022-2023,West Bengal,19,Purba Medinipur,317,Groundnut,1001.0,Oilseeds,Summer,15306.0,Hectare,78778.0,Tonnes,5.147,Tonnes/Hectare
+455253,455252,2022-2023,West Bengal,19,Purba Medinipur,317,Jute,1102.0,Fiber Crops,Kharif,131.0,Hectare,2327.0,Tonnes,17.763,Tonnes/Hectare
+455254,455253,2022-2023,West Bengal,19,Purba Medinipur,317,Khesari,521.0,Spices,Rabi,13795.0,Hectare,15565.0,Tonnes,1.128,Tonnes/Hectare
+455255,455254,2022-2023,West Bengal,19,Purba Medinipur,317,Maize,104.0,Cereals,Summer,161.0,Hectare,763.0,Tonnes,4.739,Tonnes/Hectare
+455256,455255,2022-2023,West Bengal,19,Purba Medinipur,317,Masoor,205.0,Pulses,Rabi,2007.0,Hectare,2718.0,Tonnes,1.354,Tonnes/Hectare
+455257,455256,2022-2023,West Bengal,19,Purba Medinipur,317,Moong(Green Gram),204.0,Pulses,Summer,1857.0,Hectare,2674.0,Tonnes,1.44,Tonnes/Hectare
+455258,455257,2022-2023,West Bengal,19,Purba Medinipur,317,Potato,701.0,Vegetable,Rabi,3580.0,Hectare,85561.0,Tonnes,23.9,Tonnes/Hectare
+455259,455258,2022-2023,West Bengal,19,Purba Medinipur,317,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,4242.0,Hectare,4206.0,Tonnes,0.992,Tonnes/Hectare
+455260,455259,2022-2023,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Autumn,9237.0,Hectare,20376.0,Tonnes,2.206,Tonnes/Hectare
+455261,455260,2022-2023,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Summer,136889.0,Hectare,538009.0,Tonnes,3.93,Tonnes/Hectare
+455262,455261,2022-2023,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Total,394278.0,Hectare,1244062.0,Tonnes,3.155,Tonnes/Hectare
+455263,455262,2022-2023,West Bengal,19,Purba Medinipur,317,Rice,101.0,Cereals,Winter,248152.0,Hectare,685677.0,Tonnes,2.763,Tonnes/Hectare
+455264,455263,2022-2023,West Bengal,19,Purba Medinipur,317,Sesamum,1003.0,Oilseeds,Summer,317.0,Hectare,352.0,Tonnes,1.11,Tonnes/Hectare
+455265,455264,2022-2023,West Bengal,19,Purba Medinipur,317,Sugarcane,401.0,Sugar,Whole Year,92.0,Hectare,6601.0,Tonnes,71.75,Tonnes/Hectare
+455266,455265,2022-2023,West Bengal,19,Purba Medinipur,317,Urad,203.0,Pulses,Kharif,984.0,Hectare,473.0,Tonnes,0.481,Tonnes/Hectare
+455267,455266,2022-2023,West Bengal,19,Purulia,321,Arhar/Tur,202.0,Pulses,Rabi,454.0,Hectare,571.0,Tonnes,1.258,Tonnes/Hectare
+455268,455267,2022-2023,West Bengal,19,Purulia,321,Bajra,103.0,Cereals,Kharif,70.0,Hectare,30.0,Tonnes,0.429,Tonnes/Hectare
+455269,455268,2022-2023,West Bengal,19,Purulia,321,Gram,201.0,Pulses,Rabi,3158.0,Hectare,4593.0,Tonnes,1.454,Tonnes/Hectare
+455270,455269,2022-2023,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Autumn,3260.0,Hectare,4426.0,Tonnes,1.358,Tonnes/Hectare
+455271,455270,2022-2023,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Rabi,100.0,Hectare,189.0,Tonnes,1.89,Tonnes/Hectare
+455272,455271,2022-2023,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Summer,62.0,Hectare,86.0,Tonnes,1.387,Tonnes/Hectare
+455273,455272,2022-2023,West Bengal,19,Purulia,321,Groundnut,1001.0,Oilseeds,Total,3422.0,Hectare,4701.0,Tonnes,1.374,Tonnes/Hectare
+455274,455273,2022-2023,West Bengal,19,Purulia,321,Horse-Gram,206.0,Pulses,Rabi,1250.0,Hectare,633.0,Tonnes,0.506,Tonnes/Hectare
+455275,455274,2022-2023,West Bengal,19,Purulia,321,Jowar,102.0,Cereals,Autumn,60.0,Hectare,31.0,Tonnes,0.517,Tonnes/Hectare
+455276,455275,2022-2023,West Bengal,19,Purulia,321,Khesari,521.0,Spices,Rabi,4797.0,Hectare,6899.0,Tonnes,1.438,Tonnes/Hectare
+455277,455276,2022-2023,West Bengal,19,Purulia,321,Linseed,1005.0,Oilseeds,Rabi,617.0,Hectare,284.0,Tonnes,0.46,Tonnes/Hectare
+455278,455277,2022-2023,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Autumn,6676.0,Hectare,16473.0,Tonnes,2.467,Tonnes/Hectare
+455279,455278,2022-2023,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Rabi,169.0,Hectare,296.0,Tonnes,1.751,Tonnes/Hectare
+455280,455279,2022-2023,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Summer,239.0,Hectare,473.0,Tonnes,1.979,Tonnes/Hectare
+455281,455280,2022-2023,West Bengal,19,Purulia,321,Maize,104.0,Cereals,Total,7084.0,Hectare,17242.0,Tonnes,2.434,Tonnes/Hectare
+455282,455281,2022-2023,West Bengal,19,Purulia,321,Masoor,205.0,Pulses,Rabi,3707.0,Hectare,1475.0,Tonnes,0.398,Tonnes/Hectare
+455283,455282,2022-2023,West Bengal,19,Purulia,321,Mesta,1103.0,Fiber Crops,Kharif,296.0,Hectare,1061.0,Tonnes,3.584,Tonnes/Hectare
+455284,455283,2022-2023,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Kharif,705.0,Hectare,416.0,Tonnes,0.59,Tonnes/Hectare
+455285,455284,2022-2023,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Rabi,92.0,Hectare,62.0,Tonnes,0.674,Tonnes/Hectare
+455286,455285,2022-2023,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Summer,639.0,Hectare,740.0,Tonnes,1.158,Tonnes/Hectare
+455287,455286,2022-2023,West Bengal,19,Purulia,321,Moong(Green Gram),204.0,Pulses,Total,1436.0,Hectare,1218.0,Tonnes,0.848,Tonnes/Hectare
+455288,455287,2022-2023,West Bengal,19,Purulia,321,Niger Seed,1010.0,Oilseeds,Kharif,354.0,Hectare,145.0,Tonnes,0.41,Tonnes/Hectare
+455289,455288,2022-2023,West Bengal,19,Purulia,321,Peas & Beans (Pulses),213.0,Pulses,Rabi,632.0,Hectare,1280.0,Tonnes,2.025,Tonnes/Hectare
+455290,455289,2022-2023,West Bengal,19,Purulia,321,Potato,701.0,Vegetable,Rabi,1802.0,Hectare,27003.0,Tonnes,14.985,Tonnes/Hectare
+455291,455290,2022-2023,West Bengal,19,Purulia,321,Ragi,105.0,Cereals,Autumn,58.0,Hectare,26.0,Tonnes,0.448,Tonnes/Hectare
+455292,455291,2022-2023,West Bengal,19,Purulia,321,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,12805.0,Hectare,14443.0,Tonnes,1.128,Tonnes/Hectare
+455293,455292,2022-2023,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Autumn,153.0,Hectare,414.0,Tonnes,2.706,Tonnes/Hectare
+455294,455293,2022-2023,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Summer,667.0,Hectare,1989.0,Tonnes,2.982,Tonnes/Hectare
+455295,455294,2022-2023,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Total,248871.0,Hectare,592602.0,Tonnes,2.381,Tonnes/Hectare
+455296,455295,2022-2023,West Bengal,19,Purulia,321,Rice,101.0,Cereals,Winter,248051.0,Hectare,590199.0,Tonnes,2.379,Tonnes/Hectare
+455297,455296,2022-2023,West Bengal,19,Purulia,321,Sannhamp,1104.0,Fiber Crops,Kharif,125.0,Hectare,590.0,Tonnes,4.72,Tonnes/Hectare
+455298,455297,2022-2023,West Bengal,19,Purulia,321,Sesamum,1003.0,Oilseeds,Autumn,352.0,Hectare,244.0,Tonnes,0.693,Tonnes/Hectare
+455299,455298,2022-2023,West Bengal,19,Purulia,321,Sesamum,1003.0,Oilseeds,Summer,176.0,Hectare,182.0,Tonnes,1.034,Tonnes/Hectare
+455300,455299,2022-2023,West Bengal,19,Purulia,321,Sesamum,1003.0,Oilseeds,Total,528.0,Hectare,426.0,Tonnes,0.807,Tonnes/Hectare
+455301,455300,2022-2023,West Bengal,19,Purulia,321,Small Millets,108.0,Cereals,Autumn,490.0,Hectare,192.0,Tonnes,0.392,Tonnes/Hectare
+455302,455301,2022-2023,West Bengal,19,Purulia,321,Sugarcane,401.0,Sugar,Whole Year,841.0,Hectare,87909.0,Tonnes,104.529,Tonnes/Hectare
+455303,455302,2022-2023,West Bengal,19,Purulia,321,Sunflower,1007.0,Oilseeds,Kharif,22.0,Hectare,26.0,Tonnes,1.182,Tonnes/Hectare
+455304,455303,2022-2023,West Bengal,19,Purulia,321,Urad,203.0,Pulses,Kharif,10156.0,Hectare,5341.0,Tonnes,0.526,Tonnes/Hectare
+455305,455304,2022-2023,West Bengal,19,Purulia,321,Wheat,106.0,Cereals,Rabi,320.0,Hectare,784.0,Tonnes,2.45,Tonnes/Hectare
+455306,455305,2022-2023,West Bengal,19,South 24 Parganas,304,Arhar/Tur,202.0,Pulses,Rabi,245.0,Hectare,386.0,Tonnes,1.576,Tonnes/Hectare
+455307,455306,2022-2023,West Bengal,19,South 24 Parganas,304,Cotton(Lint),1101.0,Fiber Crops,Kharif,80.0,Hectare,404.0,Tonnes,5.05,Tonnes/Hectare
+455308,455307,2022-2023,West Bengal,19,South 24 Parganas,304,Gram,201.0,Pulses,Rabi,48.0,Hectare,50.0,Tonnes,1.042,Tonnes/Hectare
+455309,455308,2022-2023,West Bengal,19,South 24 Parganas,304,Groundnut,1001.0,Oilseeds,Summer,68.0,Hectare,179.0,Tonnes,2.632,Tonnes/Hectare
+455310,455309,2022-2023,West Bengal,19,South 24 Parganas,304,Jute,1102.0,Fiber Crops,Kharif,446.0,Hectare,13871.0,Tonnes,31.101,Tonnes/Hectare
+455311,455310,2022-2023,West Bengal,19,South 24 Parganas,304,Khesari,521.0,Spices,Rabi,26141.0,Hectare,38603.0,Tonnes,1.477,Tonnes/Hectare
+455312,455311,2022-2023,West Bengal,19,South 24 Parganas,304,Linseed,1005.0,Oilseeds,Rabi,128.0,Hectare,52.0,Tonnes,0.406,Tonnes/Hectare
+455313,455312,2022-2023,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Autumn,29.0,Hectare,183.0,Tonnes,6.31,Tonnes/Hectare
+455314,455313,2022-2023,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Rabi,92.0,Hectare,867.0,Tonnes,9.424,Tonnes/Hectare
+455315,455314,2022-2023,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Summer,124.0,Hectare,974.0,Tonnes,7.855,Tonnes/Hectare
+455316,455315,2022-2023,West Bengal,19,South 24 Parganas,304,Maize,104.0,Cereals,Total,245.0,Hectare,2024.0,Tonnes,8.261,Tonnes/Hectare
+455317,455316,2022-2023,West Bengal,19,South 24 Parganas,304,Masoor,205.0,Pulses,Rabi,810.0,Hectare,642.0,Tonnes,0.793,Tonnes/Hectare
+455318,455317,2022-2023,West Bengal,19,South 24 Parganas,304,Moong(Green Gram),204.0,Pulses,Summer,44690.0,Hectare,30036.0,Tonnes,0.672,Tonnes/Hectare
+455319,455318,2022-2023,West Bengal,19,South 24 Parganas,304,Peas & Beans (Pulses),213.0,Pulses,Rabi,817.0,Hectare,1948.0,Tonnes,2.384,Tonnes/Hectare
+455320,455319,2022-2023,West Bengal,19,South 24 Parganas,304,Potato,701.0,Vegetable,Rabi,3374.0,Hectare,88023.0,Tonnes,26.089,Tonnes/Hectare
+455321,455320,2022-2023,West Bengal,19,South 24 Parganas,304,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,4227.0,Hectare,4721.0,Tonnes,1.117,Tonnes/Hectare
+455322,455321,2022-2023,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Autumn,3196.0,Hectare,8039.0,Tonnes,2.515,Tonnes/Hectare
+455323,455322,2022-2023,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Summer,95411.0,Hectare,391135.0,Tonnes,4.099,Tonnes/Hectare
+455324,455323,2022-2023,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Total,425188.0,Hectare,1214730.0,Tonnes,2.857,Tonnes/Hectare
+455325,455324,2022-2023,West Bengal,19,South 24 Parganas,304,Rice,101.0,Cereals,Winter,326581.0,Hectare,815556.0,Tonnes,2.497,Tonnes/Hectare
+455326,455325,2022-2023,West Bengal,19,South 24 Parganas,304,Sesamum,1003.0,Oilseeds,Summer,2794.0,Hectare,2443.0,Tonnes,0.874,Tonnes/Hectare
+455327,455326,2022-2023,West Bengal,19,South 24 Parganas,304,Sugarcane,401.0,Sugar,Whole Year,94.0,Hectare,7336.0,Tonnes,78.043,Tonnes/Hectare
+455328,455327,2022-2023,West Bengal,19,South 24 Parganas,304,Sunflower,1007.0,Oilseeds,Kharif,4020.0,Hectare,4904.0,Tonnes,1.22,Tonnes/Hectare
+455329,455328,2022-2023,West Bengal,19,South 24 Parganas,304,Urad,203.0,Pulses,Kharif,425.0,Hectare,299.0,Tonnes,0.704,Tonnes/Hectare
+455330,455329,2022-2023,West Bengal,19,South 24 Parganas,304,Wheat,106.0,Cereals,Rabi,315.0,Hectare,1036.0,Tonnes,3.289,Tonnes/Hectare
+455331,455330,2022-2023,West Bengal,19,Uttar Dinajpur,311,Arhar/Tur,202.0,Pulses,Rabi,253.0,Hectare,533.0,Tonnes,2.107,Tonnes/Hectare
+455332,455331,2022-2023,West Bengal,19,Uttar Dinajpur,311,Gram,201.0,Pulses,Rabi,298.0,Hectare,344.0,Tonnes,1.154,Tonnes/Hectare
+455333,455332,2022-2023,West Bengal,19,Uttar Dinajpur,311,Groundnut,1001.0,Oilseeds,Rabi,65.0,Hectare,123.0,Tonnes,1.892,Tonnes/Hectare
+455334,455333,2022-2023,West Bengal,19,Uttar Dinajpur,311,Jute,1102.0,Fiber Crops,Kharif,36010.0,Hectare,528254.0,Tonnes,14.67,Tonnes/Hectare
+455335,455334,2022-2023,West Bengal,19,Uttar Dinajpur,311,Khesari,521.0,Spices,Rabi,851.0,Hectare,873.0,Tonnes,1.026,Tonnes/Hectare
+455336,455335,2022-2023,West Bengal,19,Uttar Dinajpur,311,Linseed,1005.0,Oilseeds,Rabi,274.0,Hectare,111.0,Tonnes,0.405,Tonnes/Hectare
+455337,455336,2022-2023,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Autumn,7496.0,Hectare,32650.0,Tonnes,4.356,Tonnes/Hectare
+455338,455337,2022-2023,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Rabi,44581.0,Hectare,334453.0,Tonnes,7.502,Tonnes/Hectare
+455339,455338,2022-2023,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Summer,52554.0,Hectare,382930.0,Tonnes,7.286,Tonnes/Hectare
+455340,455339,2022-2023,West Bengal,19,Uttar Dinajpur,311,Maize,104.0,Cereals,Total,104631.0,Hectare,750033.0,Tonnes,7.168,Tonnes/Hectare
+455341,455340,2022-2023,West Bengal,19,Uttar Dinajpur,311,Masoor,205.0,Pulses,Rabi,2177.0,Hectare,1269.0,Tonnes,0.583,Tonnes/Hectare
+455342,455341,2022-2023,West Bengal,19,Uttar Dinajpur,311,Mesta,1103.0,Fiber Crops,Kharif,1010.0,Hectare,9355.0,Tonnes,9.262,Tonnes/Hectare
+455343,455342,2022-2023,West Bengal,19,Uttar Dinajpur,311,Moong(Green Gram),204.0,Pulses,Rabi,200.0,Hectare,134.0,Tonnes,0.67,Tonnes/Hectare
+455344,455343,2022-2023,West Bengal,19,Uttar Dinajpur,311,Moong(Green Gram),204.0,Pulses,Summer,1223.0,Hectare,2025.0,Tonnes,1.656,Tonnes/Hectare
+455345,455344,2022-2023,West Bengal,19,Uttar Dinajpur,311,Moong(Green Gram),204.0,Pulses,Total,1423.0,Hectare,2159.0,Tonnes,1.517,Tonnes/Hectare
+455346,455345,2022-2023,West Bengal,19,Uttar Dinajpur,311,Peas & Beans (Pulses),213.0,Pulses,Rabi,728.0,Hectare,740.0,Tonnes,1.016,Tonnes/Hectare
+455347,455346,2022-2023,West Bengal,19,Uttar Dinajpur,311,Potato,701.0,Vegetable,Rabi,28052.0,Hectare,788223.0,Tonnes,28.099,Tonnes/Hectare
+455348,455347,2022-2023,West Bengal,19,Uttar Dinajpur,311,Rapeseed &Mustard,1004.0,Oilseeds,Rabi,69950.0,Hectare,102003.0,Tonnes,1.458,Tonnes/Hectare
+455349,455348,2022-2023,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Autumn,999.0,Hectare,1990.0,Tonnes,1.992,Tonnes/Hectare
+455350,455349,2022-2023,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Summer,47885.0,Hectare,149369.0,Tonnes,3.119,Tonnes/Hectare
+455351,455350,2022-2023,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Total,246710.0,Hectare,706768.0,Tonnes,2.865,Tonnes/Hectare
+455352,455351,2022-2023,West Bengal,19,Uttar Dinajpur,311,Rice,101.0,Cereals,Winter,197826.0,Hectare,555409.0,Tonnes,2.808,Tonnes/Hectare
+455353,455352,2022-2023,West Bengal,19,Uttar Dinajpur,311,Sesamum,1003.0,Oilseeds,Summer,696.0,Hectare,478.0,Tonnes,0.687,Tonnes/Hectare
+455354,455353,2022-2023,West Bengal,19,Uttar Dinajpur,311,Sugarcane,401.0,Sugar,Whole Year,617.0,Hectare,51211.0,Tonnes,83.0,Tonnes/Hectare
+455355,455354,2022-2023,West Bengal,19,Uttar Dinajpur,311,Sunflower,1007.0,Oilseeds,Kharif,4.0,Hectare,3.0,Tonnes,0.75,Tonnes/Hectare
+455356,455355,2022-2023,West Bengal,19,Uttar Dinajpur,311,Urad,203.0,Pulses,Kharif,1755.0,Hectare,1344.0,Tonnes,0.766,Tonnes/Hectare
+455357,455356,2022-2023,West Bengal,19,Uttar Dinajpur,311,Urad,203.0,Pulses,Rabi,847.0,Hectare,809.0,Tonnes,0.955,Tonnes/Hectare
+455358,455357,2022-2023,West Bengal,19,Uttar Dinajpur,311,Urad,203.0,Pulses,Total,2602.0,Hectare,2153.0,Tonnes,0.827,Tonnes/Hectare
+455359,455358,2022-2023,West Bengal,19,Uttar Dinajpur,311,Wheat,106.0,Cereals,Rabi,19247.0,Hectare,52794.0,Tonnes,2.743,Tonnes/Hectare
