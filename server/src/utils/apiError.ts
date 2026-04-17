@@ -2,14 +2,14 @@ class ApiError extends Error{
     statusCode: number;
     message: string;
     data: null;
-    error?:[];
+    error?:any;
     stack?: string;
     success: boolean;
 
     constructor(
         statusCode: number,
         message: string,
-        error?:[],
+        error?:any,
         stack?:string
     ){
         super(message)
