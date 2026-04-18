@@ -44,6 +44,9 @@ export default function MapSection({
   const normalLayerRef    = useRef(null)
   const satelliteLayerRef = useRef(null)
   const labelLayerRef     = useRef(null)
+  const onPolygonCreatedRef = useRef(onPolygonCreated)
+
+   useEffect(() => { onPolygonCreatedRef.current = onPolygonCreated }, [onPolygonCreated])
 
   const [loading,   setLoading]   = useState(true)
   const [analysing, setAnalysing] = useState(false)
@@ -216,7 +219,7 @@ export default function MapSection({
       `).openPopup()
 
       layer.on("click", () => { if (onPolygonSelect) onPolygonSelect(id) })
-      if (onPolygonCreated) onPolygonCreated({ id, name, coordinates: coords, area, status: "loading" })
+      if (onPolygonCreatedRef.current) onPolygonCreatedRef.current({ id, name, coordinates: coords, area, status: "loading" })
 
       setAnalysing(true)
       const [soilRes, farmRes] = await Promise.allSettled([
@@ -332,7 +335,13 @@ export default function MapSection({
       `)
       layer.openPopup()
 
-      if (onPolygonCreated) onPolygonCreated({ id, name, coordinates: coords, area, status: "done", soilDistribution: distrib, landUse: landCount })
+      if (onPolygonCreatedRef.current) onPolygonCreatedRef.current({ 
+        id, name, coordinates: coords, area, status: "done",
+        soilDistribution: distrib,
+        landUse: landCount,
+        soilQualityByClass: soilData?.soil_quality_by_class || [],
+        overallQuality: soilData?.overall_weighted_quality || null
+      })
     })
 
     return () => { map.remove(); mapRef.current = null }
