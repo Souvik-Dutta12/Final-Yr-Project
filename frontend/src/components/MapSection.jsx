@@ -298,7 +298,39 @@ export default function MapSection({
       analysisLayerRef.current.bringToFront()
       drawnItemsRef.current.bringToFront()
 
-      // Popup: soil distribution + land use summary
+      // Popup: soil distribution + land use summary + soil quality
+      const qualityByClass = soilData?.soil_quality_by_class || []
+      const overallQ = soilData?.overall_weighted_quality || null
+
+      const sqiColor = (sqi) => sqi >= 0.8 ? '#16a34a' : sqi >= 0.5 ? '#d97706' : '#dc2626'
+      const sqiLabel = (sqi) => sqi >= 0.8 ? 'Good' : sqi >= 0.5 ? 'Average' : 'Poor'
+
+      const qualityRows = qualityByClass.map((cls, i) => {
+        const sqi = cls.properties?.soil_quality_index
+        if (sqi == null) return ''
+        const color = sqiColor(sqi)
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div style="font-size:11px;color:#374151">${cls.soil_class}</div>
+            <div style="display:flex;align-items:center;gap:5px">
+              <span style="font-size:11px;font-weight:700;color:${color}">${sqi.toFixed(2)}</span>
+              <span style="font-size:10px;background:${color}20;color:${color};border-radius:4px;padding:1px 5px;font-weight:600">${sqiLabel(sqi)}</span>
+            </div>
+          </div>
+        `
+      }).join('')
+
+      const paramRows = overallQ ? `
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px">
+          ${[['pH', overallQ.ph, ''], ['Nitrogen', overallQ.nitrogen, ' g/kg'], ['SOC', overallQ.soc, ' %'], ['CEC', overallQ.cec, ' cmol/kg'], ['Bulk Density', overallQ.bulk_density, ' g/cm³']].map(([label, val, unit]) => `
+      <div style="background:#f8fafc;border-radius:6px;padding:5px 7px">
+        <div style="font-size:9px;color:#94a3b8;font-weight:600;text-transform:uppercase">${label}</div>
+        <div style="font-size:11px;font-weight:700;color:#0f172a">${val?.toFixed(3)}${unit}</div>
+      </div>
+          `).join('')}
+        </div>
+      ` : ''
+
       const soilRows = distrib.map((d, i) => `
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
           <div style="width:10px;height:10px;border-radius:3px;background:${SOIL_COLORS[i % SOIL_COLORS.length]};flex-shrink:0"></div>
@@ -322,12 +354,16 @@ export default function MapSection({
       `).join("")
 
       layer.setPopupContent(`
-        <div style="min-width:240px;max-height:380px;overflow-y:auto;font-family:system-ui,sans-serif">
+        <div style="min-width:240px;max-height:420px;overflow-y:auto;font-family:system-ui,sans-serif">
           <div style="font-size:14px;font-weight:700;color:#0f172a">${name}</div>
           <div style="font-size:11px;color:#64748b;margin-top:2px">${coords.length} pts · ${formatArea(area)}</div>
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🌱 Soil Distribution</div>
           ${distrib.length > 0 ? soilRows : '<div style="font-size:12px;color:#94a3b8">No soil data available</div>'}
+          <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
+          <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🧪 Soil Quality</div>
+          ${qualityRows || '<div style="font-size:12px;color:#94a3b8">No quality data</div>'}
+          ${paramRows}
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🛰️ Land Use</div>
           ${features.length > 0 ? landRows : '<div style="font-size:12px;color:#94a3b8">Draw a larger polygon to detect land use</div>'}
