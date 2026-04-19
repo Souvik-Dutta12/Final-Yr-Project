@@ -56,12 +56,17 @@ export async function getWeather(lat, lon) {
 // Get crop recommendation for a point
 export async function getCropRecommendation(ph, nitrogen, lat, lon) {
   const weather = await getWeather(lat, lon);
+  // nitrogen is coming from soil quality as g/kg unit (0-2 range)
+  // model is expecting kg/ha unit (0-140 range)
+  // conversion: g/kg × 1000 = mg/kg, typical soil depth 20cm, bulk density ~1.3
+  // simplified scaling: g/kg × 100 gives reasonable 0-140 range
+  const N_converted = nitrogen * 100
   const res = await fetch(`${BASE_URL}/crops-reccomendation/crop-insights`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       features: {
-        N:           nitrogen,
+        N:           N_converted,
         ph:          ph,
         temperature: weather.temperature,
         humidity:    weather.humidity,
