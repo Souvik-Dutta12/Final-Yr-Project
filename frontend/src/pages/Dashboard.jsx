@@ -35,7 +35,7 @@ export default function Dashboard() {
         <ResultPanel
           polygons={polygons}
           selectedId={selectedId}
-          onSelect={setSelectedId}
+          onSelect={(id) => setSelectedId(prev => prev === id ? null : id)}
           onDelete={id => {
             setPolygons(prev => prev.filter(p => p.id !== id))
             if (selectedId === id) setSelectedId(null)
