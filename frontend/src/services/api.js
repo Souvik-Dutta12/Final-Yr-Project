@@ -27,6 +27,5 @@ export async function analyseFarmland(coordinates) {
   if (!res.ok) throw new Error("Farmland analyse failed");
   // return res.json();
   const data = await res.json();
-  console.log(' Farmland Response:', JSON.stringify(data, null, 2)); 
   return data;
 }
