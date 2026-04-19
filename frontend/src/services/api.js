@@ -2,7 +2,8 @@ const BASE_URL = import.meta.env.VITE_BASE_URL || '';
 
 
 export async function getSoilByPoint(lat, lon) {
-  const res = await fetch(`${BASE_URL}/soil/?lat=${lat}&lon=${lon}`);  // /soil/ not /soil/point
+  const res = await fetch(`${BASE_URL}/soil/point?lat=${lat}&lon=${lon}`);  // /soil/ not /soil/
+  
   if (!res.ok) throw new Error("Soil fetch failed");
   return res.json();
 }
