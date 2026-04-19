@@ -1,17 +1,17 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
+import type { PolygonSchema } from "../validations/farmland-validation.js";
+import type { Request, Response } from "express";
 import axios from "axios";
 
-const Analyse = asyncHandler(async (req, res) => {
+type PolygonRequest = Request<{},{}, PolygonSchema>;
+
+const Analyse = asyncHandler(async (req:PolygonRequest, res:Response): Promise<Object> => {
   const URL = process.env.URL;
   const { polygon } = req.body;
-  if (!polygon && !polygon.coordinates) {
-    throw new ApiError(400, "Polygon coordinates are required!");
-  }
-
-  if (polygon.coordinates[0].length < 3) {
-    throw new ApiError(400, "Atleast 3 coordinates are required");
+  if (!polygon) {
+    throw new ApiError(400, "Polygon is required!");
   }
 
   const response = await axios.post(
