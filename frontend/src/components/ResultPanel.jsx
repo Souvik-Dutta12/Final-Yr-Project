@@ -199,8 +199,8 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
             {polygons.map((poly, i) => {
               const active = selectedId === poly.id
               return (
-                <li key={poly.id} onClick={() => onSelect(poly.id)} style={{ padding: '10px 14px', cursor: 'pointer', borderLeft: active ? '3px solid #2563eb' : '3px solid transparent', background: active ? '#eff6ff' : '#fff', borderBottom: '1px solid #f1f5f9', transition: 'background 0.15s' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <li key={poly.id} style={{ padding: '10px 14px', cursor: 'pointer', borderLeft: active ? '3px solid #2563eb' : '3px solid transparent', background: active ? '#eff6ff' : '#fff', borderBottom: '1px solid #f1f5f9', transition: 'background 0.15s' }}>
+                  <div onClick={() => onSelect(poly.id)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                     <div style={{ width: 28, height: 28, borderRadius: 8, flexShrink: 0, background: active ? '#2563eb' : '#f1f5f9', color: active ? '#fff' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700 }}>
                       {poly.status === 'loading' ? (
                         <div style={{ width: 12, height: 12, border: '2px solid', borderColor: active ? 'rgba(255,255,255,.4)' : '#cbd5e1', borderTopColor: active ? '#fff' : '#2563eb', borderRadius: '50%', animation: 'spin .8s linear infinite' }} />
