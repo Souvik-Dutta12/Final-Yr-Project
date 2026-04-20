@@ -9,21 +9,29 @@ export default function Dashboard() {
   const [polygons,   setPolygons]   = useState([])
   const [selectedId, setSelectedId] = useState(null)
 
-  // Called twice: once with status:'loading', once with status:'done' + data
   const handlePolygonCreated = useCallback((poly) => {
     setPolygons(prev => {
       const exists = prev.find(p => p.id === poly.id)
+
+      // Crop update: only update cropRecommendations + weather, keep rest intact
+      if (poly._cropUpdate && exists) {
+        return prev.map(p => p.id === poly.id
+          ? { ...p, cropRecommendations: poly.cropRecommendations, weather: poly.weather }
+          : p
+        )
+      }
+
       if (exists) return prev.map(p => p.id === poly.id ? { ...p, ...poly } : p)
       return [...prev, poly]
     })
   }, [])
 
   return (
-    <div style={{ display:'flex', flexDirection:'column', height:'100vh', overflow:'hidden', fontFamily:'system-ui, sans-serif', background:'#f8fafc' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden', fontFamily: 'system-ui, sans-serif', background: '#f8fafc' }}>
       <Navbar mode={mode} onModeChange={setMode} />
       <InfoCards polygons={polygons} selectedId={selectedId} />
-      <div style={{ display:'flex', flex:1, overflow:'hidden', minHeight:0 }}>
-        <div style={{ flex:1, position:'relative', minHeight:0, minWidth:0 }}>
+      <div style={{ display: 'flex', flex: 1, overflow: 'hidden', minHeight: 0 }}>
+        <div style={{ flex: 1, position: 'relative', minHeight: 0, minWidth: 0 }}>
           <MapSection
             mode={mode}
             polygons={polygons}
@@ -35,7 +43,7 @@ export default function Dashboard() {
         <ResultPanel
           polygons={polygons}
           selectedId={selectedId}
-          onSelect={setSelectedId}
+          onSelect={(id) => setSelectedId(prev => prev === id ? null : id)}
           onDelete={id => {
             setPolygons(prev => prev.filter(p => p.id !== id))
             if (selectedId === id) setSelectedId(null)

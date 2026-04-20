@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 function formatArea(m) {
   if (m >= 1e6) return (m / 1e6).toFixed(2) + ' km²'
   if (m >= 1e4) return (m / 1e4).toFixed(2) + ' ha'
@@ -16,22 +18,42 @@ const SOIL_COLORS = [
   '#06b6d4','#6366f1','#ec4899','#ef4444','#8b5cf6',
 ]
 
-function qualityColor(score) {
-  if (score >= 0.8) return { bg: '#f0fdf4', border: '#86efac', text: '#15803d', label: 'Good' }
-  if (score >= 0.5) return { bg: '#fffbeb', border: '#fde68a', text: '#d97706', label: 'Average' }
-  return { bg: '#fef2f2', border: '#fecaca', text: '#dc2626', label: 'Poor' }
+const CROP_EMOJIS = {
+  rice: "🌾", wheat: "🌾", maize: "🌽", corn: "🌽",
+  jute: "🌿", cotton: "🌸", sugarcane: "🎋", tea: "🍵",
+  coffee: "☕", banana: "🍌", mango: "🥭", grapes: "🍇",
+  watermelon: "🍉", muskmelon: "🍈", apple: "🍎", orange: "🍊",
+  papaya: "🥭", coconut: "🥥", pomegranate: "🍎", lentil: "🫘",
+  blackgram: "🫘", mungbean: "🫘", mothbeans: "🫘", pigeonpeas: "🫘",
+  kidneybeans: "🫘", chickpea: "🫘",
 }
 
-function SoilQualityBar({ label, value, unit = '', maxVal = 1 }) {
-  if (value === null || value === undefined) return null
-  const pct = Math.min((value / maxVal) * 100, 100)
+function getCropEmoji(crop) {
+  return CROP_EMOJIS[crop?.toLowerCase()] || "🌱"
+}
+
+function qualityColor(score) {
+  if (score >= 0.8) return { bg: '#f0fdf4', border: '#86efac', text: '#15803d', bar: '#22c55e', label: 'Good' }
+  if (score >= 0.5) return { bg: '#fffbeb', border: '#fde68a', text: '#d97706', bar: '#f59e0b', label: 'Average' }
+  return { bg: '#fef2f2', border: '#fecaca', text: '#dc2626', bar: '#ef4444', label: 'Poor' }
+}
+
+const PARAMS = [
+  { key: 'ph',           label: 'pH',            unit: '',         max: 14 },
+  { key: 'nitrogen',     label: 'Nitrogen (N)',   unit: ' g/kg',    max: 2  },
+  { key: 'soc',          label: 'SOC',            unit: ' %',       max: 5  },
+  { key: 'cec',          label: 'CEC',            unit: ' cmol/kg', max: 50 },
+  { key: 'bulk_density', label: 'Bulk Density',   unit: ' g/cm³',   max: 2  },
+]
+
+function ParamRow({ label, value, unit, max }) {
+  if (value == null) return null
+  const pct = Math.min((value / max) * 100, 100)
   return (
     <div style={{ marginBottom: 6 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
         <span style={{ fontSize: 11, color: '#374151' }}>{label}</span>
-        <span style={{ fontSize: 11, fontWeight: 600, color: '#0f172a' }}>
-          {value.toFixed(3)}{unit}
-        </span>
+        <span style={{ fontSize: 11, fontWeight: 600, color: '#0f172a' }}>{value.toFixed(3)}{unit}</span>
       </div>
       <div style={{ height: 4, borderRadius: 99, background: '#f1f5f9', overflow: 'hidden' }}>
         <div style={{ height: '100%', width: `${pct}%`, background: '#6366f1', borderRadius: 99, transition: 'width .4s' }} />
@@ -40,105 +62,133 @@ function SoilQualityBar({ label, value, unit = '', maxVal = 1 }) {
   )
 }
 
-function OverallQualityCard({ overallQuality, soilQualityByClass }) {
-  if (!overallQuality && (!soilQualityByClass || soilQualityByClass.length === 0)) return null
-
-  // compute overall SQI from soilQualityByClass weighted average
-  let overallSqi = null
-  let overallQualityLabel = null
-  if (soilQualityByClass && soilQualityByClass.length > 0) {
-    const totalPct = soilQualityByClass.reduce((s, c) => s + (c.area_percentage || 0), 0)
-    if (totalPct > 0) {
-      const weightedSqi = soilQualityByClass.reduce((s, c) => {
-        const sqi = c.properties?.soil_quality_index
-        if (sqi == null) return s
-        return s + sqi * (c.area_percentage / totalPct)
-      }, 0)
-      if (weightedSqi > 0) {
-        overallSqi = weightedSqi
-        overallQualityLabel = weightedSqi > 0.8 ? 'Good' : weightedSqi > 0.5 ? 'Average' : 'Poor'
-      }
-    }
-  }
-
-  const qc = overallSqi != null ? qualityColor(overallSqi) : null
-
+function SoilClassCard({ cls, ci }) {
+  const [open, setOpen] = useState(false)
+  const sqi  = cls.properties?.soil_quality_index
+  const qual = cls.properties?.soil_quality
+  const conf = cls.properties?.confidence
+  if (sqi == null) return null
+  const qc = qualityColor(sqi)
   return (
-    <div style={{ marginBottom: 10 }}>
-      <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: .5, marginBottom: 6 }}>
-        🧪 Soil Quality
+    <div style={{ marginBottom: 6, border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+      <div onClick={() => setOpen(o => !o)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '7px 10px', cursor: 'pointer', background: open ? '#f8fafc' : '#fff', userSelect: 'none' }}>
+        <div style={{ width: 8, height: 8, borderRadius: 2, background: SOIL_COLORS[ci % SOIL_COLORS.length], flexShrink: 0 }} />
+        <span style={{ fontSize: 11, fontWeight: 600, color: '#0f172a', flex: 1 }}>{cls.soil_class}</span>
+        <span style={{ fontSize: 10, color: '#94a3b8', marginRight: 4 }}>{cls.area_percentage?.toFixed(1)}%</span>
+        <span style={{ fontSize: 11, fontWeight: 700, color: qc.text }}>{sqi.toFixed(2)}</span>
+        <span style={{ fontSize: 10, fontWeight: 600, color: qc.text, background: qc.bg, border: `1px solid ${qc.border}`, borderRadius: 4, padding: '1px 5px' }}>{qual || qc.label}</span>
+        <span style={{ fontSize: 10, color: '#94a3b8', marginLeft: 2, display: 'inline-block', transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
       </div>
-
-      {/* Overall SQI badge */}
-      {overallSqi != null && (
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: qc.bg, border: `1px solid ${qc.border}`, borderRadius: 8, padding: '6px 10px', marginBottom: 8 }}>
-          <span style={{ fontSize: 11, color: '#374151', fontWeight: 500 }}>Overall SQI</span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-            <span style={{ fontSize: 12, fontWeight: 700, color: qc.text }}>{overallSqi.toFixed(2)}</span>
-            <span style={{ fontSize: 10, fontWeight: 600, color: qc.text, background: qc.border, borderRadius: 4, padding: '1px 6px' }}>{overallQualityLabel}</span>
-          </div>
-        </div>
-      )}
-
-      {/* Weighted soil parameters */}
-      {overallQuality && (
-        <div style={{ background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, padding: '8px 10px', marginBottom: 8 }}>
-          <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 600, marginBottom: 6, textTransform: 'uppercase', letterSpacing: .3 }}>
-            Area-weighted parameters
-          </div>
-          <SoilQualityBar label="pH" value={overallQuality.ph} maxVal={14} />
-          <SoilQualityBar label="Nitrogen (N)" value={overallQuality.nitrogen} unit=" g/kg" maxVal={2} />
-          <SoilQualityBar label="SOC" value={overallQuality.soc} unit=" %" maxVal={5} />
-          <SoilQualityBar label="CEC" value={overallQuality.cec} unit=" cmol/kg" maxVal={50} />
-          <SoilQualityBar label="Bulk Density" value={overallQuality.bulk_density} unit=" g/cm³" maxVal={2} />
-        </div>
-      )}
-
-      {/* Per-class quality */}
-      {soilQualityByClass && soilQualityByClass.length > 0 && (
-        <div>
-          {soilQualityByClass.map((cls, ci) => {
-            const sqi = cls.properties?.soil_quality_index
-            const qual = cls.properties?.soil_quality
-            const conf = cls.properties?.confidence
-            if (sqi == null) return null
-            const qc2 = qualityColor(sqi)
-            return (
-              <div key={cls.soil_class} style={{ marginBottom: 6, background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 8, padding: '7px 10px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 5 }}>
-                  <div style={{ width: 8, height: 8, borderRadius: 2, background: SOIL_COLORS[ci % SOIL_COLORS.length], flexShrink: 0 }} />
-                  <span style={{ fontSize: 11, fontWeight: 600, color: '#0f172a', flex: 1 }}>{cls.soil_class}</span>
-                  <span style={{ fontSize: 10, color: '#94a3b8' }}>{cls.area_percentage?.toFixed(1)}%</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 5 }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-                    <span style={{ fontSize: 11, fontWeight: 700, color: qc2.text }}>SQI: {sqi.toFixed(2)}</span>
-                    <span style={{ fontSize: 10, fontWeight: 600, color: qc2.text, background: qc2.bg, border: `1px solid ${qc2.border}`, borderRadius: 4, padding: '1px 5px' }}>{qual || qc2.label}</span>
-                  </div>
-                  {conf != null && (
-                    <span style={{ fontSize: 10, color: '#94a3b8' }}>conf: {(conf * 100).toFixed(0)}%</span>
-                  )}
-                </div>
-                {/* SQI mini progress bar */}
-                <div style={{ height: 4, borderRadius: 99, background: '#e2e8f0', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${sqi * 100}%`, background: sqi >= 0.8 ? '#22c55e' : sqi >= 0.5 ? '#f59e0b' : '#ef4444', borderRadius: 99, transition: 'width .4s' }} />
-                </div>
-              </div>
-            )
-          })}
+      <div style={{ height: 3, background: '#f1f5f9' }}>
+        <div style={{ height: '100%', width: `${sqi * 100}%`, background: qc.bar, transition: 'width .4s' }} />
+      </div>
+      {open && (
+        <div style={{ padding: '8px 10px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+          {conf != null && <div style={{ fontSize: 10, color: '#94a3b8', marginBottom: 8 }}>Confidence: {(conf * 100).toFixed(0)}%</div>}
+          {PARAMS.map(p => <ParamRow key={p.key} label={p.label} value={cls.properties?.[p.key]} unit={p.unit} max={p.max} />)}
         </div>
       )}
     </div>
   )
 }
 
-export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, onClearAll }) {
-  const selected = polygons.find(p => p.id === selectedId)
+function OverallQualityCard({ overallQuality, soilQualityByClass }) {
+  const [paramsOpen, setParamsOpen] = useState(false)
+  if (!overallQuality && (!soilQualityByClass || soilQualityByClass.length === 0)) return null
+
+  let overallSqi = null
+  if (soilQualityByClass?.length > 0) {
+    const totalPct = soilQualityByClass.reduce((s, c) => s + (c.area_percentage || 0), 0)
+    if (totalPct > 0) {
+      const w = soilQualityByClass.reduce((s, c) => {
+        const sqi = c.properties?.soil_quality_index
+        return sqi != null ? s + sqi * (c.area_percentage / totalPct) : s
+      }, 0)
+      if (w > 0) overallSqi = w
+    }
+  }
+  const qc = overallSqi != null ? qualityColor(overallSqi) : null
 
   return (
-    <aside style={{ width: 300, background: '#fff', borderLeft: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
+    <div style={{ marginBottom: 10 }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: .5, marginBottom: 6 }}>🧪 Soil Quality</div>
+      {overallSqi != null && (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: qc.bg, border: `1px solid ${qc.border}`, borderRadius: 8, padding: '6px 10px', marginBottom: 8 }}>
+          <span style={{ fontSize: 11, color: '#374151', fontWeight: 500 }}>Overall SQI</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, color: qc.text }}>{overallSqi.toFixed(2)}</span>
+            <span style={{ fontSize: 10, fontWeight: 600, color: qc.text, background: qc.border, borderRadius: 4, padding: '1px 6px' }}>{qc.label}</span>
+          </div>
+        </div>
+      )}
+      {overallQuality && (
+        <div style={{ marginBottom: 8, border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+          <div onClick={() => setParamsOpen(o => !o)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 10px', cursor: 'pointer', background: paramsOpen ? '#f8fafc' : '#fff', userSelect: 'none' }}>
+            <span style={{ fontSize: 11, fontWeight: 600, color: '#374151' }}>Area-weighted parameters</span>
+            <span style={{ fontSize: 10, color: '#94a3b8', display: 'inline-block', transition: 'transform .2s', transform: paramsOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+          </div>
+          {paramsOpen && (
+            <div style={{ padding: '8px 10px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+              {PARAMS.map(p => <ParamRow key={p.key} label={p.label} value={overallQuality[p.key]} unit={p.unit} max={p.max} />)}
+            </div>
+          )}
+        </div>
+      )}
+      {soilQualityByClass?.length > 0 && soilQualityByClass.map((cls, ci) => (
+        <SoilClassCard key={cls.soil_class} cls={cls} ci={ci} />
+      ))}
+    </div>
+  )
+}
 
-      {/* Header */}
+function CropRecommendationCard({ crops, weather }) {
+  const [open, setOpen] = useState(true)
+  if (!crops || crops.length === 0) return null
+  const barColors = ['#16a34a', '#2563eb', '#7c3aed']
+
+  return (
+    <div style={{ marginBottom: 10 }}>
+      <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: .5, marginBottom: 6 }}>🌾 Crop Recommendations</div>
+
+      {/* Weather pills */}
+      {weather && (
+        <div style={{ display: 'flex', gap: 5, marginBottom: 8, flexWrap: 'wrap' }}>
+          {weather.temperature != null && <div style={{ background: '#eff6ff', borderRadius: 6, padding: '3px 8px', fontSize: 10, color: '#2563eb', fontWeight: 600 }}>🌡️ {weather.temperature.toFixed(1)}°C</div>}
+          {weather.humidity    != null && <div style={{ background: '#f0fdf4', borderRadius: 6, padding: '3px 8px', fontSize: 10, color: '#16a34a', fontWeight: 600 }}>💧 {weather.humidity.toFixed(0)}%</div>}
+          {weather.rainfall    != null && <div style={{ background: '#faf5ff', borderRadius: 6, padding: '3px 8px', fontSize: 10, color: '#7c3aed', fontWeight: 600 }}>🌧️ {weather.rainfall.toFixed(1)}mm</div>}
+        </div>
+      )}
+
+      {/* Collapsible crop list */}
+      <div style={{ border: '1px solid #e2e8f0', borderRadius: 8, overflow: 'hidden' }}>
+        <div onClick={() => setOpen(o => !o)} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '7px 10px', cursor: 'pointer', background: open ? '#f0fdf4' : '#fff', userSelect: 'none' }}>
+          <span style={{ fontSize: 11, fontWeight: 600, color: '#15803d' }}>Top {crops.length} Recommended Crops</span>
+          <span style={{ fontSize: 10, color: '#94a3b8', display: 'inline-block', transition: 'transform .2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }}>▼</span>
+        </div>
+        {open && (
+          <div style={{ padding: '6px 10px', background: '#f8fafc', borderTop: '1px solid #f1f5f9' }}>
+            {crops.map((c, i) => (
+              <div key={c.crop} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 0', borderBottom: i < crops.length - 1 ? '1px solid #f1f5f9' : 'none' }}>
+                <span style={{ fontSize: 18 }}>{getCropEmoji(c.crop)}</span>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 12, fontWeight: 700, color: '#0f172a', textTransform: 'capitalize' }}>{c.crop}</div>
+                  <div style={{ height: 4, borderRadius: 99, background: '#e2e8f0', marginTop: 3, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${c.confidence}%`, background: barColors[i] || '#94a3b8', borderRadius: 99, transition: 'width .4s' }} />
+                  </div>
+                </div>
+                <span style={{ fontSize: 11, fontWeight: 600, color: '#64748b', minWidth: 36, textAlign: 'right' }}>{c.confidence.toFixed(1)}%</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, onClearAll }) {
+  return (
+    <aside style={{ width: 300, background: '#fff', borderLeft: '1px solid #e2e8f0', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
       <div style={{ padding: '12px 16px', borderBottom: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <div>
           <div style={{ fontSize: 13, fontWeight: 600, color: '#0f172a' }}>Drawn Polygons</div>
@@ -147,13 +197,10 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
           </div>
         </div>
         {polygons.length > 0 && (
-          <button onClick={onClearAll} style={{ fontSize: 11, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500, padding: '4px 8px', borderRadius: 6 }}>
-            Clear all
-          </button>
+          <button onClick={onClearAll} style={{ fontSize: 11, color: '#ef4444', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 500, padding: '4px 8px', borderRadius: 6 }}>Clear all</button>
         )}
       </div>
 
-      {/* Polygon list */}
       <div style={{ flex: 1, overflowY: 'auto' }}>
         {polygons.length === 0 ? (
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: 180, padding: '0 24px', textAlign: 'center', gap: 12 }}>
@@ -168,8 +215,9 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
             {polygons.map((poly, i) => {
               const active = selectedId === poly.id
               return (
-                <li key={poly.id} onClick={() => onSelect(poly.id)} style={{ padding: '10px 14px', cursor: 'pointer', borderLeft: active ? '3px solid #2563eb' : '3px solid transparent', background: active ? '#eff6ff' : '#fff', borderBottom: '1px solid #f1f5f9', transition: 'background 0.15s' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <li key={poly.id} style={{ padding: '10px 14px', borderLeft: active ? '3px solid #2563eb' : '3px solid transparent', background: active ? '#eff6ff' : '#fff', borderBottom: '1px solid #f1f5f9', transition: 'background 0.15s' }}>
+                  {/* Header row - clickable for select/unselect */}
+                  <div onClick={() => onSelect(poly.id)} style={{ display: 'flex', alignItems: 'center', gap: 8, cursor: 'pointer' }}>
                     <div style={{ width: 28, height: 28, borderRadius: 8, flexShrink: 0, background: active ? '#2563eb' : '#f1f5f9', color: active ? '#fff' : '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 700 }}>
                       {poly.status === 'loading' ? (
                         <div style={{ width: 12, height: 12, border: '2px solid', borderColor: active ? 'rgba(255,255,255,.4)' : '#cbd5e1', borderTopColor: active ? '#fff' : '#2563eb', borderRadius: '50%', animation: 'spin .8s linear infinite' }} />
@@ -184,11 +232,10 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
                     <button onClick={e => { e.stopPropagation(); onDelete(poly.id) }} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#94a3b8', fontSize: 14, padding: 4, borderRadius: 6 }} title="Delete">🗑️</button>
                   </div>
 
-                  {/* Expanded detail when selected & done */}
                   {active && poly.status === 'done' && (
                     <div style={{ marginTop: 10, marginLeft: 36 }}>
 
-                      {/* Soil distribution */}
+                      {/* Soil Type */}
                       {poly.soilDistribution?.length > 0 && (
                         <div style={{ marginBottom: 10 }}>
                           <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: .5, marginBottom: 6 }}>🌱 Soil Type</div>
@@ -207,14 +254,11 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
                       )}
 
                       {/* Soil Quality */}
-                      <OverallQualityCard
-                        overallQuality={poly.overallQuality}
-                        soilQualityByClass={poly.soilQualityByClass}
-                      />
+                      <OverallQualityCard overallQuality={poly.overallQuality} soilQualityByClass={poly.soilQualityByClass} />
 
-                      {/* Land use */}
+                      {/* Land Use */}
                       {poly.landUse && Object.keys(poly.landUse).length > 0 && (
-                        <div>
+                        <div style={{ marginBottom: 10 }}>
                           <div style={{ fontSize: 10, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: .5, marginBottom: 6 }}>🛰️ Land Use</div>
                           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
                             {Object.entries(poly.landUse).map(([label, count]) => (
@@ -227,6 +271,10 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
                           </div>
                         </div>
                       )}
+
+                      {/* Crop Recommendations */}
+                      <CropRecommendationCard crops={poly.cropRecommendations} weather={poly.weather} />
+
                     </div>
                   )}
                 </li>
@@ -237,7 +285,6 @@ export default function ResultPanel({ polygons, selectedId, onSelect, onDelete, 
         )}
       </div>
 
-      {/* Footer total */}
       {polygons.length > 0 && (
         <div style={{ padding: '10px 16px', borderTop: '1px solid #e2e8f0', background: '#f8fafc' }}>
           <div style={{ fontSize: 11, color: '#64748b' }}>
