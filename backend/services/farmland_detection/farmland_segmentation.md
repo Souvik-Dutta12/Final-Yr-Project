@@ -90,12 +90,74 @@ Content-Type: application/json
   ],
   "metadata": {
     "model": "Dynamic World V1 (Google / WRI, pre-trained deep learning)",
+    "imagery_source": "Sentinel-2 SR Harmonized",
     "resolution_m": 10,
     "area_km2": 27.4,
+    "date_range": {
+        "start": "2026-02-22",
+        "end": "2026-04-23"
+      },
     "scene_count": 18,
+    "total_pixels": 78400,
+    "classes_detected": [
+        "water",
+        "trees",
+        "grass",
+        "flooded_vegetation",
+        "crops",
+        "shrub_and_scrub",
+        "built",
+        "bare"
+      ],
     "dominant_confidence": 0.764,
-    "class_stats": { ... },
-    "index_stats": { ... }
+    "class_stats": { 
+      "water": {
+          "label": "Water",
+          "color": "#419BDF",
+          "pixel_count": 9729,
+          "area_ha": 389.16,
+          "coverage_pct": 12.41,
+          "confidence": 0.576
+        },
+        "trees": {
+          "label": "Trees",
+          "color": "#397D49",
+          "pixel_count": 41461,
+          "area_ha": 1658.44,
+          "coverage_pct": 52.88,
+          "confidence": 0.552
+        },
+        "grass": {
+          "label": "Grass",
+          "color": "#88B053",
+          "pixel_count": 302,
+          "area_ha": 12.08,
+          "coverage_pct": 0.39,
+          "confidence": 0.237
+        },
+        ...
+    },
+    "index_stats": { 
+       "ndvi": {
+          "min": -0.4293,
+          "max": 0.7816,
+          "mean": 0.323,
+          "std": 0.2239
+        },
+        "ndwi": {
+          "min": -0.7054,
+          "max": 0.5952,
+          "mean": -0.3254,
+          "std": 0.2361
+        },
+        "ndbi": {
+          "min": -0.3954,
+          "max": 0.3685,
+          "mean": 0.0119,
+          "std": 0.1089
+        },
+        ...
+    }
   }
 }
 ```
@@ -107,9 +169,26 @@ POST /land-cover/change
 Content-Type: application/json
 
 {
-  "polygon": { ... },
-  "date_from": { "start": "2023-01-01", "end": "2023-03-31" },
-  "date_to":   { "start": "2024-01-01", "end": "2024-03-31" }
+  "polygon": {
+    "type": "Polygon",
+    "coordinates":[
+      [
+        [77.050, 28.420], 
+        [77.130, 28.420],
+        [77.130, 28.370], 
+        [77.050, 28.370],
+        [77.050, 28.420]
+      ]
+    ]
+  },
+  "date_from": {
+    "start": "2018-01-01",
+    "end": "2018-06-30"
+  },
+  "date_to": {
+    "start": "2024-01-01",
+    "end": "2024-06-30"
+  }
 }
 ```
 

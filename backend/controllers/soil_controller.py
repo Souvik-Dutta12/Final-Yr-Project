@@ -1,99 +1,102 @@
+import asyncio
+import logging
+from typing import Optional
+
 from services.soil_type_classification.soil_service import (
     get_soil_type,
-    analyze_soil_polygon
+    get_soil_distribution,
 )
-from services.soil_quality_analysis.soil_quality_service import soil_service
+from services.soilgrid.soil_geojson_service import get_soil_coverage_geojson
+from services.soil_quality_analysis.soil_quality_service import soil_quality_service
+from utils.farmland_detection.polygon_utils import validate_polygon, polygon_centroid
 from utils.api_response import APIResponse
 from utils.api_error import APIError
-import json
-from shapely.geometry import shape
-from shapely.ops import unary_union
-from collections import defaultdict
+logger = logging.getLogger(__name__)
 
-
-async def get_soil_point(lat, lon):
+async def get_soil_point(
+        lat: Optional[float],
+        lon: Optional[float]
+    ) -> dict:
 
     if lat is None or lon is None:
         raise APIError(
             400,
             "Latitude and Longitude required"
         )
-    soil = get_soil_type(lat, lon)
+    
+    soil_class, quality = await asyncio.gather(
+        get_soil_type(lat, lon),
+        soil_quality_service.analyze_point(lat, lon),
+    )
 
-    soil_quality = soil_service.analyze(lat, lon)
+    if not soil_class:
+        raise APIError(
+            503, 
+            "Could not retrieve soil classification from SoilGrids."
+        )
 
     return APIResponse(
         200,
         {
             "lat":lat,
-            "lon":lon,
-            "soil_type": soil,
-            "soil_quality": soil_quality
+            "lon":lon,  
+            "soil_type": soil_class,
+            "soil_quality": quality
         },
-        "Soil type fetched"
+        "Soil analysis complete."
     ).to_dict()
 
-async def get_soil_polygon(polygon):
+async def get_soil_polygon(
+        polygon_geojson: Optional[dict]
+    )-> dict:
 
-    if not polygon:
-        raise APIError(400,"Polygon required")
+    if not polygon_geojson:
+        raise APIError(400,"Polygon GeoJSON is required")
     
-    result = analyze_soil_polygon(polygon)
+    try:
+        polygon_geojson = validate_polygon(polygon_geojson)
+    except ValueError as exc:
+        raise APIError(400, str(exc))
 
-    # quality analysis
-    
-    geojson = json.loads(result["geojson"])
-    distribution = result["distribution"]
-    soil_groups = defaultdict(list)
+    loop = asyncio.get_event_loop()
 
-    for feature in geojson["features"]:
-        soil_class = feature["properties"]["soil_class"]
-        geom = shape(feature["geometry"])
-        soil_groups[soil_class].append(geom)
+    distribution, polygon_quality, coverage_geojson = await asyncio.gather(
+        get_soil_distribution(polygon_geojson),
+        soil_quality_service.analyze_polygon(polygon_geojson),
+        loop.run_in_executor(None, get_soil_coverage_geojson, polygon_geojson)
+    )
+
+    if not distribution:
+        raise APIError(503, "Could not retrieve soil data for this polygon.")
+
+    clon, clat = polygon_centroid(polygon_geojson)
 
     soil_quality_by_class = []
-
-    for soil_class, geoms in soil_groups.items():
-
-        merged_geom = unary_union(geoms)
-
-        quality = soil_service.analyze_polygon(merged_geom)
-
-        percentage = next(
-            d["percentage"] for d in distribution if d["soil_class"] == soil_class
-        )
-
-        soil_quality_by_class.append({
-            "soil_class": soil_class,
-            "area_percentage": percentage,
-            "properties": quality
-        })
-
-    # weighted overall
-    def weighted_avg(key):
-        total = 0
+    
+    def _weighted_avg(
+            param: str
+        ) -> Optional[float]:
+        total = weight_sum = 0.0
         for item in soil_quality_by_class:
-            val = item["properties"].get(key)
-            weight = item["area_percentage"] / 100
+            val = item["quality"].get(param)
+            w = item["area_percentage"] / 100
             if val is not None:
-                total += val * weight
-        return total
-
-    overall_quality = {
-        "ph": weighted_avg("ph"),
-        "nitrogen": weighted_avg("nitrogen"),
-        "soc": weighted_avg("soc"),
-        "cec": weighted_avg("cec"),
-        "bulk_density": weighted_avg("bulk_density")
+                total += val * w
+                weight_sum += w
+        return round(total / weight_sum, 6) if weight_sum > 0 else None
+        
+    overall = {
+        param: _weighted_avg(param)
+        for param in ["ph", "nitrogen", "soc", "cec", "bulk_density"]
     }
 
     return APIResponse(
         200,
         {
             "distribution": distribution,
-            "geojson": result["geojson"],
-            "soil_quality_by_class": soil_quality_by_class,
-            "overall_weighted_quality": overall_quality
+            "soil_quality_by_class": polygon_quality,
+            "overall_weighted_quality": overall,
+            "coverage_geojson": coverage_geojson
         },
-        "Soil classification + quality analysis successful"
+        "Soil polygon analysis complete.",
     ).to_dict()

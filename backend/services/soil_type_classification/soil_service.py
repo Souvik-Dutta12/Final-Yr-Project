@@ -1,68 +1,50 @@
-from shapely.geometry import Point,shape
-from services.soil_type_classification.soil_loader import soil_gdf
-import geopandas as gpd
+import logging
+from collections import Counter
+from typing import Dict, List, Optional, Tuple
 
-def get_soil_type(lat, lon):
-    point = Point(lon, lat)  # IMPORTANT: (lon, lat)
+from services.soilgrid.soilgrids_client import soilgrids_client
+from services.soilgrid.soil_geojson_service import get_soil_coverage_geojson
+from utils.soil_properties.polygon_sampler import adaptive_sample_points
 
-    # find polygon containing point
-    matches = soil_gdf[soil_gdf.contains(point)]
+logger = logging.getLogger(__name__)
 
-    if not matches.empty:
-        soil = matches.iloc[0]["soil_class"]
 
-        if str(soil).lower() != "other":
-            return soil
-        
-    # fallback → nearest soil
-    temp = soil_gdf.copy()
-    temp = temp[~temp["soil_class"].str.lower().str.contains("other")]
-    temp["distance"] = temp.distance(point)
-    nearest = temp.sort_values("distance").iloc[0]
-    return nearest["soil_class"]
+async def get_soil_type(
+        lat: float,
+        lon: float) -> Optional[str]:
+    """Most probable WRB soil class for a point, e.g. 'Fluvisols'."""
+    
+    cls = await soilgrids_client.get_soil_class(lat, lon)
+    if not cls:
+        logger.warning(f"No soil class returned for ({lat}, {lon})")
+    return cls
 
-def get_soil_distribution(polygon):
-    polygon = shape(polygon)
 
-    # convert polygon → GeoDataFrame
-    poly_gdf = gpd.GeoDataFrame(geometry=[polygon], crs="EPSG:4326")
+async def get_soil_distribution(polygon_geojson: dict) -> List[Dict]:
+    """
+    WRB soil class distribution within a polygon via point sampling.
 
-    # intersection
-    intersection = gpd.overlay(soil_gdf, poly_gdf, how="intersection")
+    Returns:
+        [{"soil_class": "Fluvisols", "count": 18, "percentage": 72.0}, ...]
+    """
+    points: List[Tuple[float, float]] = adaptive_sample_points(polygon_geojson)
+    logger.info(f"Soil type distribution: {len(points)} sample points")
 
-    if intersection.empty:
+    classes = await soilgrids_client.batch_get_classes(points)
+    valid   = [c for c in classes if c is not None]
+
+    if not valid:
+        logger.error("No soil class data returned for polygon.")
         return []
 
-    # calculate area
-    intersection["area"] = intersection.geometry.area
+    total  = len(valid)
+    counts = Counter(valid)
 
-    total_area = intersection["area"].sum()
-
-    # group by soil type
-    result = (
-        intersection.groupby("soil_class")["area"]
-        .sum()
-        .reset_index()
-    )
-
-    result["percentage"] = (result["area"] / total_area) * 100
-
-    return result.to_dict(orient="records")
-
-def get_soil_geojson(polygon):
-    polygon = shape(polygon)
-
-    poly_gdf = gpd.GeoDataFrame(geometry=[polygon], crs="EPSG:4326")
-
-    intersection = gpd.overlay(soil_gdf, poly_gdf, how="intersection")
-
-    return intersection.to_json()
-
-def analyze_soil_polygon(polygon):
-    distribution = get_soil_distribution(polygon)
-    geojson = get_soil_geojson(polygon)
-
-    return {
-        "distribution": distribution,
-        "geojson": geojson
-    }   
+    return [
+        {
+            "soil_class": cls,
+            "count":      cnt,
+            "percentage": round(cnt / total * 100, 2),
+        }
+        for cls, cnt in counts.most_common()
+    ]
