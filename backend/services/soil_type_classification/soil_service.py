@@ -3,7 +3,6 @@ from collections import Counter
 from typing import Dict, List, Optional, Tuple
 
 from services.soilgrid.soilgrids_client import soilgrids_client
-from services.soilgrid.soil_geojson_service import get_soil_coverage_geojson
 from utils.soil_properties.polygon_sampler import adaptive_sample_points
 
 logger = logging.getLogger(__name__)
@@ -20,7 +19,9 @@ async def get_soil_type(
     return cls
 
 
-async def get_soil_distribution(polygon_geojson: dict) -> List[Dict]:
+async def get_soil_distribution(
+    polygon_geojson: dict
+) -> List[Dict]:
     """
     WRB soil class distribution within a polygon via point sampling.
 

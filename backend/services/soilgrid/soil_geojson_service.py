@@ -1,18 +1,16 @@
 import json
 import logging
 import hashlib
-from typing import Optional
+from typing import List, Tuple
 
-import numpy as np
-import rasterio
 from rasterio.crs import CRS
-from rasterio.mask import mask as rasterio_mask
-from rasterio.features import shapes
-from rasterio.warp import transform_geom
-from shapely.geometry import shape, mapping, MultiPolygon
-from shapely.ops import unary_union
+from shapely.geometry import shape, mapping, MultiPolygon,MultiPoint, Point
+from shapely.ops import voronoi_diagram,unary_union
+from shapely.validation import make_valid
 
 from utils.farmland_detection.cache import TTLCache
+from utils.soil_properties.polygon_sampler import adaptive_sample_points
+from services.soilgrid.soilgrids_client import soilgrids_client
 
 logger = logging.getLogger(__name__)
 
@@ -98,117 +96,109 @@ def _area_km2(geom) -> float:
     return geom.area * km_lat * km_lon
 
 
-def get_soil_coverage_geojson(polygon_geojson: dict) -> dict:
+async def get_soil_coverage_geojson(
+        polygon_geojson: dict
+    ) -> dict:
     cache_key = TTLCache.make_key(
-        "geojson_cov", 
-        polygon=json.dumps(
-            polygon_geojson, 
-            sort_keys=True
-            )
-        )
+        "geojson_cov",
+        polygon=json.dumps(polygon_geojson, sort_keys=True),
+    )
     cached = _geojson_cache.get(cache_key)
     if cached is not None:
         return cached
 
     user_polygon = shape(polygon_geojson)
 
-    try:
-        with rasterio.Env(**COG_ENV):
-            with rasterio.open(WRB_COG_URL) as src:
+    # Same source as get_soil_distribution 
+    points: List[Tuple[float, float]] = adaptive_sample_points(polygon_geojson)
+    api_classes = await soilgrids_client.batch_get_classes(points)
 
-                # Reproject user polygon to raster CRS for masking 
-                raster_crs = src.crs
-                if raster_crs != CRS.from_epsg(4326):
-                    polygon_in_raster_crs = shape(
-                        transform_geom("EPSG:4326", raster_crs.to_string(), polygon_geojson)
-                    )
-                else:
-                    polygon_in_raster_crs = user_polygon
+    valid_pairs = [
+        (pt, cls)
+        for pt, cls in zip(points, api_classes)
+        if cls is not None
+    ]
 
-                # Windowed read — only downloads the bounding-box tiles
-                clipped, clipped_transform = rasterio_mask(
-                    src,
-                    [mapping(polygon_in_raster_crs)],
-                    crop=True,
-                    nodata=0,
-                    filled=True,
-                )
-                data = clipped[0].astype(np.uint8)   # single band, uint8
-
-        # Vectorize pixels → raw polygon geometries 
-        raw_shapes = list(
-            shapes(data, mask=(data > 0), transform=clipped_transform)
-        )
-
-        if not raw_shapes:
-            return _empty_feature_collection()
-
-        # Group geometries by class value, reproject to WGS-84 
-        class_geoms: dict[str, list] = {}
-        for geom_dict, pixel_val in raw_shapes:
-            wrb_class = WRB_LEGEND.get(int(pixel_val), f"Class_{int(pixel_val)}")
-            if wrb_class == "No Data":
-                continue
-
-            # Reproject back to EPSG:4326
-            if raster_crs != CRS.from_epsg(4326):
-                geom_dict = transform_geom(raster_crs.to_string(), "EPSG:4326", geom_dict)
-
-            class_geoms.setdefault(wrb_class, []).append(shape(geom_dict))
-
-        if not class_geoms:
-            return _empty_feature_collection()
-
-        # Dissolve + clip to user polygon 
-        total_area = 0.0
-        dissolved: dict[str, object] = {}
-
-        for wrb_class, geoms in class_geoms.items():
-            merged = unary_union(geoms)
-            clipped_geom = merged.intersection(user_polygon)
-            if clipped_geom.is_empty:
-                continue
-            area = _area_km2(clipped_geom)
-            dissolved[wrb_class] = {
-                "geom": clipped_geom, 
-                "area_km2": area
-            }
-            total_area += area
-
-        # Build FeatureCollection 
-        features = []
-        for wrb_class, entry in sorted(
-            dissolved.items(),
-            key=lambda x: x[1]["area_km2"],
-            reverse=True,
-        ):
-            geom = entry["geom"]
-            area = entry["area_km2"]
-            pct = round(area / total_area * 100, 2) if total_area > 0 else 0.0
-            color = _color_for_class(wrb_class)
-
-            features.append({
-                "type": "Feature",
-                "geometry": mapping(geom),
-                "properties": {
-                    "soil_class": wrb_class,
-                    "color": color,
-                    "area_km2": round(area, 4),
-                    "percentage": pct,
-                },
-            })
-
-        result = {
-            "type": "FeatureCollection", 
-            "features": features
-        }
-        _geojson_cache.set(cache_key, result)
-        return result
-
-    except Exception as exc:
-        logger.error(f"Soil coverage GeoJSON failed: {exc}", exc_info=True)
+    if not valid_pairs:
+        logger.error("No soil class data returned for polygon.")
         return _empty_feature_collection()
 
+    # Build Shapely points — tuples are (lat, lon) 
+    shapely_points: List[Point] = [
+        Point(pt[1], pt[0])   # pt[0]=lat, pt[1]=lon → Point(x=lon, y=lat)
+        for pt, _ in valid_pairs
+    ]
+
+    # Voronoi tessellation clipped to user polygon 
+    if len(shapely_points) == 1:
+        only_class = valid_pairs[0][1]
+        class_geoms = {only_class: user_polygon}
+    else:
+        multipoint = MultiPoint(shapely_points)
+        voronoi_collection = voronoi_diagram(multipoint, envelope=user_polygon)
+        voronoi_cells = list(voronoi_collection.geoms)
+
+        class_geoms_raw: dict[str, list] = {}
+        for cell in voronoi_cells:
+            clipped_cell = cell.intersection(user_polygon)
+            if clipped_cell.is_empty:
+                continue
+
+            # Find which sample point falls inside this Voronoi cell
+            matched_cls = None
+            for p, (_, cls) in zip(shapely_points, valid_pairs):
+                if cell.contains(p):
+                    matched_cls = cls
+                    break
+
+            if matched_cls is None:
+                # Fallback: nearest point to cell centroid
+                centroid = clipped_cell.centroid
+                matched_cls = min(
+                    zip(shapely_points, valid_pairs),
+                    key=lambda x: centroid.distance(x[0])
+                )[1][1]
+
+            class_geoms_raw.setdefault(matched_cls, []).append(clipped_cell)
+
+        class_geoms = {
+            cls: make_valid(unary_union(geoms))
+            for cls, geoms in class_geoms_raw.items()
+        }
+
+    # Compute areas
+    total_area = sum(_area_km2(g) for g in class_geoms.values())
+    # Build GeoJSON features
+    features = []
+    for wrb_class, geom in sorted(
+        class_geoms.items(),
+        key=lambda x: _area_km2(x[1]),
+        reverse=True,
+    ):
+        if geom.is_empty:
+            continue
+        area = _area_km2(geom)
+        pct  = round(area / total_area * 100, 2) if total_area > 0 else 0.0
+        features.append({
+            "type": "Feature",
+            "geometry": mapping(geom),
+            "properties": {
+                "soil_class": wrb_class,
+                "color": _color_for_class(wrb_class),
+                "area_km2": round(area, 4),
+                "percentage": pct,
+            },
+        })
+
+    if not features:
+        return _empty_feature_collection()
+
+    result = {
+        "type": "FeatureCollection", 
+        "features": features
+    }
+    _geojson_cache.set(cache_key, result)
+    return result
 
 def _empty_feature_collection() -> dict:
     return {
