@@ -12,6 +12,8 @@ import requests, io
 import numpy as np
 import logging
 import requests
+import os
+import json
 
 from rasterio.transform import from_bounds
 from shapely.geometry import shape
@@ -26,8 +28,18 @@ from utils.farmland_detection.polygon_utils import polygon_area_km2, polygon_bou
 from utils.api_error import APIError
 
 logger = logging.getLogger(__name__)
-ee.Initialize(project="satelite-490001")
+# ee.Initialize(project="satelite-490001")
 
+service_account_info = json.loads(
+    os.getenv("GOOGLE_CREDENTIALS")
+)
+
+credentials = ee.ServiceAccountCredentials(
+    service_account_info["client_email"],
+    key_data=os.getenv("GOOGLE_CREDENTIALS")
+)
+
+ee.Initialize(credentials)
 
 def _to_ee_geom(polygon: dict) -> ee.Geometry:
     return ee.Geometry.Polygon(polygon["coordinates"])
