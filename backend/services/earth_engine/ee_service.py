@@ -28,18 +28,25 @@ from utils.farmland_detection.polygon_utils import polygon_area_km2, polygon_bou
 from utils.api_error import APIError
 
 logger = logging.getLogger(__name__)
-# ee.Initialize(project="satelite-490001")
 
-service_account_info = json.loads(
-    os.getenv("GOOGLE_CREDENTIALS")
-)
+if os.getenv("GOOGLE_CREDENTIALS"):
+    # Production (Render)
+    service_account_info = json.loads(
+        os.getenv("GOOGLE_CREDENTIALS")
+    )
 
-credentials = ee.ServiceAccountCredentials(
-    service_account_info["client_email"],
-    key_data=os.getenv("GOOGLE_CREDENTIALS")
-)
+    credentials = ee.ServiceAccountCredentials(
+        service_account_info["client_email"],
+        key_data=os.getenv("GOOGLE_CREDENTIALS")
+    )
 
-ee.Initialize(credentials)
+    ee.Initialize(
+        credentials,
+        project="satelite-490001"
+    )
+else:
+    # Local PC
+    ee.Initialize(project="satelite-490001")
 
 def _to_ee_geom(polygon: dict) -> ee.Geometry:
     return ee.Geometry.Polygon(polygon["coordinates"])
