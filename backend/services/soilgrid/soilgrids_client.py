@@ -128,6 +128,9 @@ def _read_all_properties_polygon(polygon_geojson: dict) -> Dict[str, Optional[fl
 
 
 class SoilGridsClient:
+    def __init__(self):
+        self._sem = asyncio.Semaphore(5) # max 5 concurrent requests
+
     async def _get(
         self,
         url: str,
@@ -168,6 +171,12 @@ class SoilGridsClient:
         logger.error(f"SoilGrids: all {MAX_RETRIES} attempts failed for {url}")
         return None
       
+    async def _get_with_limit(
+            self, 
+            coro):
+        async with self._sem:
+            return await coro
+        
     # Classification
     async def get_soil_class(
             self, 
@@ -293,25 +302,17 @@ class SoilGridsClient:
         self, 
         points: List[Tuple[float, float]]
     ) -> List[Optional[str]]:
-        sem = asyncio.Semaphore(CONCURRENCY)
-
-        async def _fetch(lat: float, lon: float) -> Optional[str]:
-            async with sem:
-                return await self.get_soil_class(lat, lon)
-
-        return list(await asyncio.gather(*[_fetch(la, lo) for la, lo in points]))
+        tasks = [self._get_with_limit(self.get_soil_class(lat, lon)) for lat, lon in points]
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        return [r if not isinstance(r, Exception) else None for r in results]
 
     async def batch_get_properties(
         self, 
         points: List[Tuple[float, float]]
     ) -> List[Dict[str, Optional[float]]]:
-        sem = asyncio.Semaphore(CONCURRENCY)
-
-        async def _fetch(lat: float, lon: float) -> Dict:
-            async with sem:
-                return await self.get_soil_properties(lat, lon)
-
-        return list(await asyncio.gather(*[_fetch(la, lo) for la, lo in points]))
+         
+        tasks = [self._get_with_limit(self.get_soil_properties(lat, lon)) for lat, lon in points]
+        return await asyncio.gather(*tasks, return_exceptions=True)
     
 
 soilgrids_client = SoilGridsClient()

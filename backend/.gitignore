@@ -225,3 +225,6 @@ __marimo__/
 .streamlit/secrets.toml
 
 backend_code_archive.md
+codebase.md
+problems.md
+GOOGLE_CREDENTIALS.json

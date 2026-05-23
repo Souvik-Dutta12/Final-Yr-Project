@@ -17,18 +17,28 @@ Usage
 
 import hashlib
 import json
+import sys
 import time
 import threading
+import numpy as np
 from typing import Any, Optional
-
 class TTLCache:
     """Thread-safe TTL in-memory store."""
-    def __init__(self, ttl_seconds: int = 600, max_entries: int = 64):
+    def __init__(self, ttl_seconds: int = 600, max_entries: int = 64, max_bytes: int = 256*1024*1024):
         self._ttl   = ttl_seconds
         self._max   = max_entries
+        self._max_bytes = max_bytes
         self._store: dict = {}   # key → (value, expire_at)
         self._lock  = threading.Lock()
+        self._current_bytes = 0  # Approximate size in bytes of stored values
 
+    def _sizeof(self, value) -> int:
+        """Rough size estimate — works for dicts of numpy arrays."""
+        if isinstance(value, dict):
+            return sum(self._sizeof(v) for v in value.values())
+        if isinstance(value, np.ndarray):
+            return value.nbytes
+        return sys.getsizeof(value)
 
     def get(self, key: str) -> Optional[Any]:
         with self._lock:
@@ -42,13 +52,20 @@ class TTLCache:
             return value
  
     def set(self, key: str, value: Any) -> None:
+        entry_bytes = self._sizeof(value)
         with self._lock:
+            # Don't cache entries larger than 1/4 of budget
+            if entry_bytes > self._max_bytes // 4:
+                return
             self._evict_expired()
-            if len(self._store) >= self._max:
-                # Evict oldest entry (LRU-lite: just remove one expired or oldest)
+            # Evict until we have room
+            while (self._current_bytes + entry_bytes > self._max_bytes 
+                   or len(self._store) >= self._max) and self._store:
                 oldest = min(self._store, key=lambda k: self._store[k][1])
-                del self._store[oldest]
+                _, (old_val, _) = self._store.popitem() if False else (oldest, self._store.pop(oldest))
+                self._current_bytes -= self._sizeof(old_val)
             self._store[key] = (value, time.monotonic() + self._ttl)
+            self._current_bytes += entry_bytes
  
     def invalidate(self, key: str) -> None:
         with self._lock:
@@ -69,9 +86,10 @@ class TTLCache:
         now = time.monotonic()
         expired = [k for k, (_, exp) in self._store.items() if now > exp]
         for k in expired:
-            del self._store[k]
+            val, _ = self._store.pop(k)
+            self._current_bytes -= self._sizeof(val)
  
  
 # ── Module-level singleton ─────────────────────────────────────────────────────
 # Import and reuse this instance across the application.
-gee_cache = TTLCache(ttl_seconds=900, max_entries=32)   # 15-min TTL
+gee_cache = TTLCache(ttl_seconds=900, max_entries=4, max_bytes=200*1024*1024)   # 15-min TTL

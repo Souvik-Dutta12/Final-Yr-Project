@@ -18,7 +18,7 @@ import logging
 from typing import Dict, Any
 
 import numpy as np
-
+import gc
 from utils.api_error import APIError
 from services.farmland_detection.constants.dw_classes import DW_CLASSES, IDX_TO_CLASS, DW_BAND_NAMES
 from services.earth_engine.ee_service import fetch_dynamic_world
@@ -114,16 +114,17 @@ async def analyze_land_cover(
 
     # Build per-class boolean masks from the mode label 
     # Only classes actually present in the AOI are included.
-    masks = {}
-    for cls in DW_CLASSES:
-        m = label == cls.idx
-        if m.any():
-            masks[cls.name] = m
- 
+    masks = {cls.name: label == cls.idx for cls in DW_CLASSES if (label == cls.idx).any()}
+    
     logger.info(
         "Classes detected: %s",
         [k for k in masks]
     )
+
+    class_stats  = _class_stats(label, probs, scale_m)
+    index_stats  = _index_stats(indices)
+    dom_conf     = _dominant_confidence(label, probs)
+    
 
     #convert into  geojson
     features = masks_to_geojson(
@@ -133,12 +134,9 @@ async def analyze_land_cover(
         src_crs     = dw["crs"],
         min_area_m2 = _min_area_for_scale(scale_m),
     )
-    
+    del label, probs, indices, masks, dw
+    gc .collect()
 
-    class_stats  = _class_stats(label, probs, scale_m)
-    index_stats  = _index_stats(indices)
-    dom_conf     = _dominant_confidence(label, probs)
-    
     return {
         "type":     "FeatureCollection",
         "features": features,

@@ -24,10 +24,8 @@ The comparison is done in pure numpy — no additional GEE calls needed.
 
 import logging
 import numpy as np
-import io
-import requests
 import ee
-
+import gc
 from typing import Any, Dict, List, Optional, Tuple 
 from scipy.ndimage import uniform_filter   
 from rasterio.transform import from_bounds
@@ -227,6 +225,8 @@ def detect_changes(
     ndvi_delta_mean = round(float((ndvi_b[valid] - ndvi_a[valid]).mean()), 4) \
                       if valid.any() else None
     
+    del label_a, label_b, ndvi_a, ndvi_b, result_a, result_b
+    gc.collect()
 
     return {
         "period_a":           {"start": date_from[0], "end": date_from[1]},

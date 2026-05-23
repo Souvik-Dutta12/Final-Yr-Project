@@ -2,11 +2,16 @@ import pandas as pd
 import joblib
 import numpy as np
 
+_model = _scaler = _pt = _le = None
 
-model = joblib.load("services/crop_recomendation/model/stacking_model.pkl")
-scaler = joblib.load("services/crop_recomendation/model/standard_scaler.pkl")
-pt = joblib.load("services/crop_recomendation/model/power_transformer.pkl")
-le = joblib.load("services/crop_recomendation/model/label_encoder.pkl")
+def _load_models():
+    global _model, _scaler, _pt, _le
+    if _model is None:
+        _model  = joblib.load("services/crop_recomendation/model/stacking_model.pkl")
+        _scaler = joblib.load("services/crop_recomendation/model/standard_scaler.pkl")
+        _pt     = joblib.load("services/crop_recomendation/model/power_transformer.pkl")
+        _le     = joblib.load("services/crop_recomendation/model/label_encoder.pkl")
+    return _model, _scaler, _pt, _le
 
 skewed_cols = ['N', 'humidity', 'rainfall', 'N_humidity', 'rain_temp_ratio', 'log_rainfall', 'log_N']
 other_cols = ['temperature', 'ph', 'humidity_temp', 'ph_dev']
@@ -34,9 +39,10 @@ def preprocess_input(df):
 
     return df
 
-
 def get_crop_insights(features):
     # ML Prediction (Top 3)
+    model, le = _load_models()
+
     X = pd.DataFrame([{
         "N": float(features["N"]),
         "temperature": float(features["temperature"]),
@@ -65,7 +71,7 @@ def get_crop_insights(features):
 
 
 def get_crop_insights_polygon(soil_data):
-
+    model, le = _load_models()
     result = []
     soil_classes = soil_data["data"]["soil_quality_by_class"]
 
