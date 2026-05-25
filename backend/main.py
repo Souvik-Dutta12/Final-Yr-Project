@@ -21,3 +21,13 @@ app.include_router(crop_router)
 @app.get("/")
 def home():
     return {"message": "Backend is running..."}
+
+@app.get("/health")
+def health():
+    """
+    Lightweight liveness probe.
+    Returns 200 immediately — no I/O, no external calls.
+    Used by the frontend queue manager to decide whether to accept new jobs.
+    """
+    return {"status": "ok"}
+ 

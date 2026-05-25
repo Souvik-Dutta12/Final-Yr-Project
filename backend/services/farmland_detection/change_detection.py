@@ -17,31 +17,27 @@ a snapshot classifier into a temporal monitoring tool — valuable for:
 Architecture
 ------------
 Both periods are fetched via `fetch_dynamic_world` (with separate cache
-keys), so results are automatically cached per window independently.
+keys), so results are automatically cached per window independently.This keeps peak GEE memory flat and avoids
+hammering the Earth Engine quota with two simultaneous downloads.
  
-The comparison is done in pure numpy — no additional GEE calls needed.
+No in-process cache.  The controller semaphore(1) serialises concurrent
+HTTP requests so only one change-detection job runs at a time.
 """
 
 import logging
 import numpy as np
 import ee
 import gc
-from typing import Any, Dict, List, Optional, Tuple 
-from scipy.ndimage import uniform_filter   
+from typing import Any, Dict, List, Tuple  
 from rasterio.transform import from_bounds
-from datetime import datetime, timedelta
 
 from services.farmland_detection.constants.dw_classes import DW_CLASSES, IDX_TO_CLASS, DW_BAND_NAMES, adaptive_scale
 from utils.farmland_detection.polygon_utils import polygon_area_km2, polygon_bounds 
 from services.earth_engine.ee_service import (
-    fetch_dynamic_world,
     _to_ee_geom,
     _build_s2_indices,
     _download_npy
     )
-from utils.farmland_detection.cache import gee_cache
-from utils.api_error import APIError
-
 
 
 logger = logging.getLogger(__name__)
@@ -85,15 +81,15 @@ def _align_labels(
 
 def _class_stats(label: np.ndarray, scale_m: int) -> Dict[str, Dict]:
     """Per-class pixel count and area for a single label grid."""
-    total  = label.size
-    px_m2  = scale_m ** 2
+    total = label.size
+    px_m2 = scale_m ** 2
     result = {}
     for cls in DW_CLASSES:
-        px        = int((label == cls.idx).sum())
+        px = int((label == cls.idx).sum())
         result[cls.name] = {
             "pixel_count":   px,
-            "area_ha":       round(px * px_m2 / 10_000, 3),
-            "coverage_pct":  round(px / total * 100, 2),
+            "area_ha": round(px * px_m2 / 10_000, 3),
+            "coverage_pct": round(px / total * 100, 2),
         }
     return result
 
@@ -117,29 +113,29 @@ def _transition_matrix(
 def _notable_transitions(matrix: np.ndarray, scale_m: int) -> List[Dict]:
     """Extract human-readable notable transitions above a minimum area."""
     MIN_HA = 0.5
-    px_m2  = scale_m ** 2
+    px_m2 = scale_m ** 2
     results = []
     for (from_name, to_name), label in NOTABLE_TRANSITIONS.items():
         from_cls = next((c for c in DW_CLASSES if c.name == from_name), None)
-        to_cls   = next((c for c in DW_CLASSES if c.name == to_name),   None)
+        to_cls = next((c for c in DW_CLASSES if c.name == to_name), None)
         if from_cls is None or to_cls is None:
             continue
-        px      = int(matrix[from_cls.idx, to_cls.idx])
+        px = int(matrix[from_cls.idx, to_cls.idx])
         area_ha = round(px * px_m2 / 10_000, 3)
         if area_ha >= MIN_HA:
             results.append({
-                "from":     from_name,
-                "to":       to_name,
-                "label":    label,
-                "area_ha":  area_ha,
-                "pixels":   px,
+                "from": from_name,
+                "to": to_name,
+                "label": label,
+                "area_ha": area_ha,
+                "pixels": px,
             })
     return sorted(results, key=lambda r: r["area_ha"], reverse=True)
 
 def detect_changes(
-    polygon:      dict,
-    date_from:    Tuple[str, str],  
-    date_to:      Tuple[str, str],
+    polygon: dict,
+    date_from: Tuple[str, str],  
+    date_to: Tuple[str, str],
 ) -> Dict[str, Any]:
     
     """
@@ -164,24 +160,14 @@ def detect_changes(
         scale_m           — resolution used
     """
 
-    # Fetch both periods
-    def _days(start_s, end_s):
-        from datetime import datetime
-        d0 = datetime.strptime(start_s, "%Y-%m-%d")
-        d1 = datetime.strptime(end_s,   "%Y-%m-%d")
-        return max((d1 - d0).days, 1)
-    
-    today = datetime.utcnow()
- 
-    def _days_back_for(start_s, end_s):
-        end_d = datetime.strptime(end_s, "%Y-%m-%d")
-        return max((today - end_d).days + _days(start_s, end_s), 1)
- 
-    days_a = _days_back_for(*date_from)
-    days_b = _days_back_for(*date_to)
-
-    # two-period control we call GEE directly here.
+    logger.info(
+        "Fetching period A (%s → %s)", date_from[0], date_from[1]
+    )
     result_a = _fetch_for_window(polygon, *date_from)
+
+    logger.info(
+        "Fetching period B (%s → %s)", date_to[0], date_to[1]
+    )
     result_b = _fetch_for_window(polygon, *date_to)
  
     label_a, label_b = _align_labels(result_a["label"], result_b["label"])
@@ -194,12 +180,10 @@ def detect_changes(
     # deltas
     deltas = {
         cls.name: {
-            "area_ha_a":    stats_a[cls.name]["area_ha"],
-            "area_ha_b":    stats_b[cls.name]["area_ha"],
-            "delta_ha":     round(stats_b[cls.name]["area_ha"] -
-                                  stats_a[cls.name]["area_ha"], 3),
-            "delta_pct":    round(stats_b[cls.name]["coverage_pct"] -
-                                  stats_a[cls.name]["coverage_pct"], 2),
+            "area_ha_a": stats_a[cls.name]["area_ha"],
+            "area_ha_b": stats_b[cls.name]["area_ha"],
+            "delta_ha": round(stats_b[cls.name]["area_ha"] - stats_a[cls.name]["area_ha"], 3),
+            "delta_pct": round(stats_b[cls.name]["coverage_pct"] - stats_a[cls.name]["coverage_pct"], 2),
         }
         for cls in DW_CLASSES
     }
@@ -222,23 +206,22 @@ def detect_changes(
             PILImage.fromarray(ndvi_b).resize((w, h), PILImage.BILINEAR)
         )
     valid = np.isfinite(ndvi_a) & np.isfinite(ndvi_b)
-    ndvi_delta_mean = round(float((ndvi_b[valid] - ndvi_a[valid]).mean()), 4) \
-                      if valid.any() else None
+    ndvi_delta_mean = (
+        round(float((ndvi_b[valid] - ndvi_a[valid]).mean()), 4)
+        if valid.any() else None
+    )
     
-    del label_a, label_b, ndvi_a, ndvi_b, result_a, result_b
-    gc.collect()
-
-    return {
-        "period_a":           {"start": date_from[0], "end": date_from[1]},
-        "period_b":           {"start": date_to[0],   "end": date_to[1]},
-        "scale_m":            scale_m,
-        "period_a_stats":     stats_a,
-        "period_b_stats":     stats_b,
-        "class_deltas":       deltas,
-        "transition_matrix":  matrix.tolist(),
-        "notable_transitions":notable,
-        "changed_pct":        changed_pct,
-        "ndvi_delta_mean":    ndvi_delta_mean,
+    payload = {
+        "period_a": {"start": date_from[0], "end": date_from[1]},
+        "period_b": {"start": date_to[0],   "end": date_to[1]},
+        "scale_m": scale_m,
+        "period_a_stats": stats_a,
+        "period_b_stats": stats_b,
+        "class_deltas": deltas,
+        "transition_matrix": matrix.tolist(),
+        "notable_transitions": notable,
+        "changed_pct": changed_pct,
+        "ndvi_delta_mean": ndvi_delta_mean,
         "interpretation": (
             "Positive delta_ha = class expanded; "
             "negative = class shrank. "
@@ -246,19 +229,19 @@ def detect_changes(
         ),
     }
 
+    del label_a, label_b, ndvi_a, ndvi_b, result_a, result_b, matrix
+    gc.collect()
+
+    return payload
+
 def _fetch_for_window(polygon: dict, start_str: str, end_str: str) -> Dict:
     """
-    Like fetch_dynamic_world but with an explicit date window instead of
-    days_back.  Shares the same numpy / transform logic.
-    """
-    cache_key = gee_cache.make_key(polygon, start = start_str, end = end_str)
-    cached = gee_cache.get(cache_key)
-    if cached is not None:
-        return cached
- 
+    Fetch Dynamic World + Sentinel-2 indices for an explicit date window.
+    No cache — stateless by design.
+    """ 
     area_km2 = polygon_area_km2(polygon)
-    scale    = adaptive_scale(area_km2)
-    roi      = _to_ee_geom(polygon)
+    scale = adaptive_scale(area_km2)
+    roi = _to_ee_geom(polygon)
  
     dw_col = (
         ee.ImageCollection("GOOGLE/DYNAMICWORLD/V1")
@@ -275,31 +258,40 @@ def _fetch_for_window(polygon: dict, start_str: str, end_str: str) -> Dict:
         .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 20))
         .select(["B2", "B3", "B4", "B8", "B11"])
     )
-    s2_median   = s2_col.median().clip(roi)
+    s2_median = s2_col.median().clip(roi)
     indices_img = _build_s2_indices(s2_median)
  
-    arr_lbl  = _download_npy(dw_label_img, roi, scale)
+    arr_lbl = _download_npy(dw_label_img, roi, scale)
     arr_prob = _download_npy(dw_probs_img, roi, scale)
-    arr_idx  = _download_npy(indices_img,  roi, scale)
+    arr_idx = _download_npy(indices_img,  roi, scale)
  
-    label   = arr_lbl["label"].astype(np.int8)
-    probs   = {n: arr_prob[n].astype(np.float32) for n in DW_BAND_NAMES}
+    label = arr_lbl["label"].astype(np.int8)
+    probs = {n: arr_prob[n].astype(np.float32) for n in DW_BAND_NAMES}
     indices = {
-        "ndvi":  arr_idx["NDVI"].astype(np.float32),
-        "ndwi":  arr_idx["NDWI"].astype(np.float32),
-        "ndbi":  arr_idx["NDBI"].astype(np.float32),
+        "ndvi": arr_idx["NDVI"].astype(np.float32),
+        "ndwi": arr_idx["NDWI"].astype(np.float32),
+        "ndbi": arr_idx["NDBI"].astype(np.float32),
         "mndwi": arr_idx["MNDWI"].astype(np.float32),
-        "evi":   arr_idx["EVI"].astype(np.float32),
+        "evi": arr_idx["EVI"].astype(np.float32),
     }
- 
+
+    del arr_lbl, arr_prob, arr_idx
+     
     minx, miny, maxx, maxy = polygon_bounds(polygon)
-    h, w      = label.shape
+    h, w = label.shape
     transform = from_bounds(minx, miny, maxx, maxy, w, h)
  
-    result = {
-        "label": label, "probs": probs, "indices": indices,
-        "transform": transform, "scale": scale,
+    return {
+        "label": label,
+        "probs": probs,
+        "indices": indices,
+        "transform": transform,
+        "crs": "EPSG:4326",
+        "scale": scale,
+        "area_km2": area_km2,
+        "date_range": (start_str, end_str),
+        "pixel_count": int(label.size),
+        "scene_count": dw_col.size().getInfo(),
     }
-    gee_cache.set(cache_key, result)
     return result
  

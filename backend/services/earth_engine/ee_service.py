@@ -4,7 +4,7 @@ Key engineering choices
 1. Adaptive scale       — pixel budget kept under GEE's 32 M pixel limit
 2. Cloud-gap-fill       — median composite over `days_back` window with a fallback to 120-day window on empty results
 3. Structured numpy     — downloaded as NPY structured arrays (one field per band), minimising bandwidth vs multi-band TIFF
-4. TTL cache            — results cached 15 min to avoid redundant GEE calls
+4. Stateless            — no in-process cache; callers are responsible for rate-limiting via semaphore
 """
 
 import ee
@@ -16,14 +16,12 @@ import os
 import json
 
 from rasterio.transform import from_bounds
-from shapely.geometry import shape
 from datetime import datetime, timedelta
 from typing import Dict, Any
 
 from services.farmland_detection.constants.dw_classes import (
     DW_BAND_NAMES, MAX_POLYGON_AREA_KM2, adaptive_scale
 )
-from utils.farmland_detection.cache import gee_cache
 from utils.farmland_detection.polygon_utils import polygon_area_km2, polygon_bounds
 from utils.api_error import APIError
 
@@ -78,8 +76,7 @@ def _build_s2_indices(s2: ee.Image) -> ee.Image:
     ndbi  = B11.subtract(B8).divide(B11.add(B8)).rename("NDBI")
     mndwi = B3.subtract(B11).divide(B3.add(B11)).rename("MNDWI")
     evi   = (B8.subtract(B4).multiply(2.5)
-              .divide(B8.add(B4.multiply(6))
-                        .subtract(B2.multiply(7.5)).add(1))
+              .divide(B8.add(B4.multiply(6)).subtract(B2.multiply(7.5)).add(1))
               .rename("EVI"))
     return ee.Image([ndvi, ndwi, ndbi, mndwi, evi])
  
@@ -107,12 +104,6 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         pixel_count— total valid pixels
     """
 
-    # cache lookup
-    cache_key = gee_cache.make_key(polygon, days_back=days_back)
-    cached = gee_cache.get(cache_key)
-    if cached is not None:
-        logger.info("GEE cache hit — skipping download.")
-        return cached
 
     # validate polygon size
     area_km2 = polygon_area_km2(polygon)
@@ -225,5 +216,5 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         "scene_count": count,
     }
  
-    gee_cache.set(cache_key, result)
+
     return result

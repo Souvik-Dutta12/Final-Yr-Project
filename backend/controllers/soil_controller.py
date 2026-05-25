@@ -11,7 +11,10 @@ from services.soil_quality_analysis.soil_quality_service import soil_quality_ser
 from utils.farmland_detection.polygon_utils import validate_polygon
 from utils.api_response import APIResponse
 from utils.api_error import APIError
+
 logger = logging.getLogger(__name__)
+
+_SOIL_POLYGON_SEMAPHORE = asyncio.Semaphore(1)
 
 async def get_soil_point(
         lat: Optional[float],
@@ -58,11 +61,12 @@ async def get_soil_polygon(
     except ValueError as exc:
         raise APIError(400, str(exc))
 
-    distribution, polygon_quality, coverage_geojson = await asyncio.gather(
-        get_soil_distribution(polygon_geojson),
-        soil_quality_service.analyze_polygon(polygon_geojson),
-        get_soil_coverage_geojson(polygon_geojson)
-    )
+    async with _SOIL_POLYGON_SEMAPHORE:
+        distribution, polygon_quality, coverage_geojson = await asyncio.gather(
+            get_soil_distribution(polygon_geojson),
+            soil_quality_service.analyze_polygon(polygon_geojson),
+            get_soil_coverage_geojson(polygon_geojson)
+        )
     
     if not distribution:
         raise APIError(503, "Could not retrieve soil data for this polygon.") 

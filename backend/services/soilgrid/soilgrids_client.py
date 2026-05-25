@@ -15,42 +15,44 @@ import asyncio
 import logging
 import numpy as np
 import rasterio
+
 from concurrent.futures import ThreadPoolExecutor
 from typing import Optional, Dict, List, Tuple, Any
-
-from utils.farmland_detection.cache import TTLCache
+from rasterio.mask import mask as rasterio_mask
+from rasterio.warp import transform_geom
 
 logger = logging.getLogger(__name__)
+
 SOILGRIDS_BASE = "https://rest.isric.org/soilgrids/v2.0"
-TIMEOUT        = 30.0
-MAX_RETRIES    = 3
-BACKOFF_BASE   = 1.5   # seconds
-CONCURRENCY    = 5     # max parallel SoilGrids requests (ISRIC guideline)
-NODATA_VALUE   = -32768
+TIMEOUT = 30.0
+MAX_RETRIES = 3
+BACKOFF_BASE = 1.5   # seconds
+CONCURRENCY = 5     # max parallel SoilGrids requests (ISRIC guideline)
+NODATA_VALUE = -32768
 
 PROPERTY_KEY_MAP: Dict[str, str] = {
-    "phh2o":    "ph",
-    "nitrogen": "nitrogen",
-    "soc":      "soc",
-    "cec":      "cec",
-    "bdod":     "bulk_density",
+    "phh2o": "ph",
+    "nitrogen":"nitrogen",
+    "soc": "soc",
+    "cec": "cec",
+    "bdod": "bulk_density",
 }
 
 
 # ── COG URLs for properties (REST API is paused, use COG reads instead) ──────
 COG_URLS: Dict[str, str] = {
-    "ph":           "https://files.isric.org/soilgrids/latest/data/phh2o/phh2o_0-5cm_mean.vrt",
-    "nitrogen":     "https://files.isric.org/soilgrids/latest/data/nitrogen/nitrogen_0-5cm_mean.vrt",
-    "soc":          "https://files.isric.org/soilgrids/latest/data/soc/soc_0-5cm_mean.vrt",
-    "cec":          "https://files.isric.org/soilgrids/latest/data/cec/cec_0-5cm_mean.vrt",
+    "ph": "https://files.isric.org/soilgrids/latest/data/phh2o/phh2o_0-5cm_mean.vrt",
+    "nitrogen": "https://files.isric.org/soilgrids/latest/data/nitrogen/nitrogen_0-5cm_mean.vrt",
+    "soc": "https://files.isric.org/soilgrids/latest/data/soc/soc_0-5cm_mean.vrt",
+    "cec": "https://files.isric.org/soilgrids/latest/data/cec/cec_0-5cm_mean.vrt",
     "bulk_density": "https://files.isric.org/soilgrids/latest/data/bdod/bdod_0-5cm_mean.vrt",
 }
 
 COG_SCALING: Dict[str, float] = {
-    "phh2o":           0.10,   # pH × 10  → actual pH
-    "nitrogen":     0.01,   # cg/kg    → g/kg
-    "soc":          0.10,   # dg/kg    → %
-    "cec":          0.10,   # mmol/kg  → cmol/kg
+    "phh2o": 0.10,   # pH × 10  → actual pH
+    "nitrogen": 0.01,   # cg/kg    → g/kg
+    "soc": 0.10,   # dg/kg    → %
+    "cec": 0.10,   # mmol/kg  → cmol/kg
     "bdod": 0.01,   # cg/cm³   → g/cm³
 }
 
@@ -64,7 +66,6 @@ COG_ENV = {
 
 SOIL_PROPERTIES = list(COG_SCALING.keys())
 
-soilgrids_cache = TTLCache(ttl_seconds=3600, max_entries=256)
 _executor = ThreadPoolExecutor(max_workers=4)
 
 
@@ -73,20 +74,7 @@ def _read_all_properties_polygon(polygon_geojson: dict) -> Dict[str, Optional[fl
     Read mean value of each property over a polygon using rasterio.mask.
     Returns scaled physical values.
     """
-    import json
-    from rasterio.mask import mask as rasterio_mask
-    from rasterio.warp import transform_geom
-    from rasterio.crs import CRS
-
-    cache_key = TTLCache.make_key(
-        "cog_poly_props",
-        polygon=json.dumps(polygon_geojson, sort_keys=True)
-    )
-    cached = soilgrids_cache.get(cache_key)
-    if cached is not None:
-        logger.debug("COG polygon properties cache hit")
-        return cached
-
+   
     result: Dict[str, Optional[float]] = {}
 
     for param, url in COG_URLS.items():
@@ -122,7 +110,7 @@ def _read_all_properties_polygon(polygon_geojson: dict) -> Dict[str, Optional[fl
             logger.error(f"COG polygon read failed for {param}: {exc}", exc_info=True)
             result[param] = None
 
-    soilgrids_cache.set(cache_key, result)
+    
     logger.info(f"COG polygon properties computed: {result}")
     return result
 
@@ -135,11 +123,7 @@ class SoilGridsClient:
         self,
         url: str,
         params: List[Tuple[str, Any]],
-        cache_key: str,
     ) -> Optional[Dict]:
-        cached = soilgrids_cache.get(cache_key)
-        if cached is not None:
-            return cached
 
         for attempt in range(MAX_RETRIES):
             try:
@@ -147,7 +131,6 @@ class SoilGridsClient:
                     resp = await client.get(url, params=params)
                     resp.raise_for_status()
                     data = resp.json()
-                    soilgrids_cache.set(cache_key, data)
                     return data
 
             except httpx.HTTPStatusError as exc:
@@ -189,9 +172,9 @@ class SoilGridsClient:
             ("lat", round(lat, 6)),
             ("number_classes", 3),
         ]
-        cache_key = TTLCache.make_key("cls", lat=round(lat, 5), lon=round(lon, 5))
+
         data = await self._get(
-            f"{SOILGRIDS_BASE}/classification/query", params, cache_key
+            f"{SOILGRIDS_BASE}/classification/query", params
         )
         if not data:
             return None
@@ -234,9 +217,8 @@ class SoilGridsClient:
             ("value", "mean"),
         ] + [("property", p) for p in SOIL_PROPERTIES]
        
-        cache_key = TTLCache.make_key("props", lat=round(lat, 5), lon=round(lon, 5))
         data = await self._get(
-            f"{SOILGRIDS_BASE}/properties/query", params, cache_key
+            f"{SOILGRIDS_BASE}/properties/query", params
         )
 
         if not data:

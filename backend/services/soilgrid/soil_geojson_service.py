@@ -3,12 +3,10 @@ import logging
 import hashlib
 from typing import List, Tuple
 
-from rasterio.crs import CRS
-from shapely.geometry import shape, mapping, MultiPolygon,MultiPoint, Point
+from shapely.geometry import shape, mapping, MultiPoint, Point
 from shapely.ops import voronoi_diagram,unary_union
 from shapely.validation import make_valid
 
-from utils.farmland_detection.cache import TTLCache
 from utils.soil_properties.polygon_sampler import adaptive_sample_points
 from services.soilgrid.soilgrids_client import soilgrids_client
 
@@ -83,7 +81,7 @@ def _color_for_class(soil_class: str) -> str:
         _class_color_cache[soil_class] = _PALETTE[idx]
     return _class_color_cache[soil_class]
 
-_geojson_cache = TTLCache(ttl_seconds=3600, max_entries=32)
+
 
 
 def _area_km2(geom) -> float:
@@ -99,14 +97,7 @@ def _area_km2(geom) -> float:
 async def get_soil_coverage_geojson(
         polygon_geojson: dict
     ) -> dict:
-    cache_key = TTLCache.make_key(
-        "geojson_cov",
-        polygon=json.dumps(polygon_geojson, sort_keys=True),
-    )
-    cached = _geojson_cache.get(cache_key)
-    if cached is not None:
-        return cached
-
+    
     user_polygon = shape(polygon_geojson)
 
     # Same source as get_soil_distribution 
@@ -197,7 +188,7 @@ async def get_soil_coverage_geojson(
         "type": "FeatureCollection", 
         "features": features
     }
-    _geojson_cache.set(cache_key, result)
+
     return result
 
 def _empty_feature_collection() -> dict:

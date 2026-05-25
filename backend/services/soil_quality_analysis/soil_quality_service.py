@@ -9,6 +9,8 @@ from utils.soil_properties.polygon_sampler import adaptive_sample_points
 
 logger = logging.getLogger(__name__)
 
+_SOILGRIDS_SEMAPHORE = asyncio.Semaphore(5)
+ 
 class SoilQualityService:
 
     async def analyze_point(
@@ -17,7 +19,8 @@ class SoilQualityService:
             lon: float
         ) -> dict:
         """Full quality profile for a single coordinate."""
-        props = await soilgrids_client.get_soil_properties(lat, lon)
+        async with _SOILGRIDS_SEMAPHORE:
+            props = await soilgrids_client.get_soil_properties(lat, lon)
         missing = [k for k, v in props.items() if v is None]
         sqi = calculate_sqi(props)
         return {
@@ -33,11 +36,17 @@ class SoilQualityService:
         """
         Quality profile for a polygon — averages values from a point grid.
         Accepts the same GeoJSON dict the controller already validated.
+        Concurrent SoilGrids calls are capped at 5 via _SOILGRIDS_SEMAPHORE
+        to avoid overwhelming the upstream API.
         """
         points: List[Tuple[float, float]] = adaptive_sample_points(polygon_geojson)
         logger.info(f"Polygon quality: {len(points)} sample points via SoilGrids")
 
-        all_props = await soilgrids_client.batch_get_properties(points)
+        async def _fetch_one(lat: float, lon: float) -> dict:
+            async with _SOILGRIDS_SEMAPHORE:
+                return await soilgrids_client.get_soil_properties(lat, lon)
+
+        all_props = await asyncio.gather(*[_fetch_one(lat, lon) for lat, lon in points])
 
         accum: Dict[str, List[float]] = defaultdict(list)
         for props in all_props:
@@ -53,7 +62,7 @@ class SoilQualityService:
         }
 
         missing = [k for k, v in averaged.items() if v is None]
-        sqi     = calculate_sqi(averaged)
+        sqi = calculate_sqi(averaged)
 
         return {
             **averaged,

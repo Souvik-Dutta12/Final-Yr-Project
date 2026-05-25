@@ -20,6 +20,7 @@ Exposes two endpoints:
 Validation is centralised here; services receive clean, validated data.
 """
 
+import asyncio
 import logging
  
 from utils.api_error import APIError
@@ -30,13 +31,15 @@ from services.farmland_detection.change_detection import detect_changes
  
 logger = logging.getLogger(__name__)
  
+_GEE_SEMAPHORE = asyncio.Semaphore(1)
+
 def _parse_date_range(obj: dict, field: str) -> tuple:
     """Extract and validate a {"start": ..., "end": ...} date range."""
     dr = obj.get(field)
     if not dr:
         raise APIError(400, f"'{field}' is required.")
     start = dr.get("start")
-    end   = dr.get("end")
+    end = dr.get("end")
     if not start or not end:
         raise APIError(400, f"'{field}' must have 'start' and 'end' in YYYY-MM-DD format.")
     return start, end
@@ -62,8 +65,9 @@ async def analyze(body: dict):
         raise APIError(400, "'days_back' must be between 1 and 365.")
  
     logger.info("Land cover analysis requested | days_back=%d", days_back)
- 
-    result = await analyze_land_cover(polygon, days_back=days_back)
+    
+    async with _GEE_SEMAPHORE:
+        result = await analyze_land_cover(polygon, days_back=days_back)
  
     return APIResponse(
         200,
@@ -97,8 +101,9 @@ async def change_detection(body: dict):
         "Change detection requested | %s→%s vs %s→%s",
         *date_from, *date_to
     )
- 
-    result = detect_changes(polygon, date_from=date_from, date_to=date_to)
+    
+    async with _GEE_SEMAPHORE:
+        result = detect_changes(polygon, date_from=date_from, date_to=date_to)
  
     return APIResponse(
         200,

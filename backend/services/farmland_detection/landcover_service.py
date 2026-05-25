@@ -19,7 +19,6 @@ from typing import Dict, Any
 
 import numpy as np
 import gc
-from utils.api_error import APIError
 from services.farmland_detection.constants.dw_classes import DW_CLASSES, IDX_TO_CLASS, DW_BAND_NAMES
 from services.earth_engine.ee_service import fetch_dynamic_world
 from services.farmland_detection.geo_json_service import masks_to_geojson
@@ -35,25 +34,25 @@ def _class_stats(
     """
     Per-class pixel count, area, coverage and mean confidence.
     """
-    total  = label.size
-    px_m2  = scale_m ** 2
+    total = label.size
+    px_m2 = scale_m ** 2
     result = {}
     for cls in DW_CLASSES:
-        mask    = label == cls.idx
-        px      = int(mask.sum())
-        prob_m  = probs.get(cls.name)
-        conf    = None
+        mask = label == cls.idx
+        px = int(mask.sum())
+        prob_m = probs.get(cls.name)
+        conf = None
         if prob_m is not None and px > 0:
             vals = prob_m[mask & np.isfinite(prob_m)]
             conf = round(float(vals.mean()), 3) if vals.size else None
  
         result[cls.name] = {
-            "label":         cls.label,
-            "color":         cls.color,
-            "pixel_count":   px,
-            "area_ha":       round(px * px_m2 / 10_000, 3),
-            "coverage_pct":  round(px / total * 100, 2),
-            "confidence":    conf,
+            "label": cls.label,
+            "color": cls.color,
+            "pixel_count": px,
+            "area_ha": round(px * px_m2 / 10_000, 3),
+            "coverage_pct": round(px / total * 100, 2),
+            "confidence": conf,
         }
     return result
  
@@ -68,10 +67,10 @@ def _index_stats(indices: Dict[str, np.ndarray]) -> Dict[str, Dict]:
             result[name] = None
             continue
         result[name] = {
-            "min":  round(float(valid.min()),  4),
-            "max":  round(float(valid.max()),  4),
+            "min": round(float(valid.min()),  4),
+            "max": round(float(valid.max()),  4),
             "mean": round(float(valid.mean()), 4),
-            "std":  round(float(valid.std()),  4),
+            "std": round(float(valid.std()),  4),
         }
     return result
 
@@ -106,55 +105,61 @@ async def analyze_land_cover(
     # Fetch dynamic world + sentinel indices
     dw = fetch_dynamic_world(polygon, days_back=days_back)
  
-    label     = dw["label"]
-    probs     = dw["probs"]
-    indices   = dw["indices"]
+    label = dw["label"]
+    probs = dw["probs"]
+    indices = dw["indices"]
     transform = dw["transform"]
-    scale_m   = dw["scale"]
+    scale_m = dw["scale"]
+    area_km2 = dw["area_km2"]
+    date_range = dw["date_range"]
+    scene_count = dw["scene_count"]
+    pixel_count = dw["pixel_count"]
+    crs = dw["crs"]
 
     # Build per-class boolean masks from the mode label 
     # Only classes actually present in the AOI are included.
-    masks = {cls.name: label == cls.idx for cls in DW_CLASSES if (label == cls.idx).any()}
+    masks = {}
+    for cls in DW_CLASSES:
+        m = label == cls.idx
+        if m.any():
+            masks[cls.name] = m
     
-    logger.info(
-        "Classes detected: %s",
-        [k for k in masks]
-    )
-
-    class_stats  = _class_stats(label, probs, scale_m)
-    index_stats  = _index_stats(indices)
-    dom_conf     = _dominant_confidence(label, probs)
-    
+    logger.info("Classes detected: %s", list(masks.keys()))
 
     #convert into  geojson
     features = masks_to_geojson(
         masks       = masks,
         transform   = transform,
         probs       = probs,
-        src_crs     = dw["crs"],
+        src_crs     = crs,
         min_area_m2 = _min_area_for_scale(scale_m),
     )
+
+    class_stats  = _class_stats(label, probs, scale_m)
+    index_stats  = _index_stats(indices)
+    dom_conf     = _dominant_confidence(label, probs)
+        
     del label, probs, indices, masks, dw
     gc .collect()
 
     return {
-        "type":     "FeatureCollection",
+        "type": "FeatureCollection",
         "features": features,
         "metadata": {
-            "model":            "Dynamic World V1 (Google / WRI, pre-trained deep learning)",
-            "imagery_source":   "Sentinel-2 SR Harmonized",
-            "resolution_m":     scale_m,
-            "area_km2":         round(dw["area_km2"], 2),
-            "date_range":       {
-                "start": dw["date_range"][0],
-                "end":   dw["date_range"][1],
+            "model": "Dynamic World V1 (Google / WRI, pre-trained deep learning)",
+            "imagery_source": "Sentinel-2 SR Harmonized",
+            "resolution_m": scale_m,
+            "area_km2": round(area_km2, 2),
+            "date_range": {
+                "start": date_range[0],
+                "end": date_range[1],
             },
-            "scene_count":      dw["scene_count"],
-            "total_pixels":     dw["pixel_count"],
-            "classes_detected": list(masks.keys()),
+            "scene_count": scene_count,
+            "total_pixels": pixel_count,
+            "classes_detected": list(class_stats.keys()),
             "dominant_confidence": dom_conf,   # 0–1 overall model confidence
-            "class_stats":      class_stats,
-            "index_stats":      index_stats,
+            "class_stats": class_stats,
+            "index_stats": index_stats,
         },
     }
 
