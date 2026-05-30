@@ -112,35 +112,154 @@ Storage options:
 
 ### 3. Response Cache
 
-```
+
 What it is:
   Stores FINAL JSON results so same polygon is never sent to Python twice
+```
+1. Cache Location — User's Device
+NOT server memory anymore
+Stored ON user's device
 
-What it stores:
-  - Key   → hash of polygon coordinates + request params
-  - Value → final JSON response (GeoJSON features + metadata)
-  - TTL   → 15-30 minutes (configurable)
+Options:
+      ├── localStorage     → simple key-value, 5-10 MB limit
+      ├── IndexedDB        → larger storage, up to 50-100 MB
+      └── Service Worker   → works offline too
 
-What it does NOT store:
-  - numpy arrays       ← Python's old mistake
-  - raw raster data    ← never needed outside Python
-  - intermediate state ← not needed
+Best choice for GeoJSON results:
+      └── IndexedDB
+            ├── Can store large JSON (2-5 MB per polygon result)
+            ├── Survives browser refresh
+            ├── Survives tab close and reopen
+            └── Each user has their own isolated storage
+How it works now:
 
-Why this is safe:
-  - Final JSON for a 300 km² polygon analysis = ~500 KB to 2 MB
-  - Compare to Python's old cache = 150+ MB numpy arrays
-  - 100x smaller, same usefulness
+User's Browser                          TS Server        Python
+      │                                      │               │
+      │── check IndexedDB for polygon hash   │               │
+      │                                      │               │
+      │   Found + not expired?               │               │
+      │── render result locally ─────────────X               X
+      │   (server never involved)            │               │
+      │                                      │               │
+      │   Not found?                         │               │
+      │────────── POST /analyze ────────────→│               │
+      │                                      │──→ process ──→│
+      │←───────── JSON result ───────────────│               │
+      │── store in IndexedDB                 │               │
+      │── render result                      │               │
+```
+```
+2. TTL — Based on Satellite Capture Duration
+Dynamic World V1 uses Sentinel-2 imagery
 
-Flow:
-  Request comes in
+Sentinel-2 revisit time:
+      └── Every 5 days at same location (global average)
+          Some areas every 2-3 days (overlapping orbits)
+
+This means:
+      └── Same polygon's satellite data
+          CAN change every 5 days at minimum
+          Caching longer than 5 days = potentially stale data
+
+TTL Rules Based on Request Type:
+
+Endpoint                  TTL          Reason
+──────────────────────────────────────────────────────────────
+/land-cover/analyze       5 days       Sentinel-2 revisit cycle
+/land-cover/change        permanent*   Historical data, never changes
+/soil/polygon             30 days      Soil properties change very slowly
+/soil/ (point)            30 days      Same reason
+/crops-recommendation     follows      Depends on soil + weather inputs
+                          soil TTL
+
+* change detection uses fixed date ranges
+  → result will never change for same date ranges
+  → can be cached permanently (or very long TTL like 90 days)
+
+How TTL is checked on device:
+
+Cache entry structure in IndexedDB:
+      {
+        key:        hash of polygon + params,
+        value:      full JSON result,
+        cachedAt:   timestamp when stored,
+        ttlDays:    5,
+        endpoint:   "/land-cover/analyze"
+      }
+
+On new request:
+      ↓
+Check IndexedDB for polygon hash
+      ↓
+Found? → check (now - cachedAt) > ttlDays?
+      ↓
+  Expired?  → delete entry → treat as cache miss → call server
+  Valid?    → return cached result → server never called
+```
+```
+3. Partial Polygon — Process Only New Part
+This requires spatial operations on the Frontend/TS side
+using a library like Turf.js (JavaScript spatial library)
+
+User draws first polygon (A):
+┌─────────────┐
+│             │
+│      A      │  → processed → cached in IndexedDB
+│             │
+└─────────────┘
+
+User draws new polygon (B) with overlap:
+      ┌─────────────┐
+      │             │
+      │      B      │
+      │             │
+      └─────────────┘
+
+Overlap region:
+┌─────┬────────┐
+│  A  │  A∩B   │  ← this part already cached
+│only │        │
+└─────┴────────┘
+             │
+             └── B only (new part, not cached)
+                 ┌──────┐
+                 │ B-A  │  ← only this needs processing
+                 └──────┘
+```
+```
+Full Flow:
+
+User draws new polygon B
         ↓
-  TS checks cache with polygon hash as key
+Frontend checks IndexedDB for ALL cached polygons
         ↓
-  Hit?  → return cached JSON immediately
-          Python never called
-          Response time: milliseconds
+Find any cached polygon that overlaps with B?
         ↓
-  Miss? → add to queue → Python processes → store result → return to user
+   No overlap found?
+        → send full polygon B to server
+        → cache result
+        ↓
+   Overlap found (polygon A cached)?
+        ↓
+   Calculate:
+        overlap_region  = intersection of A and B  (A ∩ B)
+        new_region      = difference of B minus A  (B - A)
+        ↓
+   Is new_region too small to matter?
+   (less than 5% of total polygon B area?)
+        → return cached A result as-is
+        ↓
+   new_region is significant?
+        → send ONLY new_region to Python for processing
+        → receive new_region result
+        ↓
+   Merge results:
+        overlap_result  = extract relevant features from cached A
+        new_result      = result from Python for new_region
+        merged          = combine both results proportionally
+        ↓
+   Cache full polygon B result in IndexedDB
+   Return merged result to user
 ```
 
 ### 4. Rate Limiter
