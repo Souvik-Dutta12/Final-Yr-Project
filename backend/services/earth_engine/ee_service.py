@@ -40,11 +40,11 @@ if os.getenv("GOOGLE_CREDENTIALS"):
 
     ee.Initialize(
         credentials,
-        project="satelite-490001"
+        project="satellite-analysis-497615"
     )
 else:
     # Local PC
-    ee.Initialize(project="satelite-490001")
+    ee.Initialize(project="satellite-analysis-497615")
 
 def _to_ee_geom(polygon: dict) -> ee.Geometry:
     return ee.Geometry.Polygon(polygon["coordinates"])

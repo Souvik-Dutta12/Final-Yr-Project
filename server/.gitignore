@@ -42,3 +42,5 @@ coverage/
 /src/generated/prisma
 
 load_files.py
+
+*.tif
