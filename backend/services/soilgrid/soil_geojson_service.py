@@ -1,7 +1,9 @@
 import json
 import logging
 import hashlib
-from typing import List, Tuple
+from typing import List, Optional, Tuple
+import asyncio
+import rasterio
 
 from shapely.geometry import shape, mapping, MultiPoint, Point
 from shapely.ops import voronoi_diagram,unary_union
@@ -73,15 +75,12 @@ _PALETTE = [
 
 _class_color_cache: dict[str, str] = {}
 
-
 def _color_for_class(soil_class: str) -> str:
     """Returns a stable hex color for a given soil class name."""
     if soil_class not in _class_color_cache:
         idx = int(hashlib.sha256(soil_class.encode()).hexdigest(), 16) % len(_PALETTE)
         _class_color_cache[soil_class] = _PALETTE[idx]
     return _class_color_cache[soil_class]
-
-
 
 
 def _area_km2(geom) -> float:
