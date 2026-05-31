@@ -1,9 +1,8 @@
-import json
+
 import logging
 import hashlib
-from typing import List, Optional, Tuple
-import asyncio
-import rasterio
+from typing import List, Tuple
+
 
 from shapely.geometry import shape, mapping, MultiPoint, Point
 from shapely.ops import voronoi_diagram,unary_union
@@ -91,7 +90,6 @@ def _area_km2(geom) -> float:
     km_lat = 111.32
     km_lon = 111.32 * math.cos(math.radians(lat_mid))
     return geom.area * km_lat * km_lon
-
 
 async def get_soil_coverage_geojson(
         polygon_geojson: dict

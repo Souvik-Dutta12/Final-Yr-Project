@@ -3,11 +3,11 @@ SoilGrids v2 REST API client — async, cached, globally applicable.
 Uses the shared TTLCache from utils/cache.py.
 
 SoilGrids unit scaling applied here so all callers get clean physical values:
-  phh2o    stored pH × 10       → ÷ 10    → actual pH
-  nitrogen stored cg/kg         → ÷ 100   → g/kg
-  soc      stored dg/kg         → ÷ 100   → %  (g/kg ÷ 10)
-  cec      stored mmol(c)/kg    → ÷ 10    → cmol(c)/kg
-  bdod     stored cg/cm³        → ÷ 100   → g/cm³
+phh2o    stored pH × 10       → ÷ 10    → actual pH
+nitrogen stored cg/kg         → ÷ 100   → g/kg
+soc      stored dg/kg         → ÷ 100   → %  (g/kg ÷ 10)
+cec      stored mmol(c)/kg    → ÷ 10    → cmol(c)/kg
+bdod     stored cg/cm³        → ÷ 100   → g/cm³
 """
 
 import httpx
@@ -15,13 +15,11 @@ import asyncio
 import logging
 import numpy as np
 import rasterio
-
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Optional, Dict, List, Tuple, Any
 from rasterio.mask import mask as rasterio_mask
 from rasterio.warp import transform_geom
 from rasterio.warp import transform as warp_transform
-
 logger = logging.getLogger(__name__)
 
 SOILGRIDS_BASE = "https://rest.isric.org/soilgrids/v2.0"
@@ -30,15 +28,13 @@ MAX_RETRIES = 3
 BACKOFF_BASE = 1.5   # seconds
 CONCURRENCY = 5     # max parallel SoilGrids requests (ISRIC guideline)
 NODATA_VALUE = -32768
-
 PROPERTY_KEY_MAP: Dict[str, str] = {
-    "phh2o": "ph",
-    "nitrogen":"nitrogen",
-    "soc": "soc",
-    "cec": "cec",
-    "bdod": "bulk_density",
+     "phh2o": "ph",
+     "nitrogen":"nitrogen",
+     "soc": "soc",
+     "cec": "cec",
+     "bdod": "bulk_density",
 }
-
 
 # ── COG URLs for properties (REST API is paused, use COG reads instead) ──────
 COG_URLS: Dict[str, str] = {
@@ -48,7 +44,7 @@ COG_URLS: Dict[str, str] = {
     "cec": "https://files.isric.org/soilgrids/latest/data/cec/cec_0-5cm_mean.vrt",
     "bdod": "https://files.isric.org/soilgrids/latest/data/bdod/bdod_0-5cm_mean.vrt",
 }
-
+WRB_COG_URL = "https://files.isric.org/soilgrids/latest/data/wrb/MostProbable.vrt"
 COG_SCALING: Dict[str, float] = {
     "phh2o": 0.10,   # pH × 10  → actual pH
     "nitrogen": 0.01,   # cg/kg    → g/kg
@@ -56,7 +52,6 @@ COG_SCALING: Dict[str, float] = {
     "cec": 0.10,   # mmol/kg  → cmol/kg
     "bdod": 0.01,   # cg/cm³   → g/cm³
 }
-
 COG_ENV = {
     "GDAL_HTTP_MERGE_CONSECUTIVE_REQUESTS": "YES",
     "GDAL_HTTP_MULTIPLEX": "YES",
@@ -64,62 +59,110 @@ COG_ENV = {
     "CPL_VSIL_CURL_ALLOWED_EXTENSIONS": ".vrt,.tif,.tiff",
     "GDAL_DISABLE_READDIR_ON_OPEN": "EMPTY_DIR",
 }
-
 SOIL_PROPERTIES = list(COG_SCALING.keys())
+_executor = ThreadPoolExecutor(max_workers=8)
 
-_executor = ThreadPoolExecutor(max_workers=4)
+def _read_one_property_polygon(param: str, url: str, polygon_geojson: dict) -> Tuple[str, Optional[float]]:
+    """Read a single property over a polygon. Returns (param, scaled_value)."""
+    try:
+        with rasterio.Env(**COG_ENV):
+            with rasterio.open(url) as src:
+                nodata = src.nodata if src.nodata is not None else NODATA_VALUE
+                geom_reproj = transform_geom(
+                    "EPSG:4326", src.crs.to_string(), polygon_geojson
+                )
+                out_image, _ = rasterio_mask(
+                    src, [geom_reproj], crop=True, nodata=nodata, filled=True
+                )
+                data = out_image[0]
+                valid = data[(data != nodata) & (data > 0)]
 
+                if valid.size == 0:
+                    logger.warning(f"COG polygon {param}: no valid pixels")
+                    return param, None
 
-def _read_all_properties_polygon(polygon_geojson: dict) -> Dict[str, Optional[float]]:
-    """
-    Read mean value of each property over a polygon using rasterio.mask.
-    Returns scaled physical values.
-    """
-   
-    raw_result: Dict[str, Optional[float]] = {}
+                mean_val = float(np.mean(valid)) * COG_SCALING[param]
+                logger.debug(f"COG polygon {param}: {round(mean_val, 6)}")
+                return param, round(mean_val, 6)
 
-    for param in COG_URLS:
-        url = COG_URLS[param]
-        try:
-            with rasterio.Env(**COG_ENV):
-                with rasterio.open(url) as src:
-                    nodata = src.nodata if src.nodata is not None else NODATA_VALUE
+    except Exception as exc:
+        logger.error(f"COG polygon read failed for {param}: {exc}", exc_info=True)
+        return param, None
 
-                    # Reproject polygon to raster CRS
-                    geom_reproj = transform_geom(
-                        "EPSG:4326", src.crs.to_string(), polygon_geojson
-                    )
-
-                    out_image, _ = rasterio_mask(
-                        src,
-                        [geom_reproj],
-                        crop=True,
-                        nodata=nodata,
-                        filled=True,
-                    )
-                    data = out_image[0]
-                    valid = data[(data != nodata) & (data > 0)]
-                    
-                    if valid.size == 0:
-                        logger.warning(f"COG polygon read for {param}: no valid pixels in polygon")
-                        raw_result[param] = None
-                    else:
-                        mean_val = float(np.mean(valid)) * COG_SCALING[param]
-                        raw_result[param] = round(mean_val, 6)
-                        logger.debug(f"COG polygon read for {param}: {raw_result[param]}")
-
-        except Exception as exc:
-            logger.error(f"COG polygon read failed for {param}: {exc}", exc_info=True)
-            raw_result[param] = None
-
-    result = {
-        PROPERTY_KEY_MAP[k] : raw_result.get(k) for k in PROPERTY_KEY_MAP
+def _read_one_property_point(param: str, url: str, lat: float, lon: float) -> Tuple[str, Optional[float]]:
+    """Read a single property at a point. Returns (param, scaled_value)."""
+    delta = 0.001   # ~100 m bounding box
+    point_polygon = {
+        "type": "Polygon",
+        "coordinates": [[
+            [lon - delta, lat - delta],
+            [lon + delta, lat - delta],
+            [lon + delta, lat + delta],
+            [lon - delta, lat + delta],
+            [lon - delta, lat - delta],
+        ]],
     }
+    return _read_one_property_polygon(param, url, point_polygon)
+
+def _read_soil_class_cog_sync(lat: float, lon: float) -> Optional[str]:
+    """Blocking WRB class read from COG (call inside executor)."""
+    from services.soilgrid.soil_geojson_service import WRB_LEGEND
+    try:
+        with rasterio.Env(**COG_ENV):
+            with rasterio.open(WRB_COG_URL) as src:
+                xs, ys = warp_transform("EPSG:4326", src.crs, [lon], [lat])
+                row, col = src.index(xs[0], ys[0])
+                window = rasterio.windows.Window(col, row, 1, 1)
+                data = src.read(1, window=window)
+                val = int(data[0, 0])
+                nodata = int(src.nodata) if src.nodata is not None else NODATA_VALUE
+                if val == nodata or val <= 0:
+                    return None
+                return WRB_LEGEND.get(val)
+    except Exception as exc:
+        logger.error(f"COG soil class read failed ({lat}, {lon}): {exc}", exc_info=True)
+        return None
     
-    logger.info(f"COG polygon properties computed: {result}")
+def _read_all_properties_polygon_parallel(polygon_geojson: dict) -> Dict[str, Optional[float]]:
+    """
+    Read all 5 properties IN PARALLEL using a thread pool.
+    Returns dict with friendly keys (ph, bulk_density, …).
+    """
+    futures = {
+        _executor.submit(_read_one_property_polygon, param, url, polygon_geojson): param
+        for param, url in COG_URLS.items()
+    }
+
+    raw_result: Dict[str, Optional[float]] = {}
+    for future in as_completed(futures):
+        param, value = future.result()
+        raw_result[param] = value
+
+    # Remap to friendly output keys
+    result = {PROPERTY_KEY_MAP[k]: raw_result.get(k) for k in PROPERTY_KEY_MAP}
+    logger.info(f"COG polygon properties (parallel): {result}")
     return result
+    
+def _read_all_properties_point_parallel(lat: float, lon: float) -> Dict[str, Optional[float]]:
+    """
+    Read all 5 properties for a point IN PARALLEL.
+    Returns dict with friendly keys (ph, bulk_density, …).
+    """
+    futures = {
+        _executor.submit(_read_one_property_point, param, url, lat, lon): param
+        for param, url in COG_URLS.items()
+    }
 
+    raw_result: Dict[str, Optional[float]] = {}
+    for future in as_completed(futures):
+        param, value = future.result()
+        raw_result[param] = value
 
+    result = {PROPERTY_KEY_MAP[k]: raw_result.get(k) for k in PROPERTY_KEY_MAP}
+    logger.info(f"COG point properties (parallel) ({lat}, {lon}): {result}")
+    return result
+    
+    
 class SoilGridsClient:
     def __init__(self):
         self._sem = asyncio.Semaphore(5) # max 5 concurrent requests
@@ -128,16 +171,14 @@ class SoilGridsClient:
         self,
         url: str,
         params: List[Tuple[str, Any]],
-    ) -> Optional[Dict]:
-
+    ) -> Optional[Dict]:    
         for attempt in range(MAX_RETRIES):
             try:
                 async with httpx.AsyncClient(timeout=TIMEOUT) as client:
                     resp = await client.get(url, params=params)
                     resp.raise_for_status()
                     data = resp.json()
-                    return data
-
+                    return data 
             except httpx.HTTPStatusError as exc:
                 status = exc.response.status_code
                 if status in (429, 503, 502, 504):
@@ -149,45 +190,21 @@ class SoilGridsClient:
                     return None
                 else:
                     logger.error(f"SoilGrids HTTP {status}: {exc}")
-                    return None
-
+                    return None 
             except (httpx.TimeoutException, httpx.RequestError) as exc:
                 logger.warning(f"SoilGrids request error (attempt {attempt + 1}): {exc}")
                 if attempt < MAX_RETRIES - 1:
-                    await asyncio.sleep(BACKOFF_BASE ** attempt)
-
+                    await asyncio.sleep(BACKOFF_BASE ** attempt)    
         logger.error(f"SoilGrids: all {MAX_RETRIES} attempts failed for {url}")
         return None
-      
+        
     async def _get_with_limit(
             self, 
             coro):
         async with self._sem:
             return await coro
         
-    async def _get_soil_class_cog(self, lat: float, lon: float) -> Optional[str]:
-        from services.soilgrid.soil_geojson_service import WRB_LEGEND
-        """Read WRB class from COG when REST API is unavailable."""
-        WRB_COG_URL = "https://files.isric.org/soilgrids/latest/data/wrb/MostProbable.vrt"
-
-        def _read():
-            with rasterio.Env(**COG_ENV):
-                with rasterio.open(WRB_COG_URL) as src:
-                    # Transform point to raster CRS
-                    xs, ys = warp_transform("EPSG:4326", src.crs, [lon], [lat])
-                    row, col = src.index(xs[0], ys[0])
-                    window = rasterio.windows.Window(col, row, 1, 1)
-                    data = src.read(1, window=window)
-                    val = int(data[0, 0])
-                    nodata = src.nodata or NODATA_VALUE
-                    if val == nodata or val <= 0:
-                        return None
-                    return WRB_LEGEND.get(val)  # import from soil_coverage module
-
-        loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(_executor, _read)
-    
-    # Classification
+        # Classification
     async def get_soil_class(
             self, 
             lat: float, 
@@ -199,31 +216,29 @@ class SoilGridsClient:
             ("lat", round(lat, 6)),
             ("number_classes", 3),
         ]
-
         data = await self._get(
             f"{SOILGRIDS_BASE}/classification/query", params
         )
         if not data:
-            logger.warning("REST API unavailable, falling back to COG for soil class.")
-            return await self._get_soil_class_cog(lat, lon)
+            print(f"REST API failed for soil class at ({lat}, {lon})")
+            logger.warning(f"REST unavailable — COG fallback for soil class ({lat}, {lon})")
+            loop = asyncio.get_event_loop()
+            return await loop.run_in_executor(_executor, _read_soil_class_cog_sync, lat, lon)
         try:
             probs = data.get("wrb_class_probability", [])
             if not probs:
                 return None
         
             first = probs[0]
-
             # API returns list of dicts: [{"wrb_class_name": "Fluvisols", ...}, ...]
             if isinstance(first, dict):
                 return first.get("wrb_class_name")
-
             # API returns list of lists: [["Fluvisols", 45], ...]
             elif isinstance(first, list):
                 return first[0] if first else None
-
             # API returns list of strings directly: ["Fluvisols", ...]
             elif isinstance(first, str):
-                return first
+                return first 
         except Exception as exc:
             logger.error(f"Error parsing soil class response: {exc}")
             return None
@@ -244,72 +259,49 @@ class SoilGridsClient:
             ("depth", "0-5cm"),
             ("value", "mean"),
         ] + [("property", p) for p in SOIL_PROPERTIES]
-       
+    
         data = await self._get(
             f"{SOILGRIDS_BASE}/properties/query", params
         )
-
         if data:
             return self._parse_properties(data)
-
         # REST API failed → fall back to COG
-        logger.warning("REST API unavailable, falling back to COG for point query.")
-        delta = 0.001  # ~100m box around the point
-        point_polygon = {
-            "type": "Polygon",
-            "coordinates": [[
-                [lon - delta, lat - delta],
-                [lon + delta, lat - delta],
-                [lon + delta, lat + delta],
-                [lon - delta, lat + delta],
-                [lon - delta, lat - delta],
-            ]]
-        }
-        return await self.get_soil_properties_polygon(point_polygon)
+        logger.warning(f"REST unavailable — parallel COG fallback for point ({lat}, {lon})")
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(
+            _executor, _read_all_properties_point_parallel, lat, lon
+        )
 
     def _parse_properties(
             self, 
             data: Dict
         ) -> Dict[str, Optional[float]]:
-
         result: Dict[str, Optional[float]] = {}
         layers = data.get("properties", {}).get("layers", [])
         for layer in layers:
             soilgrid_name = layer.get("name")
-
             mapped_name = PROPERTY_KEY_MAP.get(soilgrid_name)
-
             if not mapped_name:
                 continue
-
             depths = layer.get("depths", [])
-
             if not depths:
                 result[mapped_name] = None
                 continue
-
             depth_data = depths[0]
-
             raw = depth_data.get("values", {}).get("mean")
-
             if raw is None or raw == NODATA_VALUE:
                 result[mapped_name] = None
                 continue
-
             d_factor = (
                 layer.get("unit_measure", {})
                 .get("d_factor", 1)
             )
-
             result[mapped_name] = round(raw / d_factor, 4)
-
         for mapped in PROPERTY_KEY_MAP.values():
             result.setdefault(mapped, None)
-
         logger.info(f"Final parsed soil properties: {result}")
-
         return result
-    
+        
     async def get_soil_properties_polygon(
         self, polygon_geojson: dict
     ) -> Dict[str, Optional[float]]:
@@ -319,9 +311,9 @@ class SoilGridsClient:
         """
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(
-            _executor, _read_all_properties_polygon, polygon_geojson
+            _executor, _read_all_properties_polygon_parallel, polygon_geojson
         )
-    
+        
     async def batch_get_classes(
         self, 
         points: List[Tuple[float, float]]
@@ -329,14 +321,14 @@ class SoilGridsClient:
         tasks = [self._get_with_limit(self.get_soil_class(lat, lon)) for lat, lon in points]
         results = await asyncio.gather(*tasks, return_exceptions=True)
         return [r if not isinstance(r, Exception) else None for r in results]
-
+        
     async def batch_get_properties(
         self, 
         points: List[Tuple[float, float]]
     ) -> List[Dict[str, Optional[float]]]:
-         
+            
         tasks = [self._get_with_limit(self.get_soil_properties(lat, lon)) for lat, lon in points]
         return await asyncio.gather(*tasks, return_exceptions=True)
-    
+        
 
 soilgrids_client = SoilGridsClient()
