@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import * as turf from '@turf/turf'
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -72,50 +73,52 @@ function getCropEmoji(crop) {
 
 // ── Render DW FeatureCollection on Leaflet FeatureGroup ───────────────────────
 // Backend feature.properties: { class, label, color, area_ha, confidence }
-function renderDWGeoJSON(featureCollection, targetGroup) {
-  targetGroup.clearLayers();
-  if (!featureCollection?.features?.length) return;
+function renderDWGeoJSON(featureCollection, targetGroup, clipCoords) {
+  targetGroup.clearLayers()
+  if (!featureCollection?.features?.length) return
 
-  L.geoJSON(featureCollection, {
+  let features = featureCollection.features
+
+  // Clip to drawn polygon if coords provided
+  if (clipCoords?.length) {
+    const ring = clipCoords.map(c => [c[1], c[0]])
+    if (ring[0][0] !== ring[ring.length-1][0] || ring[0][1] !== ring[ring.length-1][1]) ring.push(ring[0])
+    const clipPoly = turf.polygon([ring])
+    const clipped = []
+    features.forEach(feat => {
+      try {
+        const intersection = turf.intersect(turf.featureCollection([feat, clipPoly]))
+        if (intersection) { intersection.properties = feat.properties; clipped.push(intersection) }
+      } catch(e) {}
+    })
+    features = clipped
+  }
+
+  L.geoJSON({ type:'FeatureCollection', features }, {
     interactive: true,
     style: (feature) => {
-      const color = feature.properties?.color || "#94a3b8";
-      return {
-        color,
-        fillColor: color,
-        fillOpacity: 0.78,
-        weight: 1,
-        opacity: 1,
-      };
+      const color = feature.properties?.color || '#94a3b8'
+      return { color, fillColor: color, fillOpacity: 0.78, weight: 1, opacity: 1 }
     },
     onEachFeature: (feature, lyr) => {
-      const label =
-        feature.properties?.label || feature.properties?.class || "Unknown";
-      const color = feature.properties?.color || "#94a3b8";
-      const areaHa = feature.properties?.area_ha;
+      const label = feature.properties?.label || feature.properties?.class || 'Unknown'
+      const color = feature.properties?.color || '#94a3b8'
+      const areaHa = feature.properties?.area_ha
       lyr.bindTooltip(
         `<div style="font-family:system-ui,sans-serif;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;gap:7px">
           <div style="width:11px;height:11px;border-radius:3px;background:${color};flex-shrink:0"></div>
           <div>
             <span style="font-size:12px;font-weight:700;color:#0f172a">${label}</span>
-            ${areaHa != null ? `<span style="font-size:10px;color:#64748b;margin-left:5px">${areaHa.toFixed(0)} ha</span>` : ""}
+            ${areaHa != null ? `<span style="font-size:10px;color:#64748b;margin-left:5px">${areaHa.toFixed(0)} ha</span>` : ''}
           </div>
         </div>`,
-        { sticky: true, permanent: false, direction: "top", opacity: 1 },
-      );
-      lyr.on("mouseover", function (e) {
-        this.setStyle({ fillOpacity: 0.95, weight: 2 });
-        this.openTooltip(e.latlng);
-      });
-      lyr.on("mousemove", function (e) {
-        this.getTooltip()?.setLatLng(e.latlng);
-      });
-      lyr.on("mouseout", function () {
-        this.setStyle({ fillOpacity: 0.78, weight: 1 });
-        this.closeTooltip();
-      });
+        { sticky: true, permanent: false, direction: 'top', opacity: 1 }
+      )
+      lyr.on('mouseover', function(e) { this.setStyle({ fillOpacity: 0.95, weight: 2 }); this.openTooltip(e.latlng) })
+      lyr.on('mousemove', function(e) { this.getTooltip()?.setLatLng(e.latlng) })
+      lyr.on('mouseout',  function()  { this.setStyle({ fillOpacity: 0.78, weight: 1 }); this.closeTooltip() })
     },
-  }).addTo(targetGroup);
+  }).addTo(targetGroup)
 }
 
 export default function MapSection({
@@ -281,14 +284,13 @@ export default function MapSection({
 // Show dominant soil class with full opacity, others with reduced
 distrib.forEach((d, idx) => {
   const color = soilColorMap[d.soil_class] || '#94a3b8'
-  const opacity = idx === 0 ? 0.65 : 0.35  // dominant brighter, rest dimmer
   L.geoJSON(
     { type:'Feature', geometry:{ type:'Polygon', coordinates:[polyCoords] }, properties:{} },
-    { interactive:true, style:{ color, fillColor:color, fillOpacity:opacity, weight:1.5, stroke:true } }
+    { interactive:true, style:{ color, fillColor:color, fillOpacity: idx === 0 ? 0.65 : 0.35, weight: idx === 0 ? 2 : 0, stroke: idx === 0 } }
   )
   .bindTooltip(
     `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${d.soil_class}: ${d.percentage.toFixed(1)}%</div>`,
-    { sticky:true }
+    { sticky: true }
   )
   .addTo(soilLayerRef.current)
 })
@@ -378,30 +380,25 @@ distrib.forEach((d, idx) => {
     // Backend returns: { type:'FeatureCollection', features:[...], metadata:{...} }
     // APIResponse wraps it as: { success, message, data: { type, features, metadata } }
     window.__onLandCoverResult = (fc) => {
-      // Clear change layers
-      dwLayerARef.current.clearLayers();
-      dwLayerBRef.current.clearLayers();
-      renderDWGeoJSON(fc, dwLayerRef.current);
-      const map = mapRef.current;
-      if (map) {
-        dwLayerRef.current.bringToFront();
-        drawnItemsRef.current.bringToFront();
-      }
+      dwLayerARef.current.clearLayers()
+      dwLayerBRef.current.clearLayers()
+      renderDWGeoJSON(fc, dwLayerRef.current, lastCoordsRef.current)
+      const map = mapRef.current
+      if (map) { dwLayerRef.current.bringToFront(); drawnItemsRef.current.bringToFront() }
     };
 
     // Called by LandCoverPanel after change detection
     // fcA / fcB are FeatureCollections for period A and B
     window.__onChangeResult = (fcA, fcB) => {
-      dwLayerRef.current.clearLayers();
-      renderDWGeoJSON(fcA, dwLayerARef.current);
-      renderDWGeoJSON(fcB, dwLayerBRef.current);
-      // Default show period A, hide B
-      const map = mapRef.current;
+      dwLayerRef.current.clearLayers()
+      renderDWGeoJSON(fcA, dwLayerARef.current, lastCoordsRef.current)
+      renderDWGeoJSON(fcB, dwLayerBRef.current, lastCoordsRef.current)
+      const map = mapRef.current
       if (map) {
-        if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map);
-        map.removeLayer(dwLayerBRef.current);
-        drawnItemsRef.current.bringToFront();
-      }
+        if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map)
+          map.removeLayer(dwLayerBRef.current)
+          drawnItemsRef.current.bringToFront()
+        }
     };
 
     // Toggle which period is shown on map
