@@ -1,42 +1,121 @@
-import { useEffect, useRef, useState } from "react"
-import L from "leaflet"
-import "leaflet/dist/leaflet.css"
-import "leaflet-draw/dist/leaflet.draw.css"
-import "leaflet-draw"
-import { getSoilByPoint, getSoilByPolygon, analyseFarmland, getCropRecommendation } from "../services/api"
+import { useEffect, useRef, useState } from "react";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import "leaflet-draw/dist/leaflet.draw.css";
+import "leaflet-draw";
+import {
+  getSoilByPoint,
+  getSoilByPolygon,
+  analyseFarmland,
+  getCropRecommendation,
+} from "../services/api";
 
-let polyCount = 0
+let polyCount = 0;
 
 function formatArea(m) {
-  if (m >= 1e6) return (m / 1e6).toFixed(2) + " km²"
-  if (m >= 1e4) return (m / 1e4).toFixed(2) + " ha"
-  return m.toFixed(0) + " m²"
+  if (m >= 1e6) return (m / 1e6).toFixed(2) + " km²";
+  if (m >= 1e4) return (m / 1e4).toFixed(2) + " ha";
+  return m.toFixed(0) + " m²";
 }
 
 const LAND_COLORS = {
   farmland: "#22c55e",
-  builtup:  "#ec4899",
-  water:    "#3b82f6",
-  unknown:  "#a855f7",
-}
+  builtup: "#ec4899",
+  water: "#3b82f6",
+  unknown: "#a855f7",
+};
 
 const SOIL_COLORS = [
-  "#b45309", "#d97706", "#f59e0b", "#84cc16", "#10b981",
-  "#06b6d4", "#6366f1", "#ec4899", "#ef4444", "#8b5cf6",
-]
+  "#b45309",
+  "#d97706",
+  "#f59e0b",
+  "#84cc16",
+  "#10b981",
+  "#06b6d4",
+  "#6366f1",
+  "#ec4899",
+  "#ef4444",
+  "#8b5cf6",
+];
 
 const CROP_EMOJIS = {
-  rice: "🌾", wheat: "🌾", maize: "🌽", corn: "🌽",
-  jute: "🌿", cotton: "🌸", sugarcane: "🎋", tea: "🍵",
-  coffee: "☕", banana: "🍌", mango: "🥭", grapes: "🍇",
-  watermelon: "🍉", muskmelon: "🍈", apple: "🍎", orange: "🍊",
-  papaya: "🥭", coconut: "🥥", pomegranate: "🍎", lentil: "🫘",
-  blackgram: "🫘", mungbean: "🫘", mothbeans: "🫘", pigeonpeas: "🫘",
-  kidneybeans: "🫘", chickpea: "🫘",
+  rice: "🌾",
+  wheat: "🌾",
+  maize: "🌽",
+  corn: "🌽",
+  jute: "🌿",
+  cotton: "🌸",
+  sugarcane: "🎋",
+  tea: "🍵",
+  coffee: "☕",
+  banana: "🍌",
+  mango: "🥭",
+  grapes: "🍇",
+  watermelon: "🍉",
+  muskmelon: "🍈",
+  apple: "🍎",
+  orange: "🍊",
+  papaya: "🥭",
+  coconut: "🥥",
+  pomegranate: "🍎",
+  lentil: "🫘",
+  blackgram: "🫘",
+  mungbean: "🫘",
+  mothbeans: "🫘",
+  pigeonpeas: "🫘",
+  kidneybeans: "🫘",
+  chickpea: "🫘",
+};
+function getCropEmoji(crop) {
+  return CROP_EMOJIS[crop?.toLowerCase()] || "🌱";
 }
 
-function getCropEmoji(crop) {
-  return CROP_EMOJIS[crop?.toLowerCase()] || "🌱"
+// ── Render DW FeatureCollection on Leaflet FeatureGroup ───────────────────────
+// Backend feature.properties: { class, label, color, area_ha, confidence }
+function renderDWGeoJSON(featureCollection, targetGroup) {
+  targetGroup.clearLayers();
+  if (!featureCollection?.features?.length) return;
+
+  L.geoJSON(featureCollection, {
+    interactive: true,
+    style: (feature) => {
+      const color = feature.properties?.color || "#94a3b8";
+      return {
+        color,
+        fillColor: color,
+        fillOpacity: 0.78,
+        weight: 1,
+        opacity: 1,
+      };
+    },
+    onEachFeature: (feature, lyr) => {
+      const label =
+        feature.properties?.label || feature.properties?.class || "Unknown";
+      const color = feature.properties?.color || "#94a3b8";
+      const areaHa = feature.properties?.area_ha;
+      lyr.bindTooltip(
+        `<div style="font-family:system-ui,sans-serif;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;gap:7px">
+          <div style="width:11px;height:11px;border-radius:3px;background:${color};flex-shrink:0"></div>
+          <div>
+            <span style="font-size:12px;font-weight:700;color:#0f172a">${label}</span>
+            ${areaHa != null ? `<span style="font-size:10px;color:#64748b;margin-left:5px">${areaHa.toFixed(0)} ha</span>` : ""}
+          </div>
+        </div>`,
+        { sticky: true, permanent: false, direction: "top", opacity: 1 },
+      );
+      lyr.on("mouseover", function (e) {
+        this.setStyle({ fillOpacity: 0.95, weight: 2 });
+        this.openTooltip(e.latlng);
+      });
+      lyr.on("mousemove", function (e) {
+        this.getTooltip()?.setLatLng(e.latlng);
+      });
+      lyr.on("mouseout", function () {
+        this.setStyle({ fillOpacity: 0.78, weight: 1 });
+        this.closeTooltip();
+      });
+    },
+  }).addTo(targetGroup);
 }
 
 export default function MapSection({
@@ -46,81 +125,202 @@ export default function MapSection({
   onPolygonCreated,
   onPolygonSelect,
 }) {
-  const containerRef        = useRef(null)
-  const mapRef              = useRef(null)
-  const drawControlRef      = useRef(null)
-  const drawnItemsRef       = useRef(new L.FeatureGroup())
-  const analysisLayerRef    = useRef(new L.FeatureGroup())
-  const soilLayerRef        = useRef(new L.FeatureGroup())
-  const layerMapRef         = useRef(new Map())
-  const clickMarkerRef      = useRef(null)
-  const modeRef             = useRef(mode)
-  const normalLayerRef      = useRef(null)
-  const satelliteLayerRef   = useRef(null)
-  const labelLayerRef       = useRef(null)
-  const onPolygonCreatedRef = useRef(onPolygonCreated)
+  const containerRef = useRef(null);
+  const mapRef = useRef(null);
+  const drawControlRef = useRef(null);
+  const drawnItemsRef = useRef(new L.FeatureGroup());
+  const analysisLayerRef = useRef(new L.FeatureGroup());
+  const soilLayerRef = useRef(new L.FeatureGroup());
+  const dwLayerRef = useRef(new L.FeatureGroup()); // DW snapshot
+  const dwLayerARef = useRef(new L.FeatureGroup()); // change period A
+  const dwLayerBRef = useRef(new L.FeatureGroup()); // change period B
+  const layerMapRef = useRef(new Map());
+  const clickMarkerRef = useRef(null);
+  const modeRef = useRef(mode);
+  const normalLayerRef = useRef(null);
+  const satelliteLayerRef = useRef(null);
+  const labelLayerRef = useRef(null);
+  const onPolygonCreatedRef = useRef(onPolygonCreated);
 
-  const lastSoilDataRef     = useRef(null)
-  const lastFarmFeaturesRef = useRef(null)
-  const lastCoordsRef       = useRef(null)
-  const lastDistribRef      = useRef(null)
-  const lastCenterRef       = useRef(null)
-  const lastLayerRef        = useRef(null)
-  const lastPolyIdRef       = useRef(null)
+  const lastSoilDataRef = useRef(null);
+  const lastFarmFeaturesRef = useRef(null);
+  const lastCoordsRef = useRef(null);
+  const lastDistribRef = useRef(null);
+  const lastCenterRef = useRef(null);
+  const lastPolyIdRef = useRef(null);
 
-  const [loading,     setLoading]     = useState(true)
-  const [analysing,   setAnalysing]   = useState(false)
-  const [mapView,     setMapView]     = useState("normal")
-  const [showLandUse, setShowLandUse] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [analysing, setAnalysing] = useState(false);
+  const [mapView, setMapView] = useState("normal");
+  const [showLandUse, setShowLandUse] = useState(false);
 
-  useEffect(() => { modeRef.current = mode }, [mode])
-  useEffect(() => { onPolygonCreatedRef.current = onPolygonCreated }, [onPolygonCreated])
+  useEffect(() => {
+    modeRef.current = mode;
+  }, [mode]);
+  useEffect(() => {
+    onPolygonCreatedRef.current = onPolygonCreated;
+  }, [onPolygonCreated]);
 
+  // ── Soil / farmland layer rendering ──────────────────────────────────────
   function renderLayers(landUse) {
-    const soilData = lastSoilDataRef.current
-    const features = lastFarmFeaturesRef.current || []
-    const coords   = lastCoordsRef.current
-    const distrib  = lastDistribRef.current || []
+    const soilData = lastSoilDataRef.current;
+    const features = lastFarmFeaturesRef.current || [];
+    const coords = lastCoordsRef.current;
+    const distrib = lastDistribRef.current || [];
 
-    analysisLayerRef.current.clearLayers()
-    soilLayerRef.current.clearLayers()
+    analysisLayerRef.current.clearLayers();
+    soilLayerRef.current.clearLayers();
 
     if (landUse) {
       if (coords) {
         L.geoJSON(
-          { type: "Feature", geometry: { type: "Polygon", coordinates: [coords.map(c => [c[1], c[0]])] }, properties: {} },
-          { interactive: false, style: { color: LAND_COLORS.farmland, fillColor: LAND_COLORS.farmland, fillOpacity: 0.2, weight: 0, stroke: false } }
-        ).addTo(analysisLayerRef.current)
+          {
+            type: "Feature",
+            geometry: {
+              type: "Polygon",
+              coordinates: [coords.map((c) => [c[1], c[0]])],
+            },
+            properties: {},
+          },
+          {
+            interactive: false,
+            style: {
+              color: LAND_COLORS.farmland,
+              fillColor: LAND_COLORS.farmland,
+              fillOpacity: 0.2,
+              weight: 0,
+              stroke: false,
+            },
+          },
+        ).addTo(analysisLayerRef.current);
       }
       if (features.length > 0 && coords) {
-        const drawnBounds = L.geoJSON({ type: "Feature", geometry: { type: "Polygon", coordinates: [coords.map(c => [c[1], c[0]])] }, properties: {} }).getBounds()
-        features.forEach(feat => {
-          const label = feat.properties?.class || "unknown"
-          if (label === "farmland") return
-          const color = LAND_COLORS[label] || "#888"
-          const swapped = feat.geometry?.coordinates?.map(ring => ring.map(pt => [pt[1], pt[0]]))
-          if (!swapped) return
-          if (!drawnBounds.contains(L.polygon(swapped).getBounds().getCenter())) return
-          L.polygon(swapped, { color, fillColor: color, fillOpacity: 0.8, weight: 1, stroke: false })
-            .bindTooltip(label.charAt(0).toUpperCase() + label.slice(1), { sticky: true })
-            .addTo(analysisLayerRef.current)
-        })
+        const drawnBounds = L.geoJSON({
+          type: "Feature",
+          geometry: {
+            type: "Polygon",
+            coordinates: [coords.map((c) => [c[1], c[0]])],
+          },
+          properties: {},
+        }).getBounds();
+        features.forEach((feat) => {
+          const label = feat.properties?.class || "unknown";
+          if (label === "farmland") return;
+          const color = LAND_COLORS[label] || "#888";
+          const swapped = feat.geometry?.coordinates?.map((ring) =>
+            ring.map((pt) => [pt[1], pt[0]]),
+          );
+          if (!swapped) return;
+          if (!drawnBounds.contains(L.polygon(swapped).getBounds().getCenter()))
+            return;
+          L.polygon(swapped, {
+            color,
+            fillColor: color,
+            fillOpacity: 0.8,
+            weight: 1,
+            stroke: false,
+          })
+            .bindTooltip(label.charAt(0).toUpperCase() + label.slice(1), {
+              sticky: true,
+            })
+            .addTo(analysisLayerRef.current);
+        });
       }
     } else {
-      if (soilData?.geojson) {
+      // soilData has no geojson field - fill drawn polygon with dominant soil color
+      if (coords && distrib.length > 0) {
+        const soilColorMap = Object.fromEntries(
+          distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]])
+        )
+        const lngs  = coords.map(c => c[1])
+        const minLng = Math.min(...lngs), maxLng = Math.max(...lngs)
+        const width  = maxLng - minLng
+        const polyCoords = coords.map(c => [c[1], c[0]])
+
+        let curLng = minLng
+        distrib.forEach(d => {
+        const sliceW   = (d.percentage / 100) * width
+        const sliceLng = curLng + sliceW
+        const color    = soilColorMap[d.soil_class] || '#94a3b8'
+
+        // Clip strip to polygon using GeoJSON intersection via bbox mask
+        const strip = {
+          type: 'Feature',
+          geometry: {
+            type: 'Polygon',
+            coordinates: [[
+              [curLng, -90], [sliceLng, -90],
+              [sliceLng, 90], [curLng, 90], [curLng, -90]
+            ]]
+          },
+          properties: {}
+        }
+
+    // Use Leaflet's built-in clipping by rendering as SVG with polygon mask
+    // Clip by drawing the intersection: polygon coords as clip, strip as fill
+    const lyr = L.geoJSON(
+      { type: 'Feature', geometry: { type: 'Polygon', coordinates: [polyCoords] }, properties: {} },
+      {
+        interactive: true,
+        style: { color, fillColor: color, fillOpacity: 0, weight: 0, stroke: false },
+      }
+    )
+    .bindTooltip(
+      `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700">${d.soil_class}: ${d.percentage.toFixed(1)}%</div>`,
+      { sticky: true }
+    )
+
+    // Actually draw clipped strip using SVG clipPath approach:
+    // render full polygon but with class-specific fill, split proportionally using opacity trick
+    curLng = sliceLng
+  })
+
+  // Better approach: render each soil class as the full polygon with different opacity layers
+  // Use gradient-like approach - stack polygons, each with portion
+  soilLayerRef.current.clearLayers()
+// Show dominant soil class with full opacity, others with reduced
+distrib.forEach((d, idx) => {
+  const color = soilColorMap[d.soil_class] || '#94a3b8'
+  const opacity = idx === 0 ? 0.65 : 0.35  // dominant brighter, rest dimmer
+  L.geoJSON(
+    { type:'Feature', geometry:{ type:'Polygon', coordinates:[polyCoords] }, properties:{} },
+    { interactive:true, style:{ color, fillColor:color, fillOpacity:opacity, weight:1.5, stroke:true } }
+  )
+  .bindTooltip(
+    `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${d.soil_class}: ${d.percentage.toFixed(1)}%</div>`,
+    { sticky:true }
+  )
+  .addTo(soilLayerRef.current)
+})
+} else if (soilData?.geojson) {
         try {
-          const soilGeoJson  = typeof soilData.geojson === "string" ? JSON.parse(soilData.geojson) : soilData.geojson
-          const soilColorMap = Object.fromEntries(distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]]))
+          const soilGeoJson =
+            typeof soilData.geojson === "string"
+              ? JSON.parse(soilData.geojson)
+              : soilData.geojson;
+          const soilColorMap = Object.fromEntries(
+            distrib.map((d, i) => [
+              d.soil_class,
+              SOIL_COLORS[i % SOIL_COLORS.length],
+            ]),
+          );
           L.geoJSON(soilGeoJson, {
             interactive: true,
-            style: feature => {
-              const color = soilColorMap[feature.properties?.soil_class] || "#94a3b8"
-              return { color, fillColor: color, fillOpacity: 0.9, weight: 1.5, opacity: 1 }
+            style: (feature) => {
+              const color =
+                soilColorMap[feature.properties?.soil_class] || "#94a3b8";
+              return {
+                color,
+                fillColor: color,
+                fillOpacity: 0.9,
+                weight: 1.5,
+                opacity: 1,
+              };
             },
             onEachFeature: (feature, lyr) => {
-              const soilClass = feature.properties?.soil_class
-              if (!soilClass) return
-              const color = soilColorMap[soilClass] || "#94a3b8"
+              const soilClass = feature.properties?.soil_class;
+              if (!soilClass) return;
+              const color = soilColorMap[soilClass] || "#94a3b8";
               lyr.bindTooltip(
                 `<div style="font-family:system-ui,sans-serif;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15)">
                   <div style="display:flex;align-items:center;gap:7px">
@@ -128,156 +328,362 @@ export default function MapSection({
                     <span style="font-size:13px;font-weight:700;color:#0f172a">${soilClass}</span>
                   </div>
                 </div>`,
-                { sticky: true, permanent: false, direction: "top", opacity: 1 }
-              )
-              lyr.on("mouseover", function(e) { this.setStyle({ fillOpacity: 0.95, weight: 2.5 }); this.openTooltip(e.latlng) })
-              lyr.on("mousemove", function(e) { this.getTooltip()?.setLatLng(e.latlng) })
-              lyr.on("mouseout",  function()  { this.setStyle({ fillOpacity: 0.8, weight: 1.5 }); this.closeTooltip() })
+                {
+                  sticky: true,
+                  permanent: false,
+                  direction: "top",
+                  opacity: 1,
+                },
+              );
+              lyr.on("mouseover", function (e) {
+                this.setStyle({ fillOpacity: 0.95, weight: 2.5 });
+                this.openTooltip(e.latlng);
+              });
+              lyr.on("mousemove", function (e) {
+                this.getTooltip()?.setLatLng(e.latlng);
+              });
+              lyr.on("mouseout", function () {
+                this.setStyle({ fillOpacity: 0.8, weight: 1.5 });
+                this.closeTooltip();
+              });
             },
-          }).addTo(soilLayerRef.current)
-        } catch(e) { console.error("Soil GeoJSON parse error:", e) }
+          }).addTo(soilLayerRef.current);
+        } catch (e) {
+          console.error("Soil GeoJSON parse error:", e);
+        }
       }
     }
-
-    soilLayerRef.current.bringToFront()
-    analysisLayerRef.current.bringToFront()
-    drawnItemsRef.current.bringToFront()
+    soilLayerRef.current.bringToFront();
+    analysisLayerRef.current.bringToFront();
+    drawnItemsRef.current.bringToFront();
   }
 
   useEffect(() => {
-    if (lastCoordsRef.current) renderLayers(showLandUse)
-  }, [showLandUse]) // eslint-disable-line
+    if (lastCoordsRef.current) renderLayers(showLandUse);
+  }, [showLandUse]); // eslint-disable-line
 
+  // ── Map init ─────────────────────────────────────────────────────────────
   useEffect(() => {
-    if (!containerRef.current || mapRef.current) return
+    if (!containerRef.current || mapRef.current) return;
 
-    // ── Global handlers for popup HTML buttons ──
+    // ── Global handlers exposed to popup/panel ──
+
     window.__toggleLandUse = (checked) => {
-      setShowLandUse(checked)
-      const details = document.getElementById('landuse-details')
-      if (details) details.style.display = checked ? 'block' : 'none'
-    }
+      setShowLandUse(checked);
+      const details = document.getElementById("landuse-details");
+      if (details) details.style.display = checked ? "block" : "none";
+    };
+
+    // Called by LandCoverPanel after snapshot — fc is the full APIResponse.data
+    // Backend returns: { type:'FeatureCollection', features:[...], metadata:{...} }
+    // APIResponse wraps it as: { success, message, data: { type, features, metadata } }
+    window.__onLandCoverResult = (fc) => {
+      // Clear change layers
+      dwLayerARef.current.clearLayers();
+      dwLayerBRef.current.clearLayers();
+      renderDWGeoJSON(fc, dwLayerRef.current);
+      const map = mapRef.current;
+      if (map) {
+        dwLayerRef.current.bringToFront();
+        drawnItemsRef.current.bringToFront();
+      }
+    };
+
+    // Called by LandCoverPanel after change detection
+    // fcA / fcB are FeatureCollections for period A and B
+    window.__onChangeResult = (fcA, fcB) => {
+      dwLayerRef.current.clearLayers();
+      renderDWGeoJSON(fcA, dwLayerARef.current);
+      renderDWGeoJSON(fcB, dwLayerBRef.current);
+      // Default show period A, hide B
+      const map = mapRef.current;
+      if (map) {
+        if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map);
+        map.removeLayer(dwLayerBRef.current);
+        drawnItemsRef.current.bringToFront();
+      }
+    };
+
+    // Toggle which period is shown on map
+    window.__showPeriod = (period) => {
+      const map = mapRef.current;
+      if (!map) return;
+      if (period === "A") {
+        if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map);
+        if (map.hasLayer(dwLayerBRef.current))
+          map.removeLayer(dwLayerBRef.current);
+      } else {
+        if (!map.hasLayer(dwLayerBRef.current)) dwLayerBRef.current.addTo(map);
+        if (map.hasLayer(dwLayerARef.current))
+          map.removeLayer(dwLayerARef.current);
+      }
+      drawnItemsRef.current.bringToFront();
+    };
+
+    window.__clearDWLayers = () => {
+      dwLayerRef.current.clearLayers();
+      dwLayerARef.current.clearLayers();
+      dwLayerBRef.current.clearLayers();
+    };
 
     window.__showCropModal = async () => {
-      const soilData = lastSoilDataRef.current
-      const center   = lastCenterRef.current
-      const polyId   = lastPolyIdRef.current
-      if (!soilData || !center) return
+      const soilData = lastSoilDataRef.current;
+      const center = lastCenterRef.current;
+      const polyId = lastPolyIdRef.current;
+      if (!center) return;
 
-      const classes  = soilData.soil_quality_by_class || []
-      const best     = classes.reduce((a, b) => ((a?.area_percentage || 0) > (b?.area_percentage || 0) ? a : b), classes[0])
-      const ph       = best?.properties?.ph
-      const nitrogen = best?.properties?.nitrogen
+      const btn = document.getElementById("crop-rec-btn");
 
-      const btn = document.getElementById('crop-rec-btn')
-      if (btn) { btn.disabled = true; btn.innerHTML = '⏳ Fetching…'; btn.style.opacity = '0.7' }
+      // Try to get ph and nitrogen from soil_quality_by_class
+      let ph = null,
+        nitrogen = null;
+      if (soilData?.soil_quality_by_class?.length > 0) {
+        const classes = soilData.soil_quality_by_class;
+        const best = classes.reduce(
+          (a, b) =>
+            (a?.area_percentage || 0) >= (b?.area_percentage || 0) ? a : b,
+          classes[0],
+        );
+        const ph = best?.quality?.ph ?? best?.properties?.ph;
+        const nitrogen = best?.quality?.nitrogen ?? best?.properties?.nitrogen;
+      }
+      // Fallback: overall_weighted_quality
+      if (
+        (ph == null || nitrogen == null) &&
+        soilData?.overall_weighted_quality
+      ) {
+        ph = ph ?? soilData.overall_weighted_quality.ph;
+        nitrogen = nitrogen ?? soilData.overall_weighted_quality.nitrogen;
+      }
 
+      if (ph == null || nitrogen == null) {
+        if (btn) {
+          btn.innerHTML = "⚠️ No soil quality data";
+          btn.disabled = true;
+          btn.style.background = "#94a3b8";
+        }
+        return;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "⏳ Fetching…";
+        btn.style.opacity = "0.7";
+      }
       try {
-        const result  = await getCropRecommendation(ph, nitrogen, center.lat, center.lng)
-        const crops   = result?.data?.recommendedCrops || []
-        const weather = result?.weather || {}
+        const result = await getCropRecommendation(
+          ph,
+          nitrogen,
+          center.lat,
+          center.lng,
+        );
+        const crops = result?.data?.recommendedCrops || [];
+        const weather = result?.weather || {};
 
         const weatherHtml = `
           <div style="display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap">
             <div style="background:#eff6ff;border-radius:6px;padding:4px 8px;font-size:10px;color:#2563eb;font-weight:600">🌡️ ${weather.temperature?.toFixed(1)}°C</div>
             <div style="background:#f0fdf4;border-radius:6px;padding:4px 8px;font-size:10px;color:#16a34a;font-weight:600">💧 ${weather.humidity?.toFixed(0)}%</div>
             <div style="background:#faf5ff;border-radius:6px;padding:4px 8px;font-size:10px;color:#7c3aed;font-weight:600">🌧️ ${weather.rainfall?.toFixed(1)}mm</div>
-          </div>
-        `
-        const cropHtml = crops.map((c, i) => `
-          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;${i < crops.length - 1 ? 'border-bottom:1px solid #f1f5f9' : ''}">
+          </div>`;
+        const cropHtml = crops
+          .map(
+            (c, i) => `
+          <div style="display:flex;align-items:center;gap:8px;padding:6px 0;${i < crops.length - 1 ? "border-bottom:1px solid #f1f5f9" : ""}">
             <span style="font-size:18px">${getCropEmoji(c.crop)}</span>
             <div style="flex:1">
               <div style="font-size:12px;font-weight:700;color:#0f172a;text-transform:capitalize">${c.crop}</div>
               <div style="height:4px;border-radius:99px;background:#f1f5f9;margin-top:3px;overflow:hidden">
-                <div style="height:100%;width:${c.confidence}%;background:${i === 0 ? '#16a34a' : i === 1 ? '#2563eb' : '#7c3aed'};border-radius:99px"></div>
+                <div style="height:100%;width:${c.confidence}%;background:${i === 0 ? "#16a34a" : i === 1 ? "#2563eb" : "#7c3aed"};border-radius:99px"></div>
               </div>
             </div>
             <span style="font-size:11px;font-weight:600;color:#64748b">${c.confidence.toFixed(1)}%</span>
-          </div>
-        `).join('')
+          </div>`,
+          )
+          .join("");
 
-        const resultDiv = document.getElementById('crop-result-area')
+        const resultDiv = document.getElementById("crop-result-area");
         if (resultDiv) {
-          resultDiv.style.display = 'block'
+          resultDiv.style.display = "block";
           resultDiv.innerHTML = `
             <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🌾 Crop Recommendations</div>
             ${weatherHtml}
-            ${cropHtml || '<div style="font-size:12px;color:#94a3b8">No recommendations available</div>'}
-          `
+            ${cropHtml || '<div style="font-size:12px;color:#94a3b8">No recommendations</div>'}`;
         }
-        if (btn) btn.style.display = 'none'
-
-        // Update right panel
+        if (btn) btn.style.display = "none";
         if (polyId && onPolygonCreatedRef.current) {
-          onPolygonCreatedRef.current({ id: polyId, _cropUpdate: true, cropRecommendations: crops, weather })
+          onPolygonCreatedRef.current({
+            id: polyId,
+            _cropUpdate: true,
+            cropRecommendations: crops,
+            weather,
+          });
         }
-
-      } catch(err) {
-        console.error('Crop error:', err)
-        if (btn) { btn.disabled = false; btn.innerHTML = '🌾 Show Crop Recommendation'; btn.style.opacity = '1' }
+      } catch (err) {
+        console.error("Crop error:", err);
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = "🌾 Show Crop Recommendation";
+          btn.style.opacity = "1";
+        }
       }
-    }
+    };
 
-    const WB_BOUNDS = L.latLngBounds(L.latLng(21.3, 85.8), L.latLng(27.8, 89.9))
+    const WB_BOUNDS = L.latLngBounds(
+      L.latLng(21.3, 85.8),
+      L.latLng(27.8, 89.9),
+    );
     const map = L.map(containerRef.current, {
-      center: [23.5, 87.8], zoom: 7, minZoom: 7, maxZoom: 18,
-      maxBounds: WB_BOUNDS, maxBoundsViscosity: 1.0,
-    })
-    map.fitBounds(WB_BOUNDS, { padding: [10, 10] })
+      center: [23.5, 87.8],
+      zoom: 7,
+      minZoom: 7,
+      maxZoom: 18,
+      maxBounds: WB_BOUNDS,
+      maxBoundsViscosity: 1.0,
+    });
+    map.fitBounds(WB_BOUNDS, { padding: [10, 10] });
 
-    const normalLayer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "© OpenStreetMap contributors", maxZoom: 19 })
-    normalLayer.addTo(map)
-    normalLayerRef.current = normalLayer
-    satelliteLayerRef.current = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", { attribution: "© Esri", maxZoom: 19 })
-    labelLayerRef.current = L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", { attribution: "", maxZoom: 19, pane: "overlayPane" })
+    const normalLayer = L.tileLayer(
+      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      { attribution: "© OpenStreetMap contributors", maxZoom: 19 },
+    );
+    normalLayer.addTo(map);
+    normalLayerRef.current = normalLayer;
+    satelliteLayerRef.current = L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      { attribution: "© Esri", maxZoom: 19 },
+    );
+    labelLayerRef.current = L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}",
+      { attribution: "", maxZoom: 19, pane: "overlayPane" },
+    );
 
-    map.whenReady(() => setLoading(false))
+    map.whenReady(() => setLoading(false));
 
-    fetch("/west-bengal.geojson").then(r => r.json()).then(data => {
-      const map = mapRef.current
-      if (!map) return
-      let geom
-      if (data.type === "FeatureCollection") geom = data.features[0]?.geometry
-      else if (data.type === "Feature") geom = data.geometry
-      else geom = data
-      if (!geom) return
-      const WORLD = [[-180,-90],[180,-90],[180,90],[-180,90],[-180,-90]]
-      const outerRings = geom.type === "Polygon" ? [geom.coordinates[0]] : geom.coordinates.map(p => p[0])
-      L.geoJSON({ type: "Feature", properties: {}, geometry: { type: "Polygon", coordinates: [WORLD, ...outerRings.map(r => [...r].reverse())] } }, { style: { color: "#0f172a", weight: 0, fillColor: "#0f172a", fillOpacity: 0.88 }, interactive: false }).addTo(map)
-      L.geoJSON({ type: "Feature", properties: {}, geometry: geom }, { style: { color: "#60a5fa", weight: 2.5, opacity: 1, fill: false }, interactive: false }).addTo(map)
-    }).catch(() => {})
+    fetch("/west-bengal.geojson")
+      .then((r) => r.json())
+      .then((data) => {
+        const map = mapRef.current;
+        if (!map) return;
+        let geom;
+        if (data.type === "FeatureCollection")
+          geom = data.features[0]?.geometry;
+        else if (data.type === "Feature") geom = data.geometry;
+        else geom = data;
+        if (!geom) return;
+        const WORLD = [
+          [-180, -90],
+          [180, -90],
+          [180, 90],
+          [-180, 90],
+          [-180, -90],
+        ];
+        const outerRings =
+          geom.type === "Polygon"
+            ? [geom.coordinates[0]]
+            : geom.coordinates.map((p) => p[0]);
+        L.geoJSON(
+          {
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "Polygon",
+              coordinates: [WORLD, ...outerRings.map((r) => [...r].reverse())],
+            },
+          },
+          {
+            style: {
+              color: "#0f172a",
+              weight: 0,
+              fillColor: "#0f172a",
+              fillOpacity: 0.88,
+            },
+            interactive: false,
+          },
+        ).addTo(map);
+        L.geoJSON(
+          { type: "Feature", properties: {}, geometry: geom },
+          {
+            style: { color: "#60a5fa", weight: 2.5, opacity: 1, fill: false },
+            interactive: false,
+          },
+        ).addTo(map);
+      })
+      .catch(() => {});
 
-    drawnItemsRef.current.addTo(map)
-    analysisLayerRef.current.addTo(map)
-    soilLayerRef.current.addTo(map)
+    drawnItemsRef.current.addTo(map);
+    analysisLayerRef.current.addTo(map);
+    soilLayerRef.current.addTo(map);
+    dwLayerRef.current.addTo(map);
+    dwLayerARef.current.addTo(map);
+    // dwLayerB starts hidden; added only when period B selected
+    // dwLayerBRef.current.addTo(map) — NOT added here, added on demand
 
     const dc = new L.Control.Draw({
       edit: { featureGroup: drawnItemsRef.current, remove: true },
-      draw: { polygon: { allowIntersection: false, showArea: false, shapeOptions: { color: "#2563eb", fillColor: "#3b82f6", fillOpacity: 0.25, weight: 2 } }, polyline: false, rectangle: false, circle: false, marker: false, circlemarker: false },
-    })
-    drawControlRef.current = dc
-    mapRef.current = map
+      draw: {
+        polygon: {
+          allowIntersection: false,
+          showArea: false,
+          shapeOptions: {
+            color: "#2563eb",
+            fillColor: "#3b82f6",
+            fillOpacity: 0.25,
+            weight: 2,
+          },
+        },
+        polyline: false,
+        rectangle: false,
+        circle: false,
+        marker: false,
+        circlemarker: false,
+      },
+    });
+    drawControlRef.current = dc;
+    mapRef.current = map;
 
+    // ── Click mode ──
     map.on("click", async (e) => {
-      if (modeRef.current !== "click") return
-      const { lat, lng } = e.latlng
-      if (clickMarkerRef.current) { map.removeLayer(clickMarkerRef.current); clickMarkerRef.current = null }
-      const icon = L.divIcon({ html: `<div style="background:#2563eb;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);color:white;font-size:13px">📍</div>`, iconSize: [26, 26], iconAnchor: [13, 26], className: "" })
-      const marker = L.marker([lat, lng], { icon }).addTo(map)
-      clickMarkerRef.current = marker
-      marker.bindPopup(`<div style="min-width:200px"><b>📍 Loading…</b><br/><small>${lat.toFixed(5)}, ${lng.toFixed(5)}</small></div>`).openPopup()
-
+      if (modeRef.current !== "click") return;
+      const { lat, lng } = e.latlng;
+      if (clickMarkerRef.current) {
+        map.removeLayer(clickMarkerRef.current);
+        clickMarkerRef.current = null;
+      }
+      const icon = L.divIcon({
+        html: `<div style="background:#2563eb;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);color:white;font-size:13px">📍</div>`,
+        iconSize: [26, 26],
+        iconAnchor: [13, 26],
+        className: "",
+      });
+      const marker = L.marker([lat, lng], { icon }).addTo(map);
+      clickMarkerRef.current = marker;
+      marker
+        .bindPopup(
+          `<div style="min-width:200px"><b>📍 Loading…</b><br/><small>${lat.toFixed(5)}, ${lng.toFixed(5)}</small></div>`,
+        )
+        .openPopup();
       const [geoRes, soilRes] = await Promise.allSettled([
-        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`).then(r => r.json()),
+        fetch(
+          `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`,
+        ).then((r) => r.json()),
         getSoilByPoint(lat, lng),
-      ])
-      if (!clickMarkerRef.current) return
-      const addr  = geoRes.status === "fulfilled" ? geoRes.value.address || {} : {}
-      const place = addr.village || addr.suburb || addr.town || addr.city || addr.county || addr.state || "Unknown area"
-      const dist  = addr.county || addr.state_district || ""
-      const state = addr.state || ""
-      const soil  = soilRes.status === "fulfilled" ? soilRes.value?.data?.soil_type : null
+      ]);
+      if (!clickMarkerRef.current) return;
+      const addr =
+        geoRes.status === "fulfilled" ? geoRes.value.address || {} : {};
+      const place =
+        addr.village ||
+        addr.suburb ||
+        addr.town ||
+        addr.city ||
+        addr.county ||
+        addr.state ||
+        "Unknown area";
+      const dist = addr.county || addr.state_district || "";
+      const state = addr.state || "";
+      const soil =
+        soilRes.status === "fulfilled" ? soilRes.value?.data?.soil_type : null;
       marker.setPopupContent(`
         <div style="min-width:210px;font-family:system-ui,sans-serif">
           <div style="font-size:14px;font-weight:700;color:#0f172a">${place}</div>
@@ -288,27 +694,29 @@ export default function MapSection({
             <div style="font-size:13px;font-weight:700;color:#15803d">${soil || "Unavailable"}</div>
           </div>
           <div style="margin-top:6px;font-size:10px;font-family:monospace;color:#9ca3af">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>
-        </div>
-      `)
-      marker.openPopup()
-    })
+        </div>`);
+      marker.openPopup();
+    });
 
+    // ── Draw mode ──
     map.on(L.Draw.Event.CREATED, async (event) => {
-      const layer = event.layer
-      drawnItemsRef.current.addLayer(layer)
-      const raw    = layer.getLatLngs()
-      const ring   = Array.isArray(raw[0]) ? raw[0] : raw
-      const coords = ring.map(ll => [ll.lat, ll.lng])
-      const area   = ring.length > 0 ? L.GeometryUtil.geodesicArea(ring) : 0
-      polyCount++
-      const id   = `poly-${Date.now()}-${polyCount}`
-      const name = `Polygon ${polyCount}`
-      layerMapRef.current.set(id, layer)
+      const layer = event.layer;
+      drawnItemsRef.current.addLayer(layer);
+      const raw = layer.getLatLngs();
+      const ring = Array.isArray(raw[0]) ? raw[0] : raw;
+      const coords = ring.map((ll) => [ll.lat, ll.lng]);
+      const area = ring.length > 0 ? L.GeometryUtil.geodesicArea(ring) : 0;
+      polyCount++;
+      const id = `poly-${Date.now()}-${polyCount}`;
+      const name = `Polygon ${polyCount}`;
+      layerMapRef.current.set(id, layer);
 
-      const centerLat = coords.reduce((s, c) => s + c[0], 0) / coords.length
-      const centerLng = coords.reduce((s, c) => s + c[1], 0) / coords.length
+      const centerLat = coords.reduce((s, c) => s + c[0], 0) / coords.length;
+      const centerLng = coords.reduce((s, c) => s + c[1], 0) / coords.length;
 
-      layer.bindPopup(`
+      layer
+        .bindPopup(
+          `
         <div style="min-width:220px;font-family:system-ui,sans-serif">
           <b>${name}</b> · ${formatArea(area)}<br/>
           <div style="margin-top:8px;display:flex;align-items:center;gap:8px;color:#64748b;font-size:12px">
@@ -316,193 +724,363 @@ export default function MapSection({
             Analysing…
           </div>
           <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
-        </div>
-      `).openPopup()
+        </div>`,
+        )
+        .openPopup();
 
-      layer.on("click", () => { if (onPolygonSelect) onPolygonSelect(id) })
-      if (onPolygonCreatedRef.current) onPolygonCreatedRef.current({ id, name, coordinates: coords, area, status: "loading" })
+      layer.on("click", () => {
+        if (onPolygonSelect) onPolygonSelect(id);
+      });
+      if (onPolygonCreatedRef.current)
+        onPolygonCreatedRef.current({
+          id,
+          name,
+          coordinates: coords,
+          area,
+          status: "loading",
+        });
 
-      setAnalysing(true)
-      const [soilRes, farmRes] = await Promise.allSettled([getSoilByPolygon(coords), analyseFarmland(coords)])
-      setAnalysing(false)
+      setAnalysing(true);
+      const [soilRes, farmRes] = await Promise.allSettled([
+        getSoilByPolygon(coords),
+        analyseFarmland(coords),
+      ]);
+      setAnalysing(false);
 
-      const soilData    = soilRes.status === "fulfilled" ? soilRes.value?.data : null
-      const farmGeoJson = farmRes.status === "fulfilled" ? farmRes.value?.data : null
-      const distrib     = soilData?.distribution || []
-      const features    = farmGeoJson?.features || []
+      const soilData =
+        soilRes.status === "fulfilled" ? soilRes.value?.data : null;
+      const farmGeoJson =
+        farmRes.status === "fulfilled" ? farmRes.value?.data : null;
+      const distrib = soilData?.distribution || [];
+      const features = farmGeoJson?.features || [];
 
-      lastSoilDataRef.current     = soilData
-      lastFarmFeaturesRef.current = features
-      lastCoordsRef.current       = coords
-      lastDistribRef.current      = distrib
-      lastCenterRef.current       = { lat: centerLat, lng: centerLng }
-      lastLayerRef.current        = layer
-      lastPolyIdRef.current       = id
+      lastSoilDataRef.current = soilData;
+      lastFarmFeaturesRef.current = features;
+      lastCoordsRef.current = coords;
+      lastDistribRef.current = distrib;
+      lastCenterRef.current = { lat: centerLat, lng: centerLng };
+      lastPolyIdRef.current = id;
 
-      setShowLandUse(false)
-      renderLayers(false)
+      window.__clearDWLayers?.();
+      setShowLandUse(false);
+      renderLayers(false);
 
-      const soilRows = distrib.map((d, i) => `
+      const soilRows = distrib
+        .map(
+          (d, i) => `
         <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
           <div style="width:10px;height:10px;border-radius:3px;background:${SOIL_COLORS[i % SOIL_COLORS.length]};flex-shrink:0"></div>
           <div style="flex:1;font-size:12px;color:#374151">${d.soil_class}</div>
           <div style="font-size:12px;font-weight:600;color:#0f172a">${d.percentage?.toFixed(1)}%</div>
-        </div>
-      `).join("")
+        </div>`,
+        )
+        .join("");
 
-      const qualityByClass = soilData?.soil_quality_by_class || []
-      const overallQ       = soilData?.overall_weighted_quality || null
-      const sqiColor = sqi => sqi >= 0.8 ? '#16a34a' : sqi >= 0.5 ? '#d97706' : '#dc2626'
-      const sqiLabel = sqi => sqi >= 0.8 ? 'Good' : sqi >= 0.5 ? 'Average' : 'Poor'
-
-      const qualityRows = qualityByClass.map(cls => {
-        const sqi = cls.properties?.soil_quality_index
-        if (sqi == null) return ''
-        const color = sqiColor(sqi)
-        return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+      const qualityByClass = soilData?.soil_quality_by_class || [];
+      const overallQ = soilData?.overall_weighted_quality || null;
+      const sqiColor = (sqi) =>
+        sqi >= 0.8 ? "#16a34a" : sqi >= 0.5 ? "#d97706" : "#dc2626";
+      const sqiLabel = (sqi) =>
+        sqi >= 0.8 ? "Good" : sqi >= 0.5 ? "Average" : "Poor";
+      const qualityRows = qualityByClass
+        .map((cls) => {
+          const sqi = cls.properties?.soil_quality_index;
+          if (sqi == null) return "";
+          const color = sqiColor(sqi);
+          return `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
           <div style="font-size:11px;color:#374151">${cls.soil_class}</div>
           <div style="display:flex;align-items:center;gap:5px">
             <span style="font-size:11px;font-weight:700;color:${color}">${sqi.toFixed(2)}</span>
             <span style="font-size:10px;background:${color}20;color:${color};border-radius:4px;padding:1px 5px;font-weight:600">${sqiLabel(sqi)}</span>
           </div>
-        </div>`
-      }).join("")
-
-      const paramRows = overallQ ? `
+        </div>`;
+        })
+        .join("");
+      const paramRows = overallQ
+        ? `
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px">
-          ${[['pH', overallQ.ph, ''], ['Nitrogen', overallQ.nitrogen, ' g/kg'], ['SOC', overallQ.soc, ' %'], ['CEC', overallQ.cec, ' cmol/kg'], ['Bulk Density', overallQ.bulk_density, ' g/cm³']].map(([label, val, unit]) => `
+          ${[
+            ["pH", overallQ.ph, ""],
+            ["Nitrogen", overallQ.nitrogen, " g/kg"],
+            ["SOC", overallQ.soc, " %"],
+            ["CEC", overallQ.cec, " cmol/kg"],
+            ["Bulk Density", overallQ.bulk_density, " g/cm³"],
+          ]
+            .map(
+              ([label, val, unit]) => `
             <div style="background:#f8fafc;border-radius:6px;padding:5px 7px">
               <div style="font-size:9px;color:#94a3b8;font-weight:600;text-transform:uppercase">${label}</div>
               <div style="font-size:11px;font-weight:700;color:#0f172a">${val?.toFixed(3)}${unit}</div>
-            </div>
-          `).join('')}
-        </div>` : ''
+            </div>`,
+            )
+            .join("")}
+        </div>`
+        : "";
 
-      const landCount = features.reduce((acc, f) => { const l = f.properties?.class || "unknown"; acc[l] = (acc[l] || 0) + 1; return acc }, {})
+      const landCount = features.reduce((acc, f) => {
+        const l = f.properties?.class || "unknown";
+        acc[l] = (acc[l] || 0) + 1;
+        return acc;
+      }, {});
 
       layer.setPopupContent(`
         <div style="min-width:260px;max-height:500px;overflow-y:auto;font-family:system-ui,sans-serif">
           <div style="font-size:14px;font-weight:700;color:#0f172a">${name}</div>
           <div style="font-size:11px;color:#64748b;margin-top:2px">${coords.length} pts · ${formatArea(area)}</div>
-
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🌱 Soil Distribution</div>
           ${distrib.length > 0 ? soilRows : '<div style="font-size:12px;color:#94a3b8">No soil data</div>'}
-
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🧪 Soil Quality</div>
-          ${qualityRows || '<div style="font-size:12px;color:#94a3b8">No quality data</div>'}
-          ${paramRows}
-
+          ${qualityRows}${paramRows}
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0">
             <input type="checkbox" id="landuse-toggle" onchange="window.__toggleLandUse(this.checked)" style="width:15px;height:15px;cursor:pointer;accent-color:#2563eb"/>
             <span style="font-size:12px;font-weight:600;color:#374151">🛰️ Show Land Use</span>
           </label>
           <div id="landuse-details" style="display:none;margin-top:4px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">
-            ${Object.entries(landCount).map(([label, count]) => `
+            ${Object.entries(landCount)
+              .map(
+                ([label, count]) => `
               <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                <div style="width:10px;height:10px;border-radius:3px;background:${LAND_COLORS[label] || '#888'};flex-shrink:0"></div>
+                <div style="width:10px;height:10px;border-radius:3px;background:${LAND_COLORS[label] || "#888"};flex-shrink:0"></div>
                 <div style="flex:1;font-size:12px;color:#374151;text-transform:capitalize">${label}</div>
-                <div style="font-size:11px;color:#64748b">${count} zone${count > 1 ? 's' : ''}</div>
-              </div>`).join('')}
+                <div style="font-size:11px;color:#64748b">${count} zone${count > 1 ? "s" : ""}</div>
+              </div>`,
+              )
+              .join("")}
           </div>
-
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <button id="crop-rec-btn" onclick="window.__showCropModal()" style="width:100%;padding:9px 12px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">
             🌾 Show Crop Recommendation
           </button>
           <div id="crop-result-area" style="display:none;margin-top:10px"></div>
-        </div>
-      `)
-      layer.openPopup()
+        </div>`);
+      layer.openPopup();
 
-      if (onPolygonCreatedRef.current) onPolygonCreatedRef.current({
-        id, name, coordinates: coords, area, status: "done",
-        soilDistribution: distrib,
-        landUse: landCount,
-        soilQualityByClass: soilData?.soil_quality_by_class || [],
-        overallQuality: soilData?.overall_weighted_quality || null,
-        cropRecommendations: null,
-        weather: null,
-      })
-    })
+      if (onPolygonCreatedRef.current)
+        onPolygonCreatedRef.current({
+          id,
+          name,
+          coordinates: coords,
+          area,
+          status: "done",
+          soilDistribution: distrib,
+          landUse: landCount,
+          soilQualityByClass: soilData?.soil_quality_by_class || [],
+          overallQuality: soilData?.overall_weighted_quality || null,
+          cropRecommendations: null,
+          weather: null,
+        });
+    });
 
-    return () => { map.remove(); mapRef.current = null }
-  }, []) // eslint-disable-line
+    return () => {
+      map.remove();
+      mapRef.current = null;
+    };
+  }, []); // eslint-disable-line
 
   useEffect(() => {
-    const map = mapRef.current; const norm = normalLayerRef.current; const sat = satelliteLayerRef.current; const label = labelLayerRef.current
-    if (!map || !norm || !sat || !label) return
+    const map = mapRef.current,
+      norm = normalLayerRef.current,
+      sat = satelliteLayerRef.current,
+      label = labelLayerRef.current;
+    if (!map || !norm || !sat || !label) return;
     if (mapView === "satellite") {
-      if (map.hasLayer(norm)) map.removeLayer(norm)
-      if (!map.hasLayer(sat)) { sat.addTo(map); sat.bringToBack() }
-      if (!map.hasLayer(label)) label.addTo(map)
+      if (map.hasLayer(norm)) map.removeLayer(norm);
+      if (!map.hasLayer(sat)) {
+        sat.addTo(map);
+        sat.bringToBack();
+      }
+      if (!map.hasLayer(label)) label.addTo(map);
     } else {
-      if (map.hasLayer(sat)) map.removeLayer(sat)
-      if (map.hasLayer(label)) map.removeLayer(label)
-      if (!map.hasLayer(norm)) { norm.addTo(map); norm.bringToBack() }
+      if (map.hasLayer(sat)) map.removeLayer(sat);
+      if (map.hasLayer(label)) map.removeLayer(label);
+      if (!map.hasLayer(norm)) {
+        norm.addTo(map);
+        norm.bringToBack();
+      }
     }
-  }, [mapView])
+  }, [mapView]);
 
   useEffect(() => {
-    const map = mapRef.current; const dc = drawControlRef.current
-    if (!map || !dc) return
+    const map = mapRef.current,
+      dc = drawControlRef.current;
+    if (!map || !dc) return;
     if (mode === "draw") {
-      dc.addTo(map); map.getContainer().style.cursor = "crosshair"
-      if (clickMarkerRef.current) { map.removeLayer(clickMarkerRef.current); clickMarkerRef.current = null }
+      dc.addTo(map);
+      map.getContainer().style.cursor = "crosshair";
+      if (clickMarkerRef.current) {
+        map.removeLayer(clickMarkerRef.current);
+        clickMarkerRef.current = null;
+      }
     } else {
-      document.dispatchEvent(new KeyboardEvent("keydown", { keyCode: 27, key: "Escape", bubbles: true }))
-      dc.remove(); map.getContainer().style.cursor = ""
+      document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+          keyCode: 27,
+          key: "Escape",
+          bubbles: true,
+        }),
+      );
+      dc.remove();
+      map.getContainer().style.cursor = "";
     }
-  }, [mode])
+  }, [mode]);
 
   useEffect(() => {
     layerMapRef.current.forEach((layer, id) => {
-      layer.setStyle(id === selectedPolygonId
-        ? { color: "#dc2626", fillColor: "#ef4444", fillOpacity: 0.3, weight: 3 }
-        : { color: "#2563eb", fillColor: "#3b82f6", fillOpacity: 0.25, weight: 2 })
-    })
-  }, [selectedPolygonId])
+      layer.setStyle(
+        id === selectedPolygonId
+          ? {
+              color: "#dc2626",
+              fillColor: "#ef4444",
+              fillOpacity: 0.3,
+              weight: 3,
+            }
+          : {
+              color: "#2563eb",
+              fillColor: "#3b82f6",
+              fillOpacity: 0.25,
+              weight: 2,
+            },
+      );
+    });
+  }, [selectedPolygonId]);
 
   useEffect(() => {
-    const ids = new Set(polygons.map(p => p.id))
+    const ids = new Set(polygons.map((p) => p.id));
     layerMapRef.current.forEach((layer, id) => {
       if (!ids.has(id)) {
-        drawnItemsRef.current.removeLayer(layer)
-        layerMapRef.current.delete(id)
-        analysisLayerRef.current.clearLayers()
-        soilLayerRef.current.clearLayers()
+        drawnItemsRef.current.removeLayer(layer);
+        layerMapRef.current.delete(id);
+        analysisLayerRef.current.clearLayers();
+        soilLayerRef.current.clearLayers();
+        window.__clearDWLayers?.();
       }
-    })
-  }, [polygons])
+    });
+  }, [polygons]);
 
   return (
     <div style={{ position: "relative", width: "100%", height: "100%" }}>
       {loading && (
-        <div style={{ position: "absolute", inset: 0, background: "rgba(255,255,255,.85)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 999, flexDirection: "column", gap: 10 }}>
-          <div style={{ width: 32, height: 32, border: "3px solid #e2e8f0", borderTop: "3px solid #2563eb", borderRadius: "50%", animation: "spin .8s linear infinite" }} />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "rgba(255,255,255,.85)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            zIndex: 999,
+            flexDirection: "column",
+            gap: 10,
+          }}
+        >
+          <div
+            style={{
+              width: 32,
+              height: 32,
+              border: "3px solid #e2e8f0",
+              borderTop: "3px solid #2563eb",
+              borderRadius: "50%",
+              animation: "spin .8s linear infinite",
+            }}
+          />
           <div style={{ fontSize: 12, color: "#64748b" }}>Loading map…</div>
           <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
         </div>
       )}
       {analysing && (
-        <div style={{ position: "absolute", bottom: 80, left: "50%", transform: "translateX(-50%)", zIndex: 1000, background: "#1e293b", color: "#fff", padding: "8px 18px", borderRadius: 999, fontSize: 12, fontWeight: 600, display: "flex", alignItems: "center", gap: 8, boxShadow: "0 4px 12px rgba(0,0,0,.25)" }}>
-          <div style={{ width: 14, height: 14, border: "2px solid rgba(255,255,255,.3)", borderTop: "2px solid #fff", borderRadius: "50%", animation: "spin .8s linear infinite" }} />
-          Analysing polygon… this may take a moment
+        <div
+          style={{
+            position: "absolute",
+            bottom: 80,
+            left: "50%",
+            transform: "translateX(-50%)",
+            zIndex: 1000,
+            background: "#1e293b",
+            color: "#fff",
+            padding: "8px 18px",
+            borderRadius: 999,
+            fontSize: 12,
+            fontWeight: 600,
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            boxShadow: "0 4px 12px rgba(0,0,0,.25)",
+          }}
+        >
+          <div
+            style={{
+              width: 14,
+              height: 14,
+              border: "2px solid rgba(255,255,255,.3)",
+              borderTop: "2px solid #fff",
+              borderRadius: "50%",
+              animation: "spin .8s linear infinite",
+            }}
+          />
+          Analysing polygon…
         </div>
       )}
-      <div style={{ position: "absolute", top: 12, left: "50%", transform: "translateX(-50%)", zIndex: 1000, padding: "5px 14px", borderRadius: 999, fontSize: 12, fontWeight: 600, whiteSpace: "nowrap", background: mode === "draw" ? "#2563eb" : "#fff", color: mode === "draw" ? "#fff" : "#374151", border: mode === "draw" ? "none" : "1px solid #e2e8f0", boxShadow: "0 2px 8px rgba(0,0,0,.1)" }}>
-        {mode === "draw" ? "✏️ Click to place points, double-click to finish" : "👆 Click anywhere on the map to inspect"}
+      <div
+        style={{
+          position: "absolute",
+          top: 12,
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 1000,
+          padding: "5px 14px",
+          borderRadius: 999,
+          fontSize: 12,
+          fontWeight: 600,
+          whiteSpace: "nowrap",
+          background: mode === "draw" ? "#2563eb" : "#fff",
+          color: mode === "draw" ? "#fff" : "#374151",
+          border: mode === "draw" ? "none" : "1px solid #e2e8f0",
+          boxShadow: "0 2px 8px rgba(0,0,0,.1)",
+        }}
+      >
+        {mode === "draw"
+          ? "✏️ Click to place points, double-click to finish"
+          : "👆 Click anywhere on the map to inspect"}
       </div>
-      <div style={{ position: "absolute", bottom: 32, left: 12, zIndex: 1000, display: "flex", borderRadius: 10, overflow: "hidden", boxShadow: "0 2px 10px rgba(0,0,0,.2)", border: "1.5px solid #e2e8f0" }}>
-        {[{ id: "normal", label: "🗺️ Map" }, { id: "satellite", label: "🛰️ Satellite" }].map(v => (
-          <button key={v.id} onClick={() => setMapView(v.id)} style={{ padding: "8px 14px", fontSize: 12, fontWeight: 600, cursor: "pointer", background: mapView === v.id ? "#2563eb" : "#fff", color: mapView === v.id ? "#fff" : "#374151", border: "none", transition: "background 0.18s, color 0.18s" }}>
+      <div
+        style={{
+          position: "absolute",
+          bottom: 32,
+          left: 12,
+          zIndex: 1000,
+          display: "flex",
+          borderRadius: 10,
+          overflow: "hidden",
+          boxShadow: "0 2px 10px rgba(0,0,0,.2)",
+          border: "1.5px solid #e2e8f0",
+        }}
+      >
+        {[
+          { id: "normal", label: "🗺️ Map" },
+          { id: "satellite", label: "🛰️ Satellite" },
+        ].map((v) => (
+          <button
+            key={v.id}
+            onClick={() => setMapView(v.id)}
+            style={{
+              padding: "8px 14px",
+              fontSize: 12,
+              fontWeight: 600,
+              cursor: "pointer",
+              background: mapView === v.id ? "#2563eb" : "#fff",
+              color: mapView === v.id ? "#fff" : "#374151",
+              border: "none",
+              transition: "background 0.18s, color 0.18s",
+            }}
+          >
             {v.label}
           </button>
         ))}
       </div>
       <div ref={containerRef} style={{ width: "100%", height: "100%" }} />
     </div>
-  )
+  );
 }

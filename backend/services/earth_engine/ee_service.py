@@ -6,7 +6,7 @@ Key engineering choices
 3. Structured numpy     — downloaded as NPY structured arrays (one field per band), minimising bandwidth vs multi-band TIFF
 4. Stateless            — no in-process cache; callers are responsible for rate-limiting via semaphore
 """
-
+ 
 import ee
 import requests, io
 import numpy as np
@@ -14,38 +14,38 @@ import logging
 import requests
 import os
 import json
-
+ 
 from rasterio.transform import from_bounds
 from datetime import datetime, timedelta
 from typing import Dict, Any
-
+ 
 from services.farmland_detection.constants.dw_classes import (
     DW_BAND_NAMES, MAX_POLYGON_AREA_KM2, adaptive_scale
 )
 from utils.farmland_detection.polygon_utils import polygon_area_km2, polygon_bounds
 from utils.api_error import APIError
-
+ 
 logger = logging.getLogger(__name__)
-
+ 
 if os.getenv("GOOGLE_CREDENTIALS"):
     # Production (Render)
     service_account_info = json.loads(
         os.getenv("GOOGLE_CREDENTIALS")
     )
-
+ 
     credentials = ee.ServiceAccountCredentials(
         service_account_info["client_email"],
         key_data=os.getenv("GOOGLE_CREDENTIALS")
     )
-
+ 
     ee.Initialize(
         credentials,
-        project="satelite-490001"
+        project="my-vegetation-project"
     )
 else:
     # Local PC
-    ee.Initialize(project="satelite-490001")
-
+    ee.Initialize(project="my-vegetation-project")
+ 
 def _to_ee_geom(polygon: dict) -> ee.Geometry:
     return ee.Geometry.Polygon(polygon["coordinates"])
  
@@ -103,8 +103,8 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         date_range — (start_str, end_str) used for the composite
         pixel_count— total valid pixels
     """
-
-
+ 
+ 
     # validate polygon size
     area_km2 = polygon_area_km2(polygon)
     if area_km2 > MAX_POLYGON_AREA_KM2:
@@ -122,7 +122,7 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         "Fetching DW for %.1f km² polygon | scale=%dm | window=%dd",
         area_km2, scale, days_back
     )
-
+ 
     # Dynamic world compoaites
     start_str, end_str = _date_window(days_back)
     dw_col = (
@@ -130,7 +130,7 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         .filterBounds(roi)
         .filterDate(start_str, end_str)
     )
-
+ 
     # extend window if collection is empty
     count = dw_col.size().getInfo()
     if count == 0:
@@ -150,7 +150,7 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
             )
  
     logger.info("Using %d DW scenes (%s → %s)", count, start_str, end_str)
-
+ 
     # Mode composite for label; mean for probability bands
     dw_label_img = dw_col.select("label").mode().clip(roi)
     dw_probs_img = dw_col.select(DW_BAND_NAMES).mean().clip(roi)
@@ -165,7 +165,7 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
     )
  
     s2_fallback = s2_col.size().getInfo() == 0
-
+ 
     if s2_fallback:
         # Widen cloud threshold for very cloudy regions
         s2_col = (
@@ -178,7 +178,7 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
  
     s2_median  = s2_col.median().clip(roi)
     indices_img = _build_s2_indices(s2_median)
-
+ 
     # download
     try:
         arr_lbl  = _download_npy(dw_label_img, roi, scale)
@@ -197,7 +197,7 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         "mndwi": arr_idx["MNDWI"].astype(np.float32),
         "evi":   arr_idx["EVI"].astype(np.float32),
     }
-
+ 
     # buld rasterio transfrom
     minx, miny, maxx, maxy = polygon_bounds(polygon)
     h, w      = label.shape
@@ -216,5 +216,5 @@ def fetch_dynamic_world(polygon: dict, days_back: int = 60) -> Dict[str, Any]:
         "scene_count": count,
     }
  
-
+ 
     return result
