@@ -232,68 +232,66 @@ export default function MapSection({
     } else {
       // soilData has no geojson field - fill drawn polygon with dominant soil color
       if (coords && distrib.length > 0) {
-        const soilColorMap = Object.fromEntries(
-          distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]])
-        )
-        const lngs  = coords.map(c => c[1])
-        const minLng = Math.min(...lngs), maxLng = Math.max(...lngs)
-        const width  = maxLng - minLng
-        const polyCoords = coords.map(c => [c[1], c[0]])
+  const soilColorMap = Object.fromEntries(
+    distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]])
+  )
+  soilLayerRef.current.clearLayers()
 
-        let curLng = minLng
-        distrib.forEach(d => {
-        const sliceW   = (d.percentage / 100) * width
-        const sliceLng = curLng + sliceW
-        const color    = soilColorMap[d.soil_class] || '#94a3b8'
+  const ring = coords.map(c => [c[1], c[0]])
+  if (ring[0][0] !== ring[ring.length-1][0] || ring[0][1] !== ring[ring.length-1][1]) ring.push(ring[0])
+  const clipPoly = turf.polygon([ring])
+  const bbox = turf.bbox(clipPoly)
 
-        // Clip strip to polygon using GeoJSON intersection via bbox mask
-        const strip = {
-          type: 'Feature',
-          geometry: {
-            type: 'Polygon',
-            coordinates: [[
-              [curLng, -90], [sliceLng, -90],
-              [sliceLng, 90], [curLng, 90], [curLng, -90]
-            ]]
-          },
-          properties: {}
-        }
+  // Generate random points weighted by percentage, then voronoi
+  const total = distrib.reduce((s, d) => s + d.percentage, 0)
+  const pointFeatures = []
 
-    // Use Leaflet's built-in clipping by rendering as SVG with polygon mask
-    // Clip by drawing the intersection: polygon coords as clip, strip as fill
-    const lyr = L.geoJSON(
-      { type: 'Feature', geometry: { type: 'Polygon', coordinates: [polyCoords] }, properties: {} },
-      {
-        interactive: true,
-        style: { color, fillColor: color, fillOpacity: 0, weight: 0, stroke: false },
+  distrib.forEach((d, idx) => {
+    const count = Math.max(2, Math.round((d.percentage / total) * 30))
+    let attempts = 0
+    let placed = 0
+    while (placed < count && attempts < 200) {
+      attempts++
+      const lng = bbox[0] + Math.random() * (bbox[2] - bbox[0])
+      const lat = bbox[1] + Math.random() * (bbox[3] - bbox[1])
+      const pt = turf.point([lng, lat])
+      if (turf.booleanPointInPolygon(pt, clipPoly)) {
+        pt.properties = { soil_class: d.soil_class, idx }
+        pointFeatures.push(pt)
+        placed++
       }
-    )
-    .bindTooltip(
-      `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700">${d.soil_class}: ${d.percentage.toFixed(1)}%</div>`,
-      { sticky: true }
-    )
-
-    // Actually draw clipped strip using SVG clipPath approach:
-    // render full polygon but with class-specific fill, split proportionally using opacity trick
-    curLng = sliceLng
+    }
   })
 
-  // Better approach: render each soil class as the full polygon with different opacity layers
-  // Use gradient-like approach - stack polygons, each with portion
-  soilLayerRef.current.clearLayers()
-// Show dominant soil class with full opacity, others with reduced
-distrib.forEach((d, idx) => {
-  const color = soilColorMap[d.soil_class] || '#94a3b8'
-  L.geoJSON(
-    { type:'Feature', geometry:{ type:'Polygon', coordinates:[polyCoords] }, properties:{} },
-    { interactive:true, style:{ color, fillColor:color, fillOpacity: idx === 0 ? 0.65 : 0.35, weight: idx === 0 ? 2 : 0, stroke: idx === 0 } }
-  )
-  .bindTooltip(
-    `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${d.soil_class}: ${d.percentage.toFixed(1)}%</div>`,
-    { sticky: true }
-  )
-  .addTo(soilLayerRef.current)
-})
+  if (pointFeatures.length > 0) {
+    try {
+      const fc = turf.featureCollection(pointFeatures)
+      const voronoi = turf.voronoi(fc, { bbox })
+
+      voronoi.features.forEach((cell, i) => {
+        if (!cell) return
+        const srcPt = pointFeatures[i]
+        if (!srcPt) return
+        const soilClass = srcPt.properties.soil_class
+        const color = soilColorMap[soilClass] || '#94a3b8'
+        try {
+          const clipped = turf.intersect(turf.featureCollection([cell, clipPoly]))
+          if (!clipped) return
+          L.geoJSON(clipped, {
+            interactive: true,
+            style: { color, fillColor: color, fillOpacity: 0.7, weight: 0.5, opacity: 0.5 }
+          })
+          .bindTooltip(
+            `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${soilClass}: ${distrib.find(d=>d.soil_class===soilClass)?.percentage.toFixed(1)}%</div>`,
+            { sticky: true }
+          )
+          .addTo(soilLayerRef.current)
+        } catch(e) {}
+      })
+    } catch(e) {
+      console.error('Voronoi error:', e)
+    }
+  }
 } else if (soilData?.geojson) {
         try {
           const soilGeoJson =
