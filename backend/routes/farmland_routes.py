@@ -67,7 +67,7 @@ def _handle(exc: Exception):
     raise HTTPException(status_code=500, detail=str(exc))
  
 
-@router.post("/analyze")
+@router.post("/analyse")
 async def analyze_route(body: AnalyzeRequest):
     """
     Full 9-class Dynamic World land cover segmentation.

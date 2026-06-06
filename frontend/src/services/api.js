@@ -13,17 +13,21 @@ function closedRing(coordinates) {
 export async function getSoilByPoint(lat, lon) {
   const res = await fetch(`${BASE_URL}/soil/point?lat=${lat}&lon=${lon}`)
   if (!res.ok) throw new Error('Soil fetch failed')
-  return res.json()
+  const data = await res.json()
+  console.log(data)
+  return data
 }
  
-export async function getSoilByPolygon(coordinates) {
+export async function getSoilByPolygon(coordinates) { 
   const res = await fetch(`${BASE_URL}/soil/polygon`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ polygon: { type: 'Polygon', coordinates: [closedRing(coordinates)] } }),
   })
   if (!res.ok) throw new Error('Soil polygon fetch failed')
-  return res.json()
+  const data = await res.json()
+  console.log(data)
+  return data
 }
  
 // ── Farmland ──────────────────────────────────────────────────────────────────
@@ -35,7 +39,9 @@ export async function analyseFarmland(coordinates) {
     body: JSON.stringify({ polygon: { type: 'Polygon', coordinates: [closedRing(coordinates)] } }),
   })
   if (!res.ok) throw new Error('Farmland analyse failed')
-  return res.json()
+  const data = await res.json()
+  console.log(data)
+  return data
 }
  
 // ── Dynamic World 9-class land cover ─────────────────────────────────────────

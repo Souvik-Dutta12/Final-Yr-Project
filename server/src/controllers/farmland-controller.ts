@@ -15,7 +15,7 @@ const Analyse = asyncHandler(async (req: PolygonRequest, res: Response): Promise
     throw new ApiError(400, "Polygon is required!");
   }
 
-  const endpoint = "/farmland/analyse";
+  const endpoint = "/analyse";
   const cacheKey = makeCacheKey(endpoint, { polygon });
 
   const cached = await get(cacheKey);

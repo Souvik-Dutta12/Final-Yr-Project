@@ -26,11 +26,14 @@ async def get_soil_point(
             400,
             "Latitude and Longitude required"
         )
+
+    print(lat,lon)
     
     soil_class, quality = await asyncio.gather(
         get_soil_type(lat, lon),
         soil_quality_service.analyze_point(lat, lon),
     )
+    print(soil_class, quality)
 
     if not soil_class:
         raise APIError(
