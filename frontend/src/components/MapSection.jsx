@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import * as turf from '@turf/turf'
+import * as turf from "@turf/turf";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-draw/dist/leaflet.draw.css";
@@ -77,51 +77,78 @@ function getCropEmoji(crop) {
 // ── Render DW FeatureCollection on Leaflet FeatureGroup ───────────────────────
 // Backend feature.properties: { class, label, color, area_ha, confidence }
 function renderDWGeoJSON(featureCollection, targetGroup, clipCoords) {
-  targetGroup.clearLayers()
-  if (!featureCollection?.features?.length) return
+  targetGroup.clearLayers();
+  if (!featureCollection?.features?.length) return;
 
-  let features = featureCollection.features
+  let features = featureCollection.features;
 
   // Clip to drawn polygon if coords provided
   if (clipCoords?.length) {
-    const ring = clipCoords.map(c => [c[1], c[0]])
-    if (ring[0][0] !== ring[ring.length - 1][0] || ring[0][1] !== ring[ring.length - 1][1]) ring.push(ring[0])
-    const clipPoly = turf.polygon([ring])
-    const clipped = []
-    features.forEach(feat => {
+    const ring = clipCoords.map((c) => [c[1], c[0]]);
+    if (
+      ring[0][0] !== ring[ring.length - 1][0] ||
+      ring[0][1] !== ring[ring.length - 1][1]
+    )
+      ring.push(ring[0]);
+    const clipPoly = turf.polygon([ring]);
+    const clipped = [];
+    features.forEach((feat) => {
       try {
-        const intersection = turf.intersect(turf.featureCollection([feat, clipPoly]))
-        if (intersection) { intersection.properties = feat.properties; clipped.push(intersection) }
-      } catch (e) { }
-    })
-    features = clipped
+        const intersection = turf.intersect(
+          turf.featureCollection([feat, clipPoly]),
+        );
+        if (intersection) {
+          intersection.properties = feat.properties;
+          clipped.push(intersection);
+        }
+      } catch (e) {}
+    });
+    features = clipped;
   }
 
-  L.geoJSON({ type: 'FeatureCollection', features }, {
-    interactive: true,
-    style: (feature) => {
-      const color = feature.properties?.color || '#94a3b8'
-      return { color, fillColor: color, fillOpacity: 0.78, weight: 1, opacity: 1 }
-    },
-    onEachFeature: (feature, lyr) => {
-      const label = feature.properties?.label || feature.properties?.class || 'Unknown'
-      const color = feature.properties?.color || '#94a3b8'
-      const areaHa = feature.properties?.area_ha
-      lyr.bindTooltip(
-        `<div style="font-family:system-ui,sans-serif;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;gap:7px">
+  L.geoJSON(
+    { type: "FeatureCollection", features },
+    {
+      interactive: true,
+      style: (feature) => {
+        const color = feature.properties?.color || "#94a3b8";
+        return {
+          color,
+          fillColor: color,
+          fillOpacity: 0.78,
+          weight: 1,
+          opacity: 1,
+        };
+      },
+      onEachFeature: (feature, lyr) => {
+        const label =
+          feature.properties?.label || feature.properties?.class || "Unknown";
+        const color = feature.properties?.color || "#94a3b8";
+        const areaHa = feature.properties?.area_ha;
+        lyr.bindTooltip(
+          `<div style="font-family:system-ui,sans-serif;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;gap:7px">
           <div style="width:11px;height:11px;border-radius:3px;background:${color};flex-shrink:0"></div>
           <div>
             <span style="font-size:12px;font-weight:700;color:#0f172a">${label}</span>
-            ${areaHa != null ? `<span style="font-size:10px;color:#64748b;margin-left:5px">${areaHa.toFixed(0)} ha</span>` : ''}
+            ${areaHa != null ? `<span style="font-size:10px;color:#64748b;margin-left:5px">${areaHa.toFixed(0)} ha</span>` : ""}
           </div>
         </div>`,
-        { sticky: true, permanent: false, direction: 'top', opacity: 1 }
-      )
-      lyr.on('mouseover', function (e) { this.setStyle({ fillOpacity: 0.95, weight: 2 }); this.openTooltip(e.latlng) })
-      lyr.on('mousemove', function (e) { this.getTooltip()?.setLatLng(e.latlng) })
-      lyr.on('mouseout', function () { this.setStyle({ fillOpacity: 0.78, weight: 1 }); this.closeTooltip() })
+          { sticky: true, permanent: false, direction: "top", opacity: 1 },
+        );
+        lyr.on("mouseover", function (e) {
+          this.setStyle({ fillOpacity: 0.95, weight: 2 });
+          this.openTooltip(e.latlng);
+        });
+        lyr.on("mousemove", function (e) {
+          this.getTooltip()?.setLatLng(e.latlng);
+        });
+        lyr.on("mouseout", function () {
+          this.setStyle({ fillOpacity: 0.78, weight: 1 });
+          this.closeTooltip();
+        });
+      },
     },
-  }).addTo(targetGroup)
+  ).addTo(targetGroup);
 }
 
 export default function MapSection({
@@ -237,129 +264,126 @@ export default function MapSection({
         });
       }
     } else {
-      // soilData has no geojson field - fill drawn polygon with dominant soil color
-      if (coords && distrib.length > 0) {
-        const soilColorMap = Object.fromEntries(
-          distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]])
+      // ── Soil layer ──────────────────────────────────────────────────────
+      const soilColorMap = Object.fromEntries(
+        distrib.map((d, i) => [
+          d.soil_class,
+          SOIL_COLORS[i % SOIL_COLORS.length],
+        ]),
+      );
+
+      if (soilData?.coverage_geojson?.features?.length > 0) {
+        // Real soil coverage GeoJSON from backend — accurate regions
+        L.geoJSON(soilData.coverage_geojson, {
+          interactive: true,
+          style: (feature) => {
+            const color =
+              soilColorMap[feature.properties?.soil_class] || "#94a3b8";
+            return {
+              color,
+              fillColor: color,
+              fillOpacity: 0.75,
+              weight: 1,
+              opacity: 0.8,
+            };
+          },
+          onEachFeature: (feature, lyr) => {
+            const soilClass = feature.properties?.soil_class;
+            const pct = feature.properties?.percentage;
+            const color = soilColorMap[soilClass] || "#94a3b8";
+            lyr.bindTooltip(
+              `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">
+                ${soilClass}${pct != null ? ": " + pct.toFixed(1) + "%" : ""}
+              </div>`,
+              { sticky: true },
+            );
+            lyr.on("mouseover", function (e) {
+              this.setStyle({ fillOpacity: 0.95 });
+              this.openTooltip(e.latlng);
+            });
+            lyr.on("mousemove", function (e) {
+              this.getTooltip()?.setLatLng(e.latlng);
+            });
+            lyr.on("mouseout", function () {
+              this.setStyle({ fillOpacity: 0.75 });
+              this.closeTooltip();
+            });
+          },
+        }).addTo(soilLayerRef.current);
+      } else if (coords && distrib.length > 0) {
+        // Fallback: voronoi approximation if no coverage_geojson
+        const polyCoords = coords.map((c) => [c[1], c[0]]);
+        const ring = [...polyCoords];
+        if (
+          ring[0][0] !== ring[ring.length - 1][0] ||
+          ring[0][1] !== ring[ring.length - 1][1]
         )
-        soilLayerRef.current.clearLayers()
+          ring.push(ring[0]);
+        const clipPoly = turf.polygon([ring]);
+        const bbox = turf.bbox(clipPoly);
+        const total = distrib.reduce((s, d) => s + d.percentage, 0);
 
-        const ring = coords.map(c => [c[1], c[0]])
-        if (ring[0][0] !== ring[ring.length - 1][0] || ring[0][1] !== ring[ring.length - 1][1]) ring.push(ring[0])
-        const clipPoly = turf.polygon([ring])
-        const bbox = turf.bbox(clipPoly)
-
-        // Generate random points weighted by percentage, then voronoi
-        const total = distrib.reduce((s, d) => s + d.percentage, 0)
-        const pointFeatures = []
-
-        distrib.forEach((d, idx) => {
-          const count = Math.max(2, Math.round((d.percentage / total) * 30))
-          let attempts = 0
-          let placed = 0
+        const pointFeatures = [];
+        distrib.forEach((d) => {
+          const count = Math.max(2, Math.round((d.percentage / total) * 30));
+          let attempts = 0,
+            placed = 0;
           while (placed < count && attempts < 200) {
-            attempts++
-            const lng = bbox[0] + Math.random() * (bbox[2] - bbox[0])
-            const lat = bbox[1] + Math.random() * (bbox[3] - bbox[1])
-            const pt = turf.point([lng, lat])
+            attempts++;
+            const lng = bbox[0] + Math.random() * (bbox[2] - bbox[0]);
+            const lat = bbox[1] + Math.random() * (bbox[3] - bbox[1]);
+            const pt = turf.point([lng, lat]);
             if (turf.booleanPointInPolygon(pt, clipPoly)) {
-              pt.properties = { soil_class: d.soil_class, idx }
-              pointFeatures.push(pt)
-              placed++
+              pt.properties = { soil_class: d.soil_class };
+              pointFeatures.push(pt);
+              placed++;
             }
           }
-        })
+        });
 
         if (pointFeatures.length > 0) {
           try {
-            const fc = turf.featureCollection(pointFeatures)
-            const voronoi = turf.voronoi(fc, { bbox })
-
+            const voronoi = turf.voronoi(
+              turf.featureCollection(pointFeatures),
+              { bbox },
+            );
             voronoi.features.forEach((cell, i) => {
-              if (!cell) return
-              const srcPt = pointFeatures[i]
-              if (!srcPt) return
-              const soilClass = srcPt.properties.soil_class
-              const color = soilColorMap[soilClass] || '#94a3b8'
+              if (!cell) return;
+              const srcPt = pointFeatures[i];
+              if (!srcPt) return;
+              const soilClass = srcPt.properties.soil_class;
+              const color = soilColorMap[soilClass] || "#94a3b8";
               try {
-                const clipped = turf.intersect(turf.featureCollection([cell, clipPoly]))
-                if (!clipped) return
+                const clipped = turf.intersect(
+                  turf.featureCollection([cell, clipPoly]),
+                );
+                if (!clipped) return;
                 L.geoJSON(clipped, {
                   interactive: true,
-                  style: { color, fillColor: color, fillOpacity: 0.7, weight: 0.5, opacity: 0.5 }
+                  style: {
+                    color,
+                    fillColor: color,
+                    fillOpacity: 0.7,
+                    weight: 0.5,
+                    opacity: 0.5,
+                  },
                 })
                   .bindTooltip(
-                    `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${soilClass}: ${distrib.find(d => d.soil_class === soilClass)?.percentage.toFixed(1)}%</div>`,
-                    { sticky: true }
+                    `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">
+                    ${soilClass}: ${distrib.find((d) => d.soil_class === soilClass)?.percentage.toFixed(1)}%
+                  </div>`,
+                    { sticky: true },
                   )
-                  .addTo(soilLayerRef.current)
-              } catch (e) { }
-            })
+                  .addTo(soilLayerRef.current);
+              } catch (e) {}
+            });
           } catch (e) {
-            console.error('Voronoi error:', e)
+            console.error("Voronoi error:", e);
           }
-        }
-      } else if (soilData?.geojson) {
-        try {
-          const soilGeoJson =
-            typeof soilData.geojson === "string"
-              ? JSON.parse(soilData.geojson)
-              : soilData.geojson;
-          const soilColorMap = Object.fromEntries(
-            distrib.map((d, i) => [
-              d.soil_class,
-              SOIL_COLORS[i % SOIL_COLORS.length],
-            ]),
-          );
-          L.geoJSON(soilGeoJson, {
-            interactive: true,
-            style: (feature) => {
-              const color =
-                soilColorMap[feature.properties?.soil_class] || "#94a3b8";
-              return {
-                color,
-                fillColor: color,
-                fillOpacity: 0.9,
-                weight: 1.5,
-                opacity: 1,
-              };
-            },
-            onEachFeature: (feature, lyr) => {
-              const soilClass = feature.properties?.soil_class;
-              if (!soilClass) return;
-              const color = soilColorMap[soilClass] || "#94a3b8";
-              lyr.bindTooltip(
-                `<div style="font-family:system-ui,sans-serif;background:#fff;padding:6px 10px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.15)">
-                  <div style="display:flex;align-items:center;gap:7px">
-                    <div style="width:12px;height:12px;border-radius:3px;background:${color};flex-shrink:0"></div>
-                    <span style="font-size:13px;font-weight:700;color:#0f172a">${soilClass}</span>
-                  </div>
-                </div>`,
-                {
-                  sticky: true,
-                  permanent: false,
-                  direction: "top",
-                  opacity: 1,
-                },
-              );
-              lyr.on("mouseover", function (e) {
-                this.setStyle({ fillOpacity: 0.95, weight: 2.5 });
-                this.openTooltip(e.latlng);
-              });
-              lyr.on("mousemove", function (e) {
-                this.getTooltip()?.setLatLng(e.latlng);
-              });
-              lyr.on("mouseout", function () {
-                this.setStyle({ fillOpacity: 0.8, weight: 1.5 });
-                this.closeTooltip();
-              });
-            },
-          }).addTo(soilLayerRef.current);
-        } catch (e) {
-          console.error("Soil GeoJSON parse error:", e);
         }
       }
     }
+
     soilLayerRef.current.bringToFront();
     analysisLayerRef.current.bringToFront();
     drawnItemsRef.current.bringToFront();
@@ -385,24 +409,27 @@ export default function MapSection({
     // Backend returns: { type:'FeatureCollection', features:[...], metadata:{...} }
     // APIResponse wraps it as: { success, message, data: { type, features, metadata } }
     window.__onLandCoverResult = (fc) => {
-      dwLayerARef.current.clearLayers()
-      dwLayerBRef.current.clearLayers()
-      renderDWGeoJSON(fc, dwLayerRef.current, lastCoordsRef.current)
-      const map = mapRef.current
-      if (map) { dwLayerRef.current.bringToFront(); drawnItemsRef.current.bringToFront() }
+      dwLayerARef.current.clearLayers();
+      dwLayerBRef.current.clearLayers();
+      renderDWGeoJSON(fc, dwLayerRef.current, lastCoordsRef.current);
+      const map = mapRef.current;
+      if (map) {
+        dwLayerRef.current.bringToFront();
+        drawnItemsRef.current.bringToFront();
+      }
     };
 
     // Called by LandCoverPanel after change detection
     // fcA / fcB are FeatureCollections for period A and B
     window.__onChangeResult = (fcA, fcB) => {
-      dwLayerRef.current.clearLayers()
-      renderDWGeoJSON(fcA, dwLayerARef.current, lastCoordsRef.current)
-      renderDWGeoJSON(fcB, dwLayerBRef.current, lastCoordsRef.current)
-      const map = mapRef.current
+      dwLayerRef.current.clearLayers();
+      renderDWGeoJSON(fcA, dwLayerARef.current, lastCoordsRef.current);
+      renderDWGeoJSON(fcB, dwLayerBRef.current, lastCoordsRef.current);
+      const map = mapRef.current;
       if (map) {
-        if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map)
-        map.removeLayer(dwLayerBRef.current)
-        drawnItemsRef.current.bringToFront()
+        if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map);
+        map.removeLayer(dwLayerBRef.current);
+        drawnItemsRef.current.bringToFront();
       }
     };
 

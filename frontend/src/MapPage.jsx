@@ -115,7 +115,7 @@ export default function MapPage() {
   useEffect(() => {
     layerMap.current.forEach((layer, id) => {
       layer.setStyle(id === selectedId
-        ? { color:'#dc2626', fillColor:'#ef4444', fillOpacity:0.3, weight:3 }
+        ? { color:'#dc2626', fillColor:'#ef4444', fillOpacity:0.35, weight:3 }
         : { color:'#2563eb', fillColor:'#3b82f6', fillOpacity:0.25, weight:2 })
     })
   }, [selectedId])
