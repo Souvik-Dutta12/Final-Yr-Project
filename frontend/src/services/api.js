@@ -14,7 +14,6 @@ export async function getSoilByPoint(lat, lon) {
   const res = await fetch(`${BASE_URL}/soil/point?lat=${lat}&lon=${lon}`)
   if (!res.ok) throw new Error('Soil fetch failed')
   const data = await res.json()
-  console.log(data)
   return data
 }
  

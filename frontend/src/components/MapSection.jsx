@@ -10,6 +10,9 @@ import {
   analyseFarmland,
   getCropRecommendation,
 } from "../services/api";
+import { Map as Mapview, MousePointer2, Pen, Satellite,MapPin } from 'lucide-react';
+import { Tooltip } from "../components/Tooltip"
+import { renderToStaticMarkup } from "react-dom/server";
 
 let polyCount = 0;
 
@@ -82,19 +85,19 @@ function renderDWGeoJSON(featureCollection, targetGroup, clipCoords) {
   // Clip to drawn polygon if coords provided
   if (clipCoords?.length) {
     const ring = clipCoords.map(c => [c[1], c[0]])
-    if (ring[0][0] !== ring[ring.length-1][0] || ring[0][1] !== ring[ring.length-1][1]) ring.push(ring[0])
+    if (ring[0][0] !== ring[ring.length - 1][0] || ring[0][1] !== ring[ring.length - 1][1]) ring.push(ring[0])
     const clipPoly = turf.polygon([ring])
     const clipped = []
     features.forEach(feat => {
       try {
         const intersection = turf.intersect(turf.featureCollection([feat, clipPoly]))
         if (intersection) { intersection.properties = feat.properties; clipped.push(intersection) }
-      } catch(e) {}
+      } catch (e) { }
     })
     features = clipped
   }
 
-  L.geoJSON({ type:'FeatureCollection', features }, {
+  L.geoJSON({ type: 'FeatureCollection', features }, {
     interactive: true,
     style: (feature) => {
       const color = feature.properties?.color || '#94a3b8'
@@ -114,20 +117,21 @@ function renderDWGeoJSON(featureCollection, targetGroup, clipCoords) {
         </div>`,
         { sticky: true, permanent: false, direction: 'top', opacity: 1 }
       )
-      lyr.on('mouseover', function(e) { this.setStyle({ fillOpacity: 0.95, weight: 2 }); this.openTooltip(e.latlng) })
-      lyr.on('mousemove', function(e) { this.getTooltip()?.setLatLng(e.latlng) })
-      lyr.on('mouseout',  function()  { this.setStyle({ fillOpacity: 0.78, weight: 1 }); this.closeTooltip() })
+      lyr.on('mouseover', function (e) { this.setStyle({ fillOpacity: 0.95, weight: 2 }); this.openTooltip(e.latlng) })
+      lyr.on('mousemove', function (e) { this.getTooltip()?.setLatLng(e.latlng) })
+      lyr.on('mouseout', function () { this.setStyle({ fillOpacity: 0.78, weight: 1 }); this.closeTooltip() })
     },
   }).addTo(targetGroup)
 }
 
 export default function MapSection({
-  mode = "click",
   polygons = [],
   selectedPolygonId = null,
   onPolygonCreated,
   onPolygonSelect,
 }) {
+  const [mode, setMode] = useState('click')
+
   const containerRef = useRef(null);
   const mapRef = useRef(null);
   const drawControlRef = useRef(null);
@@ -154,8 +158,11 @@ export default function MapSection({
 
   const [loading, setLoading] = useState(true);
   const [analysing, setAnalysing] = useState(false);
-  const [mapView, setMapView] = useState("normal");
+  const [mapView, setMapView] = useState("satellite");
   const [showLandUse, setShowLandUse] = useState(false);
+
+  const [activeLeft, setActiveLeft] = useState("satellite");
+  const [activeRight, setActiveRight] = useState("click");
 
   useEffect(() => {
     modeRef.current = mode;
@@ -232,67 +239,67 @@ export default function MapSection({
     } else {
       // soilData has no geojson field - fill drawn polygon with dominant soil color
       if (coords && distrib.length > 0) {
-  const soilColorMap = Object.fromEntries(
-    distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]])
-  )
-  soilLayerRef.current.clearLayers()
+        const soilColorMap = Object.fromEntries(
+          distrib.map((d, i) => [d.soil_class, SOIL_COLORS[i % SOIL_COLORS.length]])
+        )
+        soilLayerRef.current.clearLayers()
 
-  const ring = coords.map(c => [c[1], c[0]])
-  if (ring[0][0] !== ring[ring.length-1][0] || ring[0][1] !== ring[ring.length-1][1]) ring.push(ring[0])
-  const clipPoly = turf.polygon([ring])
-  const bbox = turf.bbox(clipPoly)
+        const ring = coords.map(c => [c[1], c[0]])
+        if (ring[0][0] !== ring[ring.length - 1][0] || ring[0][1] !== ring[ring.length - 1][1]) ring.push(ring[0])
+        const clipPoly = turf.polygon([ring])
+        const bbox = turf.bbox(clipPoly)
 
-  // Generate random points weighted by percentage, then voronoi
-  const total = distrib.reduce((s, d) => s + d.percentage, 0)
-  const pointFeatures = []
+        // Generate random points weighted by percentage, then voronoi
+        const total = distrib.reduce((s, d) => s + d.percentage, 0)
+        const pointFeatures = []
 
-  distrib.forEach((d, idx) => {
-    const count = Math.max(2, Math.round((d.percentage / total) * 30))
-    let attempts = 0
-    let placed = 0
-    while (placed < count && attempts < 200) {
-      attempts++
-      const lng = bbox[0] + Math.random() * (bbox[2] - bbox[0])
-      const lat = bbox[1] + Math.random() * (bbox[3] - bbox[1])
-      const pt = turf.point([lng, lat])
-      if (turf.booleanPointInPolygon(pt, clipPoly)) {
-        pt.properties = { soil_class: d.soil_class, idx }
-        pointFeatures.push(pt)
-        placed++
-      }
-    }
-  })
+        distrib.forEach((d, idx) => {
+          const count = Math.max(2, Math.round((d.percentage / total) * 30))
+          let attempts = 0
+          let placed = 0
+          while (placed < count && attempts < 200) {
+            attempts++
+            const lng = bbox[0] + Math.random() * (bbox[2] - bbox[0])
+            const lat = bbox[1] + Math.random() * (bbox[3] - bbox[1])
+            const pt = turf.point([lng, lat])
+            if (turf.booleanPointInPolygon(pt, clipPoly)) {
+              pt.properties = { soil_class: d.soil_class, idx }
+              pointFeatures.push(pt)
+              placed++
+            }
+          }
+        })
 
-  if (pointFeatures.length > 0) {
-    try {
-      const fc = turf.featureCollection(pointFeatures)
-      const voronoi = turf.voronoi(fc, { bbox })
+        if (pointFeatures.length > 0) {
+          try {
+            const fc = turf.featureCollection(pointFeatures)
+            const voronoi = turf.voronoi(fc, { bbox })
 
-      voronoi.features.forEach((cell, i) => {
-        if (!cell) return
-        const srcPt = pointFeatures[i]
-        if (!srcPt) return
-        const soilClass = srcPt.properties.soil_class
-        const color = soilColorMap[soilClass] || '#94a3b8'
-        try {
-          const clipped = turf.intersect(turf.featureCollection([cell, clipPoly]))
-          if (!clipped) return
-          L.geoJSON(clipped, {
-            interactive: true,
-            style: { color, fillColor: color, fillOpacity: 0.7, weight: 0.5, opacity: 0.5 }
-          })
-          .bindTooltip(
-            `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${soilClass}: ${distrib.find(d=>d.soil_class===soilClass)?.percentage.toFixed(1)}%</div>`,
-            { sticky: true }
-          )
-          .addTo(soilLayerRef.current)
-        } catch(e) {}
-      })
-    } catch(e) {
-      console.error('Voronoi error:', e)
-    }
-  }
-} else if (soilData?.geojson) {
+            voronoi.features.forEach((cell, i) => {
+              if (!cell) return
+              const srcPt = pointFeatures[i]
+              if (!srcPt) return
+              const soilClass = srcPt.properties.soil_class
+              const color = soilColorMap[soilClass] || '#94a3b8'
+              try {
+                const clipped = turf.intersect(turf.featureCollection([cell, clipPoly]))
+                if (!clipped) return
+                L.geoJSON(clipped, {
+                  interactive: true,
+                  style: { color, fillColor: color, fillOpacity: 0.7, weight: 0.5, opacity: 0.5 }
+                })
+                  .bindTooltip(
+                    `<div style="background:#fff;padding:5px 10px;border-radius:7px;box-shadow:0 2px 8px rgba(0,0,0,.15);font-family:system-ui;font-size:12px;font-weight:700;color:${color}">${soilClass}: ${distrib.find(d => d.soil_class === soilClass)?.percentage.toFixed(1)}%</div>`,
+                    { sticky: true }
+                  )
+                  .addTo(soilLayerRef.current)
+              } catch (e) { }
+            })
+          } catch (e) {
+            console.error('Voronoi error:', e)
+          }
+        }
+      } else if (soilData?.geojson) {
         try {
           const soilGeoJson =
             typeof soilData.geojson === "string"
@@ -394,9 +401,9 @@ export default function MapSection({
       const map = mapRef.current
       if (map) {
         if (!map.hasLayer(dwLayerARef.current)) dwLayerARef.current.addTo(map)
-          map.removeLayer(dwLayerBRef.current)
-          drawnItemsRef.current.bringToFront()
-        }
+        map.removeLayer(dwLayerBRef.current)
+        drawnItemsRef.current.bringToFront()
+      }
     };
 
     // Toggle which period is shown on map
@@ -524,19 +531,15 @@ export default function MapSection({
       }
     };
 
-    const WB_BOUNDS = L.latLngBounds(
-      L.latLng(21.3, 85.8),
-      L.latLng(27.8, 89.9),
-    );
+
     const map = L.map(containerRef.current, {
-      center: [23.5, 87.8],
-      zoom: 7,
-      minZoom: 7,
-      maxZoom: 18,
-      maxBounds: WB_BOUNDS,
+      center: [20.5937, 78.9629],
+      zoom: 5,
+      minZoom: 4,
+      maxZoom: 19,
       maxBoundsViscosity: 1.0,
     });
-    map.fitBounds(WB_BOUNDS, { padding: [10, 10] });
+   
 
     const normalLayer = L.tileLayer(
       "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
@@ -554,57 +557,6 @@ export default function MapSection({
     );
 
     map.whenReady(() => setLoading(false));
-
-    fetch("/west-bengal.geojson")
-      .then((r) => r.json())
-      .then((data) => {
-        const map = mapRef.current;
-        if (!map) return;
-        let geom;
-        if (data.type === "FeatureCollection")
-          geom = data.features[0]?.geometry;
-        else if (data.type === "Feature") geom = data.geometry;
-        else geom = data;
-        if (!geom) return;
-        const WORLD = [
-          [-180, -90],
-          [180, -90],
-          [180, 90],
-          [-180, 90],
-          [-180, -90],
-        ];
-        const outerRings =
-          geom.type === "Polygon"
-            ? [geom.coordinates[0]]
-            : geom.coordinates.map((p) => p[0]);
-        L.geoJSON(
-          {
-            type: "Feature",
-            properties: {},
-            geometry: {
-              type: "Polygon",
-              coordinates: [WORLD, ...outerRings.map((r) => [...r].reverse())],
-            },
-          },
-          {
-            style: {
-              color: "#0f172a",
-              weight: 0,
-              fillColor: "#0f172a",
-              fillOpacity: 0.88,
-            },
-            interactive: false,
-          },
-        ).addTo(map);
-        L.geoJSON(
-          { type: "Feature", properties: {}, geometry: geom },
-          {
-            style: { color: "#60a5fa", weight: 2.5, opacity: 1, fill: false },
-            interactive: false,
-          },
-        ).addTo(map);
-      })
-      .catch(() => {});
 
     drawnItemsRef.current.addTo(map);
     analysisLayerRef.current.addTo(map);
@@ -645,10 +597,15 @@ export default function MapSection({
         map.removeLayer(clickMarkerRef.current);
         clickMarkerRef.current = null;
       }
+      const pinSvg = renderToStaticMarkup(
+        <MapPin size={18} className="text-white" strokeWidth={2.5} />
+      );      
       const icon = L.divIcon({
-        html: `<div style="background:#2563eb;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);color:white;font-size:13px">📍</div>`,
-        iconSize: [26, 26],
-        iconAnchor: [13, 26],
+        html: `<div style="background:green;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);border-radius:50% 50% 50% 0;transform:rotate(-45deg)">
+        <div style="transform:rotate(45deg);display:flex">${pinSvg}</div>
+      </div>`,
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
         className: "",
       });
       const marker = L.marker([lat, lng], { icon }).addTo(map);
@@ -677,8 +634,7 @@ export default function MapSection({
         "Unknown area";
       const dist = addr.county || addr.state_district || "";
       const state = addr.state || "";
-      const soil =
-        soilRes.status === "fulfilled" ? soilRes.value?.data?.soil_type : null;
+      const soil = soilRes.status === "fulfilled" ? soilRes.value?.data?.data?.soil_type : null;
       marker.setPopupContent(`
         <div style="min-width:210px;font-family:system-ui,sans-serif">
           <div style="font-size:14px;font-weight:700;color:#0f172a">${place}</div>
@@ -741,11 +697,12 @@ export default function MapSection({
         analyseFarmland(coords),
       ]);
       setAnalysing(false);
-
+      console.log("soilres: ",soilRes)
+      console.log("farmRes:",farmRes)
       const soilData =
-        soilRes.status === "fulfilled" ? soilRes.value?.data : null;
+        soilRes.status === "fulfilled" ? soilRes.value?.data?.data : null;
       const farmGeoJson =
-        farmRes.status === "fulfilled" ? farmRes.value?.data : null;
+        farmRes.status === "fulfilled" ? farmRes.value?.data?.data : null;
       const distrib = soilData?.distribution || [];
       const features = farmGeoJson?.features || [];
 
@@ -795,20 +752,20 @@ export default function MapSection({
         ? `
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:6px">
           ${[
-            ["pH", overallQ.ph, ""],
-            ["Nitrogen", overallQ.nitrogen, " g/kg"],
-            ["SOC", overallQ.soc, " %"],
-            ["CEC", overallQ.cec, " cmol/kg"],
-            ["Bulk Density", overallQ.bulk_density, " g/cm³"],
-          ]
-            .map(
-              ([label, val, unit]) => `
+          ["pH", overallQ.ph, ""],
+          ["Nitrogen", overallQ.nitrogen, " g/kg"],
+          ["SOC", overallQ.soc, " %"],
+          ["CEC", overallQ.cec, " cmol/kg"],
+          ["Bulk Density", overallQ.bulk_density, " g/cm³"],
+        ]
+          .map(
+            ([label, val, unit]) => `
             <div style="background:#f8fafc;border-radius:6px;padding:5px 7px">
               <div style="font-size:9px;color:#94a3b8;font-weight:600;text-transform:uppercase">${label}</div>
               <div style="font-size:11px;font-weight:700;color:#0f172a">${val?.toFixed(3)}${unit}</div>
             </div>`,
-            )
-            .join("")}
+          )
+          .join("")}
         </div>`
         : "";
 
@@ -835,15 +792,15 @@ export default function MapSection({
           </label>
           <div id="landuse-details" style="display:none;margin-top:4px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">
             ${Object.entries(landCount)
-              .map(
-                ([label, count]) => `
+          .map(
+            ([label, count]) => `
               <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
                 <div style="width:10px;height:10px;border-radius:3px;background:${LAND_COLORS[label] || "#888"};flex-shrink:0"></div>
                 <div style="flex:1;font-size:12px;color:#374151;text-transform:capitalize">${label}</div>
                 <div style="font-size:11px;color:#64748b">${count} zone${count > 1 ? "s" : ""}</div>
               </div>`,
-              )
-              .join("")}
+          )
+          .join("")}
           </div>
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <button id="crop-rec-btn" onclick="window.__showCropModal()" style="width:100%;padding:9px 12px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">
@@ -927,17 +884,17 @@ export default function MapSection({
       layer.setStyle(
         id === selectedPolygonId
           ? {
-              color: "#dc2626",
-              fillColor: "#ef4444",
-              fillOpacity: 0.3,
-              weight: 3,
-            }
+            color: "#dc2626",
+            fillColor: "#ef4444",
+            fillOpacity: 0.3,
+            weight: 3,
+          }
           : {
-              color: "#2563eb",
-              fillColor: "#3b82f6",
-              fillOpacity: 0.25,
-              weight: 2,
-            },
+            color: "#2563eb",
+            fillColor: "#3b82f6",
+            fillOpacity: 0.25,
+            weight: 2,
+          },
       );
     });
   }, [selectedPolygonId]);
@@ -955,34 +912,26 @@ export default function MapSection({
     });
   }, [polygons]);
 
+  const btnClass = (isActive) =>
+    `p-2 border rounded-xl cursor-pointer transition-all duration-150 shadow-sm
+     ${isActive
+      ? "bg-green-50 border-green-700 shadow-inner text-white scale-95"
+      : "bg-white border-neutral-300 text-neutral-500 hover:bg-neutral-50 hover:border-neutral-400 active:scale-95"
+    }`;
+
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+    <div
+      className="relative w-full h-full">
       {loading && (
         <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "rgba(255,255,255,.85)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            zIndex: 999,
-            flexDirection: "column",
-            gap: 10,
-          }}
+          className= "animate-fade-in bg-gradient-to-tl from-white to-neutral-300  h-full w-full flex flex-col items-center justify-center gap-4 absolute z-50"
+          
         >
           <div
-            style={{
-              width: 32,
-              height: 32,
-              border: "3px solid #e2e8f0",
-              borderTop: "3px solid #2563eb",
-              borderRadius: "50%",
-              animation: "spin .8s linear infinite",
-            }}
-          />
-          <div style={{ fontSize: 12, color: "#64748b" }}>Loading map…</div>
-          <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+          className= "animate-spin w-12 h-12 border-4 border-neutral-300 border-t-green-800 rounded-full" />
+            
+          <div className="text-xl font-bold text-neutral-600">Loading map…</div>
+          {/* <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style> */}
         </div>
       )}
       {analysing && (
@@ -1018,64 +967,51 @@ export default function MapSection({
           Analysing polygon…
         </div>
       )}
-      <div
-        style={{
-          position: "absolute",
-          top: 12,
-          left: "50%",
-          transform: "translateX(-50%)",
-          zIndex: 1000,
-          padding: "5px 14px",
-          borderRadius: 999,
-          fontSize: 12,
-          fontWeight: 600,
-          whiteSpace: "nowrap",
-          background: mode === "draw" ? "#2563eb" : "#fff",
-          color: mode === "draw" ? "#fff" : "#374151",
-          border: mode === "draw" ? "none" : "1px solid #e2e8f0",
-          boxShadow: "0 2px 8px rgba(0,0,0,.1)",
-        }}
-      >
-        {mode === "draw"
-          ? "✏️ Click to place points, double-click to finish"
-          : "👆 Click anywhere on the map to inspect"}
+
+
+      <div className="absolute h-15 w-auto px-5 bg-gradient-to-b flex gap-2 items-center justify-evenly from-white to-neutral-200 rounded-xl shadow-md border border-neutral-300 z-[1000] bottom-8 left-1/2 -translate-x-1/2">
+        <div className="flex gap-2 border-r pr-4 r border-neutral-300">
+          <Tooltip content="Normal view" placement="top">
+            <button
+              className={btnClass(activeLeft === "map")}
+              onClick={() => {
+                setActiveLeft("map")
+                setMapView("normal")
+              }}
+            ><Mapview className="text-neutral-500" /></button>
+          </Tooltip>
+          <Tooltip content="Satellite view" placement="top">
+            <button
+              className={btnClass(activeLeft === "satellite")}
+              onClick={() => {
+                setActiveLeft("satellite")
+                setMapView("satellite")
+              }}
+            ><Satellite className="text-neutral-500" /></button>
+          </Tooltip>
+        </div>
+        <div className="flex gap-2 pl-4">
+          <Tooltip content="Click to get soil info" placement="top">
+            <button
+              className={btnClass(activeRight === "click")}
+              onClick={() => {
+                setActiveRight("click")
+                setMode("click")
+              }}
+            ><MousePointer2 className="text-neutral-500" /></button>
+          </Tooltip>
+          <Tooltip content="Draw polygon to analyse area" placement="top">
+            <button className={btnClass(activeRight === "draw")}
+              onClick={() => {
+                setActiveRight("draw")
+                setMode("draw")
+              }}
+            ><Pen className="text-neutral-500" /></button>
+          </Tooltip>
+        </div>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 32,
-          left: 12,
-          zIndex: 1000,
-          display: "flex",
-          borderRadius: 10,
-          overflow: "hidden",
-          boxShadow: "0 2px 10px rgba(0,0,0,.2)",
-          border: "1.5px solid #e2e8f0",
-        }}
-      >
-        {[
-          { id: "normal", label: "🗺️ Map" },
-          { id: "satellite", label: "🛰️ Satellite" },
-        ].map((v) => (
-          <button
-            key={v.id}
-            onClick={() => setMapView(v.id)}
-            style={{
-              padding: "8px 14px",
-              fontSize: 12,
-              fontWeight: 600,
-              cursor: "pointer",
-              background: mapView === v.id ? "#2563eb" : "#fff",
-              color: mapView === v.id ? "#fff" : "#374151",
-              border: "none",
-              transition: "background 0.18s, color 0.18s",
-            }}
-          >
-            {v.label}
-          </button>
-        ))}
-      </div>
-      <div ref={containerRef} style={{ width: "100%", height: "100%" }} />
+
+      <div ref={containerRef} className="w-full h-full" />
     </div>
   );
 }
