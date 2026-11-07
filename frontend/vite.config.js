@@ -1,19 +1,25 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
- 
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  server: {
-    proxy: {
-      '/soil':                 'http://localhost:8000',
-      '/farmland':             'http://localhost:8000',
-      '/quality':              'http://localhost:8000',
-      '/crops-reccomendation': 'http://localhost:8000',
-      // land-cover routes — farmland_routes.py has /analyze and /change at root level
-      '/analyze':              'http://localhost:8000',
-      '/change':               'http://localhost:8000',
-    }
+
+export default defineConfig(({ mode }) => {
+  // frontend/.env theke address pore (na thakle default use hobe)
+  const env = loadEnv(mode, process.cwd(), '')
+  const TS_SERVER = env.VITE_API_TARGET || 'http://127.0.0.1:8010' // TypeScript server
+  const PY_SERVER = env.VITE_PY_TARGET || 'http://127.0.0.1:8000'  // Python server
+
+  return {
+    plugins: [react(), tailwindcss()],
+    server: {
+      proxy: {
+        // TS mode (VITE_API_MODE=ts)
+        '/api': TS_SERVER,
+        // Python mode (default) + land cover (dui mode e-i Python)
+        '/soil': PY_SERVER,
+        '/crops-reccomendation': PY_SERVER,
+        '/analyze': PY_SERVER,
+        '/change': PY_SERVER,
+      },
+    },
   }
 })
- 
