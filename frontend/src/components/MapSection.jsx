@@ -763,10 +763,8 @@ export default function MapSection({
         });
 
       setAnalysing(true);
-      const [soilRes, farmRes] = await Promise.allSettled([
-        getSoilByPolygon(coords),
-        analyseFarmland(coords),
-      ]);
+            const [soilRes] = await Promise.allSettled([getSoilByPolygon(coords)]);
+      const farmRes = { status: "fulfilled", value: null };
       setAnalysing(false);
 
       const soilData =
@@ -855,24 +853,7 @@ export default function MapSection({
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🧪 Soil Quality</div>
           ${qualityRows}${paramRows}
-          <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0">
-            <input type="checkbox" id="landuse-toggle" onchange="window.__toggleLandUse(this.checked)" style="width:15px;height:15px;cursor:pointer;accent-color:#2563eb"/>
-            <span style="font-size:12px;font-weight:600;color:#374151">🛰️ Show Land Use</span>
-          </label>
-          <div id="landuse-details" style="display:none;margin-top:4px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">
-            ${Object.entries(landCount)
-              .map(
-                ([label, count]) => `
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                <div style="width:10px;height:10px;border-radius:3px;background:${LAND_COLORS[label] || "#888"};flex-shrink:0"></div>
-                <div style="flex:1;font-size:12px;color:#374151;text-transform:capitalize">${label}</div>
-                <div style="font-size:11px;color:#64748b">${count} zone${count > 1 ? "s" : ""}</div>
-              </div>`,
-              )
-              .join("")}
-          </div>
-          <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
+          <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>         
           <button id="crop-rec-btn" onclick="window.__showCropModal()" style="width:100%;padding:9px 12px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">
             🌾 Show Crop Recommendation
           </button>
