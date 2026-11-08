@@ -7,7 +7,6 @@ import "leaflet-draw";
 import {
   getSoilByPoint,
   getSoilByPolygon,
-  analyseFarmland,
   getCropRecommendation,
 } from "../services/api";
 import { Map as Mapview, MousePointer2, Pen, Satellite,MapPin } from 'lucide-react';
@@ -642,11 +641,33 @@ export default function MapSection({
           `<div style="min-width:200px"><b>📍 Loading…</b><br/><small>${lat.toFixed(5)}, ${lng.toFixed(5)}</small></div>`,
         )
         .openPopup();
+      // Soil type: age /soil/point try kore, fail korle choto polygon diye fallback
+      const getSoilTypeAt = async () => {
+        try {
+          const r = await getSoilByPoint(lat, lng);
+          const t = r?.data?.soil_type;
+          if (t) return { type: t, approx: false };
+          throw new Error("soil_type missing in /soil/point response");
+        } catch (pointErr) {
+          console.warn("soil/point failed, trying polygon fallback:", pointErr);
+          const d = 0.005; // ~550 m box
+          const box = [
+            [lat - d, lng - d],
+            [lat - d, lng + d],
+            [lat + d, lng + d],
+            [lat + d, lng - d],
+          ];
+          const r = await getSoilByPolygon(box);
+          const t = r?.data?.distribution?.[0]?.soil_class;
+          if (!t) throw pointErr;
+          return { type: t, approx: true };
+        }
+      };
       const [geoRes, soilRes] = await Promise.allSettled([
         fetch(
           `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=json&accept-language=en`,
         ).then((r) => r.json()),
-        getSoilByPoint(lat, lng),
+        getSoilTypeAt(),
       ]);
       if (!clickMarkerRef.current) return;
       const addr =
@@ -661,7 +682,18 @@ export default function MapSection({
         "Unknown area";
       const dist = addr.county || addr.state_district || "";
       const state = addr.state || "";
-      const soil = soilRes.status === "fulfilled" ? soilRes.value?.data?.data?.soil_type : null;
+      const soil = soilRes.status === "fulfilled" ? soilRes.value?.type : null;
+      const soilApprox =
+        soilRes.status === "fulfilled" ? soilRes.value?.approx : false;
+      if (soilRes.status === "rejected")
+        console.error("Soil lookup failed:", soilRes.reason);
+      const soilErr =
+        soilRes.status === "rejected"
+          ? String(soilRes.reason?.message || soilRes.reason).replace(
+              /[<>&]/g,
+              (ch) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[ch],
+            )
+          : "";
       marker.setPopupContent(`
         <div style="min-width:210px;font-family:system-ui,sans-serif">
           <div style="font-size:14px;font-weight:700;color:#0f172a">${place}</div>
@@ -670,6 +702,8 @@ export default function MapSection({
           <div style="background:#f0fdf4;border-radius:8px;padding:8px 10px">
             <div style="font-size:10px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:.5px">Soil Type</div>
             <div style="font-size:13px;font-weight:700;color:#15803d">${soil || "Unavailable"}</div>
+            ${soilApprox ? '<div style="font-size:10px;color:#64748b;margin-top:2px">(~500 m area er majority soil)</div>' : ""}
+            ${soilErr ? `<div style="font-size:10px;color:#dc2626;margin-top:3px;word-break:break-word">${soilErr}</div>` : ""}
           </div>
           <div style="margin-top:6px;font-size:10px;font-family:monospace;color:#9ca3af">${lat.toFixed(5)}, ${lng.toFixed(5)}</div>
         </div>`);
@@ -719,13 +753,39 @@ export default function MapSection({
         });
 
       setAnalysing(true);
-      const [soilRes, farmRes] = await Promise.allSettled([
-        getSoilByPolygon(coords),
-        analyseFarmland(coords),
-      ]);
+
+      // Soil data TS server theke ashe. Land use / land cover ekhon sidebar er
+      // "Analyse Land Cover" button theke hoy (/farmland/analyse ar kaj kore na).
+      const [soilRes] = await Promise.allSettled([getSoilByPolygon(coords)]);
+      const farmRes = { status: "fulfilled", value: null };
+
       setAnalysing(false);
-      console.log("soilres: ",soilRes)
-      console.log("farmRes:",farmRes)
+
+      if (soilRes.status === "rejected") {
+        console.error("Soil polygon failed:", soilRes.reason);
+        const msg = String(soilRes.reason?.message || soilRes.reason).replace(
+          /[<>&]/g,
+          (ch) => ({ "<": "&lt;", ">": "&gt;", "&": "&amp;" })[ch],
+        );
+        layer.setPopupContent(`
+          <div style="min-width:240px;font-family:system-ui,sans-serif">
+            <b>${name}</b> · ${formatArea(area)}
+            <div style="margin-top:8px;font-size:12px;color:#dc2626;font-weight:600">Analysis failed</div>
+            <div style="margin-top:4px;font-size:11px;color:#64748b;word-break:break-word">${msg}</div>
+            <div style="margin-top:6px;font-size:11px;color:#94a3b8">Polygon delete kore abar draw koro.</div>
+          </div>`);
+        layer.openPopup();
+        if (onPolygonCreatedRef.current)
+          onPolygonCreatedRef.current({
+            id,
+            name,
+            coordinates: coords,
+            area,
+            status: "error",
+          });
+        return;
+      }
+
       const soilData =
         soilRes.status === "fulfilled" ? soilRes.value?.data?.data : null;
       const farmGeoJson =
@@ -812,23 +872,6 @@ export default function MapSection({
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <div style="font-size:11px;font-weight:700;color:#374151;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">🧪 Soil Quality</div>
           ${qualityRows}${paramRows}
-          <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
-          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;padding:6px 0">
-            <input type="checkbox" id="landuse-toggle" onchange="window.__toggleLandUse(this.checked)" style="width:15px;height:15px;cursor:pointer;accent-color:#2563eb"/>
-            <span style="font-size:12px;font-weight:600;color:#374151">🛰️ Show Land Use</span>
-          </label>
-          <div id="landuse-details" style="display:none;margin-top:4px;padding:8px 10px;background:#f8fafc;border-radius:8px;border:1px solid #e2e8f0">
-            ${Object.entries(landCount)
-          .map(
-            ([label, count]) => `
-              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-                <div style="width:10px;height:10px;border-radius:3px;background:${LAND_COLORS[label] || "#888"};flex-shrink:0"></div>
-                <div style="flex:1;font-size:12px;color:#374151;text-transform:capitalize">${label}</div>
-                <div style="font-size:11px;color:#64748b">${count} zone${count > 1 ? "s" : ""}</div>
-              </div>`,
-          )
-          .join("")}
-          </div>
           <hr style="margin:10px 0;border:none;border-top:1px solid #e5e7eb"/>
           <button id="crop-rec-btn" onclick="window.__showCropModal()" style="width:100%;padding:9px 12px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">
             🌾 Show Crop Recommendation
