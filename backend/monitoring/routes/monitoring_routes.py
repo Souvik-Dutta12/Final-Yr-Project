@@ -12,8 +12,9 @@ from fastapi.responses import JSONResponse
 from monitoring.config import monitoring_config
 from celery_app import celery_app
 from starlette.concurrency import run_in_threadpool
-
-
+from monitoring.core.pipeline import MonitoringPipeline
+from monitoring.utils.ts_client import ts_client
+from typing import Dict,Any
 import redis
 
 
@@ -99,9 +100,6 @@ async def get_job_status(job_id: str = Path(..., description="Celery task ID")):
     return JSONResponse(result.model_dump())
 
 
-
-
-
 @router.get("/debug/connectivity-check")
 async def connectivity_check():
     out = {}
@@ -124,3 +122,51 @@ async def connectivity_check():
         out["inspect_error"] = str(e)
 
     return JSONResponse(out)
+
+
+
+class SnapshotCaptureRequest(BaseModel):
+    farm_id: str
+    polygon: Dict[str, Any]
+    days_back: int = Field(60, ge=1, le=180)
+    include_soil: bool = True
+
+@router.post("/snapshots/capture")
+async def capture_snapshot(body: SnapshotCaptureRequest):
+    """
+    Synchronously run a monitoring capture for one farm.
+    Use for manual triggers and testing — for production use the async job pipeline.
+    Caution: this blocks the request for 30-120 seconds (GEE + SoilGrids).
+    """
+    pipeline = MonitoringPipeline(task_id="manual")
+    result = await pipeline.run(
+        farm_id=body.farm_id,
+        polygon=body.polygon,
+        days_back=body.days_back,
+        include_soil=body.include_soil,
+    )
+    return JSONResponse(
+        {
+            "success": True, 
+            "data": result
+        })
+
+@router.get("/snapshots/{farm_id}/latest")
+async def get_latest_snapshot(farm_id: str):
+    """
+    Fetch the most recent snapshot from the TS server.
+    Requires TS server to be running with snapshot storage implemented.
+    """
+    history = await ts_client.get_snapshot_history(farm_id, limit=1)
+    if not history:
+        return JSONResponse(
+            {
+                "success": False, 
+                "data": None, 
+                "message": "No snapshots found"
+            }, status_code=404)
+    return JSONResponse(
+        {
+            "success": True, 
+            "data": history[0]
+         })

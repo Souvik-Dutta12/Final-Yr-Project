@@ -1,5 +1,5 @@
 //server
-
+lat lon -- [22.5726], [88.3639]
 farmland analyse-
 post req-- http://localhost:3000/api/v1/farmland/analyse
 {
@@ -17,6 +17,45 @@ post req-- http://localhost:3000/api/v1/farmland/analyse
 
 lat and lon soil type-
 get req-- http://localhost:3000/api/v1/soil/point?lat=22.5726&lon=85.3639
+
+with time analyse
+{
+  "polygon": {
+    "type": "Polygon",
+    "coordinates": [[
+      [88.15, 22.45],
+      [88.35, 22.45],
+      [88.35, 22.65],
+      [88.15, 22.65],
+      [88.15, 22.45]
+    ]]
+  },
+  "days_back": 60
+}
+
+time interval
+{
+  "polygon": {
+    "type": "Polygon",
+    "coordinates": [[
+      [88.15, 22.45],
+      [88.35, 22.45],
+      [88.35, 22.65],
+      [88.15, 22.65],
+      [88.15, 22.45]
+    ]]
+  },
+  "date_from": {
+    "start": "2023-01-01",
+    "end": "2023-03-31"
+  },
+  "date_to": {
+    "start": "2024-01-01",
+    "end": "2024-03-31"
+  }
+}
+
+
 
 polygon soil type-
 post req-- http://localhost:3000/api/v1/soil/polygon
